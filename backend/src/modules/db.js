@@ -7,7 +7,7 @@ module.exports = (App) => {
 
   const db = isUberspace
     ? {
-        database: 'arrrg_stats_skills',
+        database: 'arrrg_skills',
         username: 'arrrg',
         password: App.secrets.db_password,
         dialect: 'mariadb',
