@@ -12,27 +12,18 @@ export default function Home() {
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Meine Mathe-Skills</h1>
             <p className="py-6">
-              {app.state.userData && <>Hallo {app.state.userData.name}! </>}
               Einfache Lernumgebung mit vielen eingebauten Aufgaben,
               strukturiert nach Lernzielen.
             </p>
             <div className="flex gap-6 justify-center">
-              {app.state.userData ? (
-                <>
-                  <Link href="/dashboard">
-                    <button className="btn btn-primary">zum Dashboard</button>
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <Link href="/login">
-                    <button className="btn btn-primary">Login</button>
-                  </Link>
-                  <Link href="/register">
-                    <button className="btn btn-secondary">Registrieren</button>
-                  </Link>
-                </>
-              )}
+              <>
+                <Link href="/login">
+                  <button className="btn btn-primary">Login</button>
+                </Link>
+                <Link href="/register">
+                  <button className="btn btn-secondary">Registrieren</button>
+                </Link>
+              </>
             </div>
           </div>
         </div>

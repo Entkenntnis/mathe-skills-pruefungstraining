@@ -1,6 +1,7 @@
 'use client'
 
 import { useApp } from '@/components/App'
+import { AlertIcon } from '@/components/icons/AlertIcon'
 import { login } from '@/data/commands'
 import { buildInitialUserData } from '@/data/user-data'
 import { makePost } from '@/helper/make-post'
@@ -11,23 +12,50 @@ import { useState } from 'react'
 export default function Page() {
   const app = useApp()
   const router = useRouter()
+
   const [name, setName] = useState('')
   const [pw, setPw] = useState('')
   const [error, setError] = useState('')
+
   const canRegister = name.length >= 3 && name.length <= 30 && pw.length >= 4
+
+  async function submit() {
+    if (canRegister) {
+      const result = await makePost('/register', {
+        name,
+        password: pw,
+        data: JSON.stringify(buildInitialUserData(name)),
+      })
+      if (result.ok) {
+        const res = await makePost('/login', { name, password: pw })
+        if (res.ok) {
+          login(app, res.token, res.data)
+          router.push('/dashboard')
+        } else {
+          // interner Fehler
+          alert(JSON.stringify(res))
+        }
+      } else {
+        setError(result.reason || 'Fehler bei Registrierung.')
+      }
+    }
+  }
+
   return (
-    <div>
+    <div className="mx-auto w-[360px]">
       <h1 className="mt-12 text-center text-5xl">Registrierung</h1>
-      <div className="mx-auto mt-8 w-[360px]">
-        <p>
-          Wähle einen Name (3-30 Zeichen) und ein Passwort (mind. 4 Zeichen).
-        </p>
-        <label className="input input-bordered flex items-center gap-2 mt-6">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          submit()
+        }}
+      >
+        <label className="input input-bordered flex items-center gap-2 mt-12">
           Name:
           <input
             type="text"
+            autoFocus
             className="grow"
-            placeholder="Dein Name"
             maxLength={30}
             value={name}
             onChange={(e) => {
@@ -36,12 +64,12 @@ export default function Page() {
             }}
           />
         </label>
-        <label className="input input-bordered flex items-center gap-2 mt-3">
+        <small className="ml-2 italic text-gray-600">3 - 30 Zeichen</small>
+        <label className="input input-bordered flex items-center gap-2 mt-9">
           Passwort:
           <input
             type="password"
             className="grow"
-            placeholder="Dein Passwort"
             value={pw}
             onChange={(e) => {
               setPw(e.target.value)
@@ -49,55 +77,28 @@ export default function Page() {
             }}
           />
         </label>
+        <small className="ml-2 italic text-gray-600">Mind. 4 Zeichen</small>
         {error && (
           <div role="alert" className="alert alert-error mt-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 shrink-0 stroke-current"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+            <AlertIcon />
             <span>{error}</span>
           </div>
         )}
         <p className="mt-8 flex justify-between items-baseline">
           <Link href="/">
-            <button className="btn btn-sm">zurück</button>
+            <button className="btn btn-sm" type="button">
+              zurück
+            </button>
           </Link>
           <button
             className="btn btn-primary"
+            type="submit"
             disabled={!canRegister || !!error}
-            onClick={async () => {
-              const result = await makePost('/register', {
-                name,
-                password: pw,
-                data: JSON.stringify(buildInitialUserData(name)),
-              })
-              if (result.ok) {
-                const json = await makePost('/login', { name, password: pw })
-                if (json.ok) {
-                  login(app, json.token, JSON.parse(json.data))
-                  router.push('/dashboard')
-                } else {
-                  alert(JSON.stringify(json))
-                }
-              } else {
-                const errorMsg = result.reason || 'Fehler bei Registrierung.'
-                setError(errorMsg)
-              }
-            }}
           >
             Jetzt registrieren
           </button>
         </p>
-      </div>
+      </form>
     </div>
   )
 }

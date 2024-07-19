@@ -7,10 +7,10 @@ export interface AppState {
 
 export interface App {
   state: AppState
-  mut: (fn: (draft: Draft<AppState>) => void) => void
+  mut(fn: (draft: Draft<AppState>) => void): void
+  afterPush(target: string, handler: () => void): void
 }
 
 export interface UserData {
   name: string
-  testRandomValue: number
 }

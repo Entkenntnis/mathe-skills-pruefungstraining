@@ -2,7 +2,8 @@
 
 import { App, AppState } from '@/data/types'
 import { Draft, produce } from 'immer'
-import { createContext, useContext, useRef, useState } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 
 const AppContext = createContext<App | null>(null)
 
@@ -17,6 +18,18 @@ interface AppWrapperProps {
 }
 
 export function AppWrapper({ children }: AppWrapperProps) {
+  const pathname = usePathname()
+
+  const afterPush = useRef<{ target: string; handler: () => void } | null>(null)
+
+  useEffect(() => {
+    const url = `${pathname}`
+    if (afterPush.current && afterPush.current.target == url) {
+      afterPush.current.handler()
+      afterPush.current = null
+    }
+  }, [pathname])
+
   const [state, setState] = useState<AppState>({
     userData: null,
     token: null,
@@ -27,6 +40,9 @@ export function AppWrapper({ children }: AppWrapperProps) {
       return stateRef.current
     },
     mut,
+    afterPush: (target: string, handler: () => void) => {
+      afterPush.current = { target, handler }
+    },
   }
   return <AppContext.Provider value={app}>{children}</AppContext.Provider>
 

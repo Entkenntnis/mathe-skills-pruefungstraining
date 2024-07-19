@@ -1,10 +1,17 @@
 import { makePost } from '@/helper/make-post'
-import { App, UserData } from './types'
+import { App } from './types'
+import { deserialize } from './deserialize'
 
-export function login(app: App, token: string, data: UserData) {
+export function login(app: App, token: string, raw: string) {
   app.mut((state) => {
-    state.userData = data
-    state.token = token
+    const userData = deserialize(raw)
+    if (userData) {
+      state.userData = userData
+      state.token = token
+    } else {
+      state.userData = null
+      state.token = null
+    }
   })
 }
 
@@ -13,15 +20,6 @@ export function logout(app: App) {
     state.userData = null
     state.token = null
   })
-}
-
-export function testChange(app: App) {
-  app.mut((state) => {
-    if (state.userData) {
-      state.userData.testRandomValue = Math.random()
-    }
-  })
-  triggerUpload(app)
 }
 
 export function triggerUpload(app: App) {
@@ -33,12 +31,9 @@ export function triggerUpload(app: App) {
 
 export async function loadData(app: App) {
   const res = await makePost('/load', {
-    data: JSON.stringify(app.state.userData),
     token: app.state.token,
   })
   if (res.ok) {
-    app.mut((state) => {
-      state.userData = JSON.parse(res.data)
-    })
+    login(app, app.state.token!, res.data)
   }
 }
