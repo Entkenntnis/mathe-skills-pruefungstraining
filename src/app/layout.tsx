@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { AppWrapper } from '@/components/App'
 
 export const metadata: Metadata = {
   title: 'Meine Mathe-Skills',
@@ -13,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
-      <body>{children}</body>
+      <body>
+        <AppWrapper>{children}</AppWrapper>
+      </body>
     </html>
   )
 }
