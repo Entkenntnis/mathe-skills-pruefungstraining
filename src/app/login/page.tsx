@@ -14,14 +14,11 @@ export default function Page() {
   const [name, setName] = useState('')
   const [pw, setPw] = useState('')
   const [error, setError] = useState('')
-  const canRegister = name.length >= 3 && name.length <= 30 && pw.length >= 4
+  const canLogin = name.length > 0 && pw.length > 0
   return (
     <div>
-      <h1 className="mt-12 text-center text-5xl">Registrierung</h1>
+      <h1 className="mt-12 text-center text-5xl">Login</h1>
       <div className="mx-auto mt-8 w-[360px]">
-        <p>
-          Wähle einen Name (3-30 Zeichen) und ein Passwort (mind. 4 Zeichen).
-        </p>
         <label className="input input-bordered flex items-center gap-2 mt-6">
           Name:
           <input
@@ -73,28 +70,17 @@ export default function Page() {
           </Link>
           <button
             className="btn btn-primary"
-            disabled={!canRegister || !!error}
             onClick={async () => {
-              const result = await makePost('/register', {
-                name,
-                password: pw,
-                data: JSON.stringify(buildInitialUserData(name)),
-              })
-              if (result.ok) {
-                const json = await makePost('/login', { name, password: pw })
-                if (json.ok) {
-                  login(app, json.token, JSON.parse(json.data))
-                  router.push('/dashboard')
-                } else {
-                  alert(JSON.stringify(json))
-                }
+              const json = await makePost('/login', { name, password: pw })
+              if (json.ok) {
+                login(app, json.token, JSON.parse(json.data))
+                router.push('/dashboard')
               } else {
-                const errorMsg = result.reason || 'Fehler bei Registrierung.'
-                setError(errorMsg)
+                setError('Zugangsdaten stimmen nicht überein.')
               }
             }}
           >
-            Jetzt registrieren
+            Login
           </button>
         </p>
       </div>

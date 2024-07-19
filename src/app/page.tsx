@@ -16,7 +16,7 @@ export default function Home() {
               Einfache Lernumgebung mit vielen eingebauten Aufgaben,
               strukturiert nach Lernzielen.
             </p>
-            <div className="flex gap-3 justify-center">
+            <div className="flex gap-6 justify-center">
               {app.state.userData ? (
                 <>
                   <Link href="/dashboard">
@@ -25,9 +25,9 @@ export default function Home() {
                 </>
               ) : (
                 <>
-                  <button className="btn btn-primary" disabled>
-                    Login (TODO)
-                  </button>
+                  <Link href="/login">
+                    <button className="btn btn-primary">Login</button>
+                  </Link>
                   <Link href="/register">
                     <button className="btn btn-secondary">Registrieren</button>
                   </Link>

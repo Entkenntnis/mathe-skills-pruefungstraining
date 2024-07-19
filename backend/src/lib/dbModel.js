@@ -35,4 +35,16 @@ module.exports = (App, db) => {
       allowNull: false,
     },
   })
+
+  App.db.Data = App.db.define('Data', {
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+    },
+    data: {
+      type: DataTypes.STRING(20000),
+      allowNull: false,
+    },
+  })
 }

@@ -18,8 +18,8 @@ interface AppWrapperProps {
 
 export function AppWrapper({ children }: AppWrapperProps) {
   const [state, setState] = useState<AppState>({
-    testRandomValue: Math.random(),
     userData: null,
+    token: null,
   })
   const stateRef = useRef(state)
   const app = {

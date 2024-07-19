@@ -5,12 +5,19 @@ module.exports = (App, route) => {
   App.express.post(
     route,
     safeHandler(async (req, res) => {
-      const { name, password } = req.body
+      const { name, password, data } = req.body
 
       if (typeof name !== 'string' || typeof password !== 'string') {
         return res.json({
           ok: false,
           reason: 'Kein Name oder Passwort angegeben.',
+        })
+      }
+
+      if (typeof data !== 'string' || data.length == 0 || data.length > 9999) {
+        return res.json({
+          ok: false,
+          reason: 'Interner Fehler: Daten fehlen oder ungültig',
         })
       }
 
@@ -37,10 +44,14 @@ module.exports = (App, route) => {
 
       try {
         // Attempt to create a new user with the given name and password
-        await App.db.User.create({
+        const row = await App.db.User.create({
           name,
           password: hashSync(password, 10),
         })
+
+        const userId = row.id
+
+        await App.db.Data.create({ userId, data })
 
         // If the creation is successful, the name is unique.
         return res.json({ ok: true })
