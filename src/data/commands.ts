@@ -8,6 +8,7 @@ export function login(app: App, token: string, raw: string) {
     if (userData) {
       state.userData = userData
       state.token = token
+      state.uploading = false
     } else {
       state.userData = null
       state.token = null
@@ -22,11 +23,19 @@ export function logout(app: App) {
   })
 }
 
-export function triggerUpload(app: App) {
-  makePost('/store', {
+export async function triggerUpload(app: App) {
+  app.mut((state) => {
+    state.uploading = true
+  })
+  const res = await makePost('/store', {
     data: JSON.stringify(app.state.userData),
     token: app.state.token,
   })
+  if (res.ok) {
+    app.mut((state) => {
+      state.uploading = false
+    })
+  }
 }
 
 export async function loadData(app: App) {
@@ -35,5 +44,14 @@ export async function loadData(app: App) {
   })
   if (res.ok) {
     login(app, app.state.token!, res.data)
+  }
+}
+
+export function selectGoal(app: App, goal: number) {
+  if (app.state.userData) {
+    app.mut((state) => {
+      state.userData!.goal = goal
+    })
+    triggerUpload(app)
   }
 }

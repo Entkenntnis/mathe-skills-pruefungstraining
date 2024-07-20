@@ -33,6 +33,7 @@ export function AppWrapper({ children }: AppWrapperProps) {
   const [state, setState] = useState<AppState>({
     userData: null,
     token: null,
+    uploading: false,
   })
   const stateRef = useRef(state)
   const app = {

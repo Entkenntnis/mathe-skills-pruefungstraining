@@ -3,6 +3,7 @@ import { Draft } from 'immer'
 export interface AppState {
   userData: UserData | null
   token: string | null
+  uploading: boolean
 }
 
 export interface App {
@@ -13,4 +14,10 @@ export interface App {
 
 export interface UserData {
   name: string
+  goal: number | null
+}
+
+export interface GoalData {
+  name: string
+  description: string
 }
