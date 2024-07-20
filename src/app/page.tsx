@@ -12,8 +12,8 @@ export default function Home() {
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Meine Mathe-Skills</h1>
             <p className="py-6">
-              Einfache Lernumgebung mit vielen eingebauten Aufgaben,
-              strukturiert nach Lernzielen.
+              Einfache Lernumgebung mit vielen eingebauten Aufgaben und
+              strukturierten Lernzielen.
             </p>
             <div className="flex gap-6 justify-center">
               <>

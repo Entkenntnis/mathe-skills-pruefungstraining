@@ -23,12 +23,16 @@ export default function Page() {
         <form
           onSubmit={async (e) => {
             e.preventDefault()
-            const res = await makePost('/login', { name, password: pw })
-            if (res.ok) {
-              login(app, res.token, res.data)
-              router.push('/dashboard')
-            } else {
-              setError('Zugangsdaten nicht gefunden.')
+            try {
+              const res = await makePost('/login', { name, password: pw })
+              if (res.ok) {
+                login(app, res.token, res.data)
+                router.push('/dashboard')
+              } else {
+                setError('Zugangsdaten nicht gefunden.')
+              }
+            } catch (e) {
+              setError('Fehler beim Login')
             }
           }}
         >

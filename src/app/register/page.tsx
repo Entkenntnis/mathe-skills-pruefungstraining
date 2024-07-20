@@ -21,22 +21,26 @@ export default function Page() {
 
   async function submit() {
     if (canRegister) {
-      const result = await makePost('/register', {
-        name,
-        password: pw,
-        data: JSON.stringify(buildInitialUserData(name)),
-      })
-      if (result.ok) {
-        const res = await makePost('/login', { name, password: pw })
-        if (res.ok) {
-          login(app, res.token, res.data)
-          router.push('/dashboard')
+      try {
+        const result = await makePost('/register', {
+          name,
+          password: pw,
+          data: JSON.stringify(buildInitialUserData(name)),
+        })
+        if (result.ok) {
+          const res = await makePost('/login', { name, password: pw })
+          if (res.ok) {
+            login(app, res.token, res.data)
+            router.push('/dashboard')
+          } else {
+            // interner Fehler
+            alert(JSON.stringify(res))
+          }
         } else {
-          // interner Fehler
-          alert(JSON.stringify(res))
+          setError(result.reason || 'Fehler bei Registrierung.')
         }
-      } else {
-        setError(result.reason || 'Fehler bei Registrierung.')
+      } catch (e) {
+        setError('Fehler bei Registrierung')
       }
     }
   }
@@ -93,7 +97,7 @@ export default function Page() {
           <button
             className="btn btn-primary"
             type="submit"
-            disabled={!canRegister || !!error}
+            disabled={!canRegister}
           >
             Jetzt registrieren
           </button>
