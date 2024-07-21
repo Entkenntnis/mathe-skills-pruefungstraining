@@ -5,7 +5,7 @@ export interface AppState {
   userData: UserData | null
   token: string | null
   uploading: boolean
-  showExercise: null | { id: number; seed: string }
+  showExercise: null | { id: number; seed: string; dashboardIndex: number }
 }
 
 export interface App {

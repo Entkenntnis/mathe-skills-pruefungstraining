@@ -3,7 +3,10 @@
 import { useApp } from '@/components/App'
 import { Guard } from '@/components/Guard'
 import { exercisesData } from '@/content/exercises'
+import { restartExercise, showExercise } from '@/data/commands'
+import { generateSeed } from '@/data/generate-seed'
 import { Rng } from '@/helper/rng'
+import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -23,19 +26,31 @@ export default function Page() {
   const data = exercise.generator(new Rng(app.state.showExercise.seed))
 
   return (
-    <div className="min-h-[500px] mx-auto max-w-[800px] flex mt-24">
+    <div className="min-h-[500px] mx-auto max-w-[890px] flex mt-24">
       <div className="flex-grow flex-shrink">
-        <Link href="/dashboard">
-          <button className="btn btn-sm ml-3 mt-3">zurück</button>
-        </Link>
-        <div className="ml-3 mt-6 font-bold text-gray-700">
+        <div className="ml-3 mt-6 font-bold text-gray-700 text-lg">
           {exercise.title}
         </div>
-        <div className="mt-4 p-3 border-b-secondary border-b-2 pb-6">
+        <Link href="/dashboard">
+          <button className="btn btn-sm ml-3 mt-3 text-gray-600">zurück</button>
+        </Link>
+        <div
+          className={clsx(
+            'mt-2 p-3 pb-6 prose prose-p:text-gray-900',
+            step == 1 && 'border-b-secondary border-b-2'
+          )}
+        >
           {exercise.task({ data })}
         </div>
         {step >= 2 && (
-          <div className="mt-4 p-3 pb-6">{exercise.solution({ data })}</div>
+          <div
+            className={clsx(
+              'mt-4 p-3 prose prose-p:text-gray-900 border-2',
+              step == 2 ? 'border-secondary' : 'border-transparent'
+            )}
+          >
+            {exercise.solution({ data })}
+          </div>
         )}
       </div>
       <div className="flex-grow-0 flex-shrink-0 w-[280px]">
@@ -58,9 +73,8 @@ export default function Page() {
           )}
           {step === 1 && (
             <>
-              <strong>2. Schritt:</strong> Überprüfe deine Lösung. Hast du alle
-              Teile bearbeitet? Wenn du alles überprüft hast, kannst du als
-              nächstes mit der Lösung vergleichen.
+              <strong>2. Schritt:</strong> Alle Teile der Aufgabe bearbeitet und
+              bereit zum Abgeben?
               <div>
                 <button
                   className="btn btn-secondary btn-outline ml-3 mt-6 mb-3"
@@ -90,7 +104,7 @@ export default function Page() {
                     setStep(3)
                   }}
                 >
-                  Ich habe alles richtig!
+                  Alles richtig!
                 </button>
                 <button
                   className="btn btn-warning ml-3 mt-6 mb-3"
@@ -98,7 +112,7 @@ export default function Page() {
                     setStep(4)
                   }}
                 >
-                  Möchte ich nochmal üben
+                  Nochmal üben
                 </button>
                 <button
                   className="btn btn-sm ml-3 mt-6 mb-3"
@@ -117,7 +131,9 @@ export default function Page() {
               <div>
                 <button
                   className="btn btn-primary ml-3 mt-6 mb-3"
-                  onClick={() => {}}
+                  onClick={() => {
+                    router.push('/dashboard')
+                  }}
                 >
                   Zur nächsten Aufgabe
                 </button>
@@ -126,20 +142,22 @@ export default function Page() {
           )}
           {step === 4 && (
             <>
-              <strong>Mit Übung zum Erfolg!</strong> Das System hat sich die
-              Aufgabe gemerkt und wird sie dir bald zur Wiederholung
-              vorschlagen.
+              <strong>Das System hat sich die Aufgabe gemerkt</strong> und wird
+              sie dir bald zur Wiederholung vorschlagen.
               <div>
                 <button
                   className="btn btn-primary ml-3 mt-6 mb-3"
-                  onClick={() => {}}
+                  onClick={() => {
+                    router.push('/dashboard')
+                  }}
                 >
                   Zur nächsten Aufgabe
                 </button>
                 <button
                   className="btn btn-sm ml-3 mt-6 mb-3"
                   onClick={() => {
-                    //setStep(1)
+                    restartExercise(app)
+                    setStep(0)
                   }}
                 >
                   Sofort nochmal üben

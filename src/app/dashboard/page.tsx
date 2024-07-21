@@ -64,7 +64,7 @@ export default function Page() {
         )}
         {goal && (
           <>
-            <div className="p-3 rounded bg-green-50">
+            <div className="p-3 rounded bg-gray-50">
               <div className="flex justify-between">
                 <p>
                   Dein Lernziel:{' '}
@@ -82,13 +82,13 @@ export default function Page() {
                 max="100"
               ></progress>
             </div>
-            <div className="mt-8">Jetzt mit dem Üben starten:</div>
+            <div className="mt-8">Jetzt üben:</div>
             <div className="flex flex-wrap justify-center gap-8 pt-6">
-              {app.state.userData.dashboard.map((entry) => (
+              {app.state.userData.dashboard.map((entry, i) => (
                 <div
-                  className="rounded bg-gray-100 w-[300px] h-[80px] p-3 cursor-pointer hover:outline outline-primary outline-1"
+                  className="rounded bg-purple-50 w-full px-3 py-4 cursor-pointer hover:outline outline-primary outline-1 font-bold text-gray-700"
                   onClick={() => {
-                    showExercise(app, entry.id, entry.seed)
+                    showExercise(app, entry.id, entry.seed, i)
                     router.push('/practice')
                   }}
                   key={entry.id + entry.seed}
@@ -100,7 +100,7 @@ export default function Page() {
             {
               <div className="mt-12 text-center">
                 <button
-                  className="btn btn-accent btn-sm"
+                  className="btn btn-sm"
                   onClick={() => {
                     populateDashboard(app)
                     triggerUpload(app)

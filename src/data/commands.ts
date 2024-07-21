@@ -58,9 +58,14 @@ export function selectGoal(app: App, goal: number) {
   }
 }
 
-export function showExercise(app: App, id: number, seed: string) {
+export function showExercise(
+  app: App,
+  id: number,
+  seed: string,
+  dashboardIndex: number
+) {
   app.mut((state) => {
-    state.showExercise = { id, seed }
+    state.showExercise = { id, seed, dashboardIndex }
   })
 }
 
@@ -71,4 +76,17 @@ export function populateDashboard(app: App) {
       state.userData!.dashboard.push({ id: 1, seed: generateSeed() })
     }
   })
+}
+
+export function restartExercise(app: App) {
+  const newSeed = generateSeed()
+  app.mut((state) => {
+    state.userData!.dashboard[state.showExercise!.dashboardIndex].seed = newSeed
+  })
+  showExercise(
+    app,
+    app.state.showExercise!.id,
+    newSeed,
+    app.state.showExercise!.dashboardIndex
+  )
 }
