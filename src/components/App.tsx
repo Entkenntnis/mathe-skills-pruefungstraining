@@ -34,6 +34,7 @@ export function AppWrapper({ children }: AppWrapperProps) {
     userData: null,
     token: null,
     uploading: false,
+    showExercise: null,
   })
   const stateRef = useRef(state)
   const app = {

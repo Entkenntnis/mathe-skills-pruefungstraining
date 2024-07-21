@@ -1,6 +1,7 @@
 import { makePost } from '@/helper/make-post'
 import { App } from './types'
 import { deserialize } from './deserialize'
+import { generateSeed } from '@/data/generate-seed'
 
 export function login(app: App, token: string, raw: string) {
   app.mut((state) => {
@@ -52,6 +53,22 @@ export function selectGoal(app: App, goal: number) {
     app.mut((state) => {
       state.userData!.goal = goal
     })
+    populateDashboard(app)
     triggerUpload(app)
   }
+}
+
+export function showExercise(app: App, id: number, seed: string) {
+  app.mut((state) => {
+    state.showExercise = { id, seed }
+  })
+}
+
+export function populateDashboard(app: App) {
+  app.mut((state) => {
+    state.userData!.dashboard = []
+    for (let i = 0; i < 3; i++) {
+      state.userData!.dashboard.push({ id: 1, seed: generateSeed() })
+    }
+  })
 }
