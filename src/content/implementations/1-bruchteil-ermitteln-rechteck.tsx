@@ -24,7 +24,7 @@ export const exercise1: Exercise<DATA> = {
           Bestimme den Bruchteil der gefärbten und weißen Fläche. Kürze dein
           Ergebnis so weit wie möglich.
         </p>
-        <div className="bg-black p-[1px] flex flex-col items-start gap-[1px] w-fit mt-4">
+        <div className="bg-black p-[2px] flex flex-col items-start gap-[1px] w-fit mt-4">
           <div className="flex gap-[1px]">
             {renderCell(0)}
             {renderCell(1)}

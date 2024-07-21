@@ -52,9 +52,10 @@ export default function Page() {
             {exercise.solution({ data })}
           </div>
         )}
+        <div className="h-[400px]"></div>
       </div>
       <div className="flex-grow-0 flex-shrink-0 w-[280px]">
-        <div className="mx-3 mt-6 bg-gray-50 sticky top-4 p-3 rounded-box">
+        <div className="mt-6 bg-gray-50 sticky top-4 p-3 rounded-box">
           {step === 0 && (
             <>
               <strong>1. Schritt:</strong> Löse die Aufgabe und notiere dein
@@ -95,8 +96,8 @@ export default function Page() {
           )}
           {step === 2 && (
             <>
-              <strong>3. Schritt:</strong> Vergleiche nun mit der Lösung und
-              schaue, ob deine Lösung übereinstimmt. Wie schätzt du dich ein?
+              <strong>3. Schritt:</strong> Vergleiche mit der Lösung und schaue,
+              ob deine Lösung übereinstimmt. Wie schätzt du dich ein?
               <div>
                 <button
                   className="btn btn-success ml-3 mt-6 mb-3"
