@@ -10,4 +10,8 @@ export class Rng {
   randomIntBetween(a: number, b: number) {
     return Math.floor(this.seedrandom())
   }
+
+  randomItemFromArray<T>(arr: T[]) {
+    return arr[Math.floor(this.seedrandom() * arr.length)]
+  }
 }

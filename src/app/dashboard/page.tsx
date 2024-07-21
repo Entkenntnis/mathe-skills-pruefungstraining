@@ -93,7 +93,7 @@ export default function Page() {
                   }}
                   key={entry.id + entry.seed}
                 >
-                  {exercisesData[entry.id].title} {entry.seed}
+                  {exercisesData[entry.id].title}
                 </div>
               ))}
             </div>

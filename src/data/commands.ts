@@ -67,7 +67,7 @@ export function showExercise(app: App, id: number, seed: string) {
 export function populateDashboard(app: App) {
   app.mut((state) => {
     state.userData!.dashboard = []
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 1; i++) {
       state.userData!.dashboard.push({ id: 1, seed: generateSeed() })
     }
   })

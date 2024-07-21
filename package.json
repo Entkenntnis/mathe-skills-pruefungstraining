@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "esm-seedrandom": "^3.0.5",
     "immer": "^10.1.1",
     "next": "14.2.5",
