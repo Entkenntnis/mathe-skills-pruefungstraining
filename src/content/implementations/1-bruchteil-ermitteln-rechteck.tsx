@@ -10,7 +10,7 @@ interface DATA {
 export const exercise1: Exercise<DATA> = {
   title: 'Bruchteil ermitteln - Rechteck',
   generator(rng) {
-    const count = rng.randomIntBetween(0, 12)
+    const count = rng.randomIntBetween(1, 11)
     const colored: boolean[] = []
     for (let i = 0; i < 12; i++) {
       colored.push(i <= count)
