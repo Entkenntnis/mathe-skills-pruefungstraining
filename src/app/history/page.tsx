@@ -22,7 +22,7 @@ export default function Page() {
   return (
     <div>
       <h1 className="text-center text-5xl mt-12">Lern-Verlauf</h1>
-      <div className="max-w-[700px] mx-auto mt-6">
+      <div className="max-w-[700px] mx-auto mt-6 mb-96">
         <div className="mt-6 mb-12 text-center">
           <Link href="/dashboard">
             <button className="btn btn-sm">zurück</button>

@@ -79,11 +79,6 @@ export default function Page() {
                   {exercise.solution({ data })}
                 </div>
               </div>
-              <div className="mt-4 text-gray-400">
-                <small className="mt-4">
-                  TODO: AI-Hilfe? Lösungswege bisher sehr knapp gehalten.
-                </small>
-              </div>
             </>
           )}
           <div className="h-[400px]"></div>
@@ -151,7 +146,7 @@ export default function Page() {
                       setStep(4)
                     }}
                   >
-                    Kann ich!
+                    Kann ich
                   </button>
                   <button
                     className="btn btn-warning ml-5 mt-6 mb-3"

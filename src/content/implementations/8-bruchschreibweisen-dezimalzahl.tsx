@@ -7,12 +7,12 @@ interface DATA {
   nums: { jsx: JSX.Element; z: number; n: number }[]
 }
 
-export const exercise7: Exercise<DATA> = {
-  title: 'Bruchschreibweise - aus Dezimalbruch',
+export const exercise8: Exercise<DATA> = {
+  title: 'Bruchschreibweisen - Dezimalzahl',
   useCalculator: false,
   duration: 2,
   generator(rng) {
-    const candidates = rng.shuffleArray([2, 3, 4, 5, 8, 10, 20, 100])
+    const candidates = rng.shuffleArray([2, 3, 4, 5, 8, 10, 20, 100, 1000])
     const nums = []
     for (let i = 0; i < 4; i++) {
       const n = candidates[i]
@@ -38,11 +38,11 @@ export const exercise7: Exercise<DATA> = {
   task({ data }) {
     return (
       <>
-        <p>Schreibe als Bruch.</p>
+        <p>Schreibe als Dezimalzahl und Prozent.</p>
         <p>
           {[0, 1, 2, 3].map((id) => (
-            <span className="inline-block mr-16 text-lg" key={id}>
-              {data.nums[id].jsx}
+            <span className="inline-block mr-20" key={id}>
+              {buildFrac(data.nums[id].z, data.nums[id].n)}
             </span>
           ))}
         </p>
@@ -52,11 +52,14 @@ export const exercise7: Exercise<DATA> = {
   solution({ data }) {
     return (
       <>
-        {[0, 1, 2, 3].map((id) => (
-          <p className="" key={id}>
-            {data.nums[id].jsx} = {buildFrac(data.nums[id].z, data.nums[id].n)}
-          </p>
-        ))}
+        <p>
+          {[0, 1, 2, 3].map((id) => (
+            <span className="inline-block mr-12" key={id}>
+              {buildFrac(data.nums[id].z, data.nums[id].n)} ={' '}
+              <strong>{data.nums[id].jsx}</strong>
+            </span>
+          ))}
+        </p>
       </>
     )
   },
