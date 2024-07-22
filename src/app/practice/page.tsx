@@ -65,19 +65,26 @@ export default function Page() {
             {exercise.task({ data })}
           </div>
           {step >= 2 && (
-            <div className="indicator w-full">
-              <span className="indicator-item mr-20 badge mt-1">Lösung</span>
-              <div
-                className={clsx(
-                  'mt-4 p-3 prose prose-p:text-gray-900 border-2 w-full',
-                  step == 2 || step == 3
-                    ? 'border-secondary'
-                    : 'border-gray-300'
-                )}
-              >
-                {exercise.solution({ data })}
+            <>
+              <div className="indicator w-full">
+                <span className="indicator-item mr-20 badge mt-1">Lösung</span>
+                <div
+                  className={clsx(
+                    'mt-4 p-3 prose prose-p:text-gray-900 border-2 w-full',
+                    step == 2 || step == 3
+                      ? 'border-secondary'
+                      : 'border-gray-300'
+                  )}
+                >
+                  {exercise.solution({ data })}
+                </div>
               </div>
-            </div>
+              <div className="mt-4 text-gray-400">
+                <small className="mt-4">
+                  TODO: AI-Hilfe? Lösungswege bisher sehr knapp gehalten.
+                </small>
+              </div>
+            </>
           )}
           <div className="h-[400px]"></div>
         </div>

@@ -5,6 +5,7 @@ import { exercise3 } from './implementations/3-bruchschreibweisen-gemischte-zahl
 import { exercise4 } from './implementations/4-bruchschreibweisen-unechter-bruch'
 import { exercise5 } from './implementations/5-bruch-erweitern-auf-nenner'
 import { exercise6 } from './implementations/6-bruch-kuerzen'
+import { exercise7 } from './implementations/7-bruchschreibweisen-aus-dezimalbruch'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -13,4 +14,5 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   4: exercise4,
   5: exercise5,
   6: exercise6,
+  7: exercise7,
 }

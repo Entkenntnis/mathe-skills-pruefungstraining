@@ -120,14 +120,14 @@ export default function Page() {
                 </button>
               </div>
             </div>
-            <div className="flex flex-wrap justify-center gap-8 pt-6">
+            <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-6 rounded-box">
               {app.state.userData.dashboard.map((entry, i) => (
                 <div
                   className={clsx(
-                    'rounded w-full px-3 py-4 cursor-pointer',
+                    'rounded mx-3 px-3 py-4 cursor-pointer w-full',
                     idSeeds.has(entry.id.toString() + entry.seed)
                       ? 'text-gray-400 bg-accent/10'
-                      : 'font-bold text-gray-700 bg-purple-50 hover:bg-purple-100 hover:outline outline-primary outline-1'
+                      : 'font-bold text-gray-700 bg-white hover:bg-purple-50 hover:outline outline-primary outline-1'
                   )}
                   onClick={() => {
                     showExercise(app, entry.id, entry.seed, i)

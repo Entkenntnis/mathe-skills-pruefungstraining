@@ -42,7 +42,12 @@ export default function Page() {
           Aufgabe &quot;{exercisesData[entry[1]].title}
           <span className="text-gray-600">&quot;#{entry[3]}</span>{' '}
           {entry[4] == 1 ? 'erfolgreich gelöst' : 'zur Wiederholung markiert'}{' '}
-          in {entry[5]}s
+          in{' '}
+          {entry[5] > 60 ? (
+            <>{Math.round(entry[5] / 60)} min</>
+          ) : (
+            <>{entry[5]} s</>
+          )}
         </>
       )
     return (
