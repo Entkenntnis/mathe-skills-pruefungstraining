@@ -2,6 +2,8 @@ import { makePost } from '@/helper/make-post'
 import { App } from './types'
 import { deserialize } from './deserialize'
 import { generateSeed } from '@/data/generate-seed'
+import { Rng } from '@/helper/rng'
+import { exercisesData } from '@/content/exercises'
 
 export function login(app: App, token: string, raw: string) {
   app.mut((state) => {
@@ -71,10 +73,13 @@ export function showExercise(
 
 export function populateDashboard(app: App) {
   app.mut((state) => {
-    state.userData!.dashboard = []
-    for (let i = 0; i < 2; i++) {
-      state.userData!.dashboard.push({ id: i + 1, seed: generateSeed() })
+    const newDashboard = []
+    for (let i = 0; i < Object.keys(exercisesData).length; i++) {
+      newDashboard.push({ id: i + 1, seed: generateSeed() })
     }
+    state.userData!.dashboard = new Rng(Math.random().toString()).shuffleArray(
+      newDashboard
+    )
   })
 }
 

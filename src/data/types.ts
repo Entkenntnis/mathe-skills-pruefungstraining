@@ -28,6 +28,8 @@ export interface GoalData {
 
 export interface Exercise<T = unknown> {
   title: string
+  useCalculator: boolean
+  duration: number
   generator: (rng: Rng) => T
   task: (props: { data: T }) => JSX.Element
   solution: (props: { data: T }) => JSX.Element

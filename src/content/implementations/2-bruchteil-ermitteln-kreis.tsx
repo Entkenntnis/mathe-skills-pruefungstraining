@@ -9,6 +9,8 @@ interface DATA {
 
 export const exercise2: Exercise<DATA> = {
   title: 'Bruchteil ermitteln - Kreis',
+  useCalculator: false,
+  duration: 1,
   generator(rng) {
     const count = rng.randomIntBetween(1, 5)
     const colored: boolean[] = []

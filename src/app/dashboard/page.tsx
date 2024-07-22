@@ -31,8 +31,8 @@ export default function Page() {
           <p>
             Hallo {app.state.userData.name}!{' '}
             {app.state.uploading ? (
-              <span className="badge badge-success badge-error ml-3">
-                Cloud-Fehler, bitte neu anmelden
+              <span className="badge badge-info ml-3">
+                ... wird synchornisiert
               </span>
             ) : (
               <span className="badge badge-success badge-outline ml-3">
@@ -75,7 +75,9 @@ export default function Page() {
                 </Link>
               </div>
               <div className="mt-2 italic">{goalsData[goal].description}.</div>
-              <div className="mt-4">Fortschritt: 0 %</div>
+              <div className="mt-4">
+                Fortschritt: TODO (noch nicht genug Inhalte)
+              </div>
               <progress
                 className="progress w-full"
                 value="0"
@@ -94,6 +96,9 @@ export default function Page() {
                   key={entry.id + entry.seed}
                 >
                   {exercisesData[entry.id].title}
+                  <span className="badge badge-outline font-normal ml-3">
+                    {exercisesData[entry.id].duration} min
+                  </span>
                 </div>
               ))}
             </div>

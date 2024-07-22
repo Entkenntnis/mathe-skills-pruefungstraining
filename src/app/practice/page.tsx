@@ -2,6 +2,8 @@
 
 import { useApp } from '@/components/App'
 import { Guard } from '@/components/Guard'
+import { CalculatorIcon } from '@/components/icons/CalculatorIcon'
+import { NoCalculatorIcon } from '@/components/icons/NoCalculatorIcon'
 import { exercisesData } from '@/content/exercises'
 import { restartExercise, showExercise } from '@/data/commands'
 import { generateSeed } from '@/data/generate-seed'
@@ -29,8 +31,24 @@ export default function Page() {
     <>
       <div className="min-h-[500px] mx-auto max-w-[890px] flex md:flex-row flex-col mt-24">
         <div className="md:flex-grow md:flex-shrink mx-auto">
-          <div className="ml-3 mt-6 font-bold text-gray-700 text-lg">
+          <div className="ml-3 mt-6 font-bold text-gray-700 text-lg relative pr-24">
             {exercise.title}
+            <div className="absolute right-5 top-0 flex items-center font-normal">
+              <span className="badge mr-2">{exercise.duration} min</span>
+              {exercise.useCalculator ? (
+                <span className="tooltip" data-tip="Taschenrechner erlaubt">
+                  <div className="scale-75">
+                    <CalculatorIcon />
+                  </div>
+                </span>
+              ) : (
+                <span className="tooltip" data-tip="ohne Taschenrechner">
+                  <div className="scale-75">
+                    <NoCalculatorIcon />
+                  </div>
+                </span>
+              )}
+            </div>
           </div>
           <Link href="/dashboard">
             <button className="btn btn-sm ml-3 mt-3 text-gray-600">
@@ -49,19 +67,20 @@ export default function Page() {
             <div
               className={clsx(
                 'mt-4 p-3 prose prose-p:text-gray-900 border-2',
-                step == 2 ? 'border-secondary' : 'border-transparent'
+                step == 2 || step == 3 ? 'border-secondary' : 'border-gray-300'
               )}
             >
               {exercise.solution({ data })}
             </div>
           )}
+          <div className="h-[400px]"></div>
         </div>
         <div className="md:flex-grow-0 md:flex-shrink-0 md:w-[280px] mx-3 md:mx-0">
-          <div className="mt-6 bg-gray-50 sticky top-4 p-3 rounded-box">
+          <div className="mt-3 bg-gray-50 sticky top-4 p-3 rounded-box">
             {step === 0 && (
               <>
-                <strong>1. Schritt:</strong> Löse die Aufgabe und notiere dein
-                Ergebnis (z.B. auf einem Blatt Papier).
+                <strong>1. Löse die Aufgabe</strong> und notiere dein Ergebnis
+                auf einem Blatt Papier.
                 <div>
                   <button
                     className="btn btn-secondary btn-outline ml-3 mt-6 mb-6"
@@ -83,6 +102,9 @@ export default function Page() {
                     className="btn btn-secondary btn-outline ml-3 mt-6 mb-3"
                     onClick={() => {
                       setStep(2)
+                      setTimeout(() => {
+                        setStep(3)
+                      }, 5000)
                     }}
                   >
                     Zeige mir die Lösung
@@ -99,20 +121,27 @@ export default function Page() {
             {step === 2 && (
               <>
                 <strong>3. Schritt:</strong> Vergleiche mit der Lösung und
+                schaue, ob deine Lösung übereinstimmt.
+                <TimerBar />
+              </>
+            )}
+            {step === 3 && (
+              <>
+                <strong>3. Schritt:</strong> Vergleiche mit der Lösung und
                 schaue, ob deine Lösung übereinstimmt. Wie schätzt du dich ein?
                 <div>
                   <button
                     className="btn btn-success ml-3 mt-6 mb-3"
                     onClick={() => {
-                      setStep(3)
+                      setStep(4)
                     }}
                   >
-                    Alles richtig!
+                    Kann ich!
                   </button>
                   <button
                     className="btn btn-warning ml-3 mt-6 mb-3"
                     onClick={() => {
-                      setStep(4)
+                      setStep(5)
                     }}
                   >
                     Nochmal üben
@@ -128,7 +157,7 @@ export default function Page() {
                 </div>
               </>
             )}
-            {step === 3 && (
+            {step === 4 && (
               <>
                 <strong>Bravo!</strong>
                 <div>
@@ -143,7 +172,7 @@ export default function Page() {
                 </div>
               </>
             )}
-            {step === 4 && (
+            {step === 5 && (
               <>
                 <strong>Das System hat sich die Aufgabe gemerkt</strong> und
                 wird sie dir bald zur Wiederholung vorschlagen.
@@ -171,7 +200,10 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className="h-[400px]"></div>
     </>
   )
+}
+
+function TimerBar() {
+  return <progress className="progress progress-secondary w-56"></progress>
 }
