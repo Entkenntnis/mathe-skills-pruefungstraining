@@ -88,7 +88,7 @@ export default function Page() {
             <div className="p-3 rounded bg-gray-50">
               <div className="flex justify-between">
                 <p>
-                  Dein Lernziel:{' '}
+                  Mein Lernziel:{' '}
                   <span className="font-bold">{goalsData[goal].name}</span>
                 </p>
                 <Link href="/goals">
