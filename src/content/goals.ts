@@ -6,7 +6,7 @@ export const goalsData: { [key: number]: GoalData } = {
     name: 'Fit für die 7. Klasse',
     description:
       'Wiederholung der wichtigsten Grundlagen aus der 5. und 6. Klasse',
-    exercises: [1, 2, 3, 4, 5],
+    exercises: Object.keys(exercisesData).map(parseInt), // temporary
   },
   99: {
     name: 'Gesamter Katalog',

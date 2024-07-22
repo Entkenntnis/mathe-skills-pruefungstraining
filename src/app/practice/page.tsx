@@ -139,7 +139,7 @@ export default function Page() {
                 <p className="mt-2">Wie schätzt du dich ein?</p>
                 <div>
                   <button
-                    className="btn btn-success ml-3 mt-6 mb-3"
+                    className="btn btn-success ml-2 mt-6 mb-3"
                     onClick={() => {
                       setStep(4)
                     }}
@@ -147,7 +147,7 @@ export default function Page() {
                     Kann ich!
                   </button>
                   <button
-                    className="btn btn-warning ml-3 mt-6 mb-3"
+                    className="btn btn-warning ml-5 mt-6 mb-3"
                     onClick={() => {
                       setStep(5)
                     }}
