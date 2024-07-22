@@ -38,7 +38,7 @@ export const exercise8: Exercise<DATA> = {
   task({ data }) {
     return (
       <>
-        <p>Schreibe als Dezimalzahl und Prozent.</p>
+        <p>Schreibe als Dezimalzahl.</p>
         <p>
           {[0, 1, 2, 3].map((id) => (
             <span className="inline-block mr-20" key={id}>

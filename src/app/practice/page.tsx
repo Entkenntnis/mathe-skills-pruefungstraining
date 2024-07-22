@@ -26,16 +26,22 @@ export default function Page() {
 
   const exercise = exercisesData[app.state.showExercise.id]
 
-  const data = exercise.generator(new Rng(app.state.showExercise.seed))
+  const data = exercise.generator(
+    new Rng(
+      app.state.showExercise.seed + '#' + app.state.showExercise.id.toString()
+    )
+  )
 
   return (
     <>
       <div className="min-h-[500px] mx-auto max-w-[890px] flex md:flex-row flex-col mt-24">
         <div className="md:flex-grow md:flex-shrink mx-auto">
-          <div className="ml-3 mt-6 font-bold text-gray-700 text-lg relative pr-24">
+          <div className="ml-3 mt-6 font-bold text-gray-700 text-lg relative pr-3">
             {exercise.title}
-            <div className="absolute right-5 top-0 flex items-center font-normal">
-              <span className="badge mr-2">{exercise.duration} min</span>
+            <span className="badge ml-2 font-normal">
+              {exercise.duration} min
+            </span>
+            <span className="inline-block font-normal align-bottom h-6 ml-1">
               {exercise.useCalculator ? (
                 <span className="tooltip" data-tip="Taschenrechner erlaubt">
                   <div className="scale-75">
@@ -49,7 +55,7 @@ export default function Page() {
                   </div>
                 </span>
               )}
-            </div>
+            </span>
           </div>
           <Link href="/dashboard">
             <button className="btn btn-sm ml-3 mt-3 text-gray-600">

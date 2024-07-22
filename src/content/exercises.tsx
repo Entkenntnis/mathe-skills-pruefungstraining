@@ -7,6 +7,8 @@ import { exercise5 } from './implementations/5-bruch-erweitern-auf-nenner'
 import { exercise6 } from './implementations/6-bruch-kuerzen'
 import { exercise7 } from './implementations/7-bruchschreibweisen-aus-dezimalzahl'
 import { exercise8 } from './implementations/8-bruchschreibweisen-dezimalzahl'
+import { exercise9 } from './implementations/9-bruchteil-faerben'
+import { exercise10 } from './implementations/10-einheiten-umrechnen'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -17,4 +19,6 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   6: exercise6,
   7: exercise7,
   8: exercise8,
+  9: exercise9,
+  10: exercise10,
 }
