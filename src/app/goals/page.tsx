@@ -3,13 +3,11 @@
 import { useApp } from '@/components/App'
 import { Guard } from '@/components/Guard'
 import { goalsData } from '@/content/goals'
-import { logout, selectGoal } from '@/data/commands'
+import { selectGoal } from '@/data/commands'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 export default function Page() {
   const app = useApp()
-  const router = useRouter()
 
   if (!app.state.userData || !app.state.token) {
     return <Guard />
@@ -36,7 +34,7 @@ export default function Page() {
             return (
               <div className="indicator" key={goal.name}>
                 {isSelected && (
-                  <span className="mt-4 mr-3 indicator-item badge badge-success badge-lg">
+                  <span className="mt-4 mr-3 indicator-item badge badge-accent badge-lg">
                     aktiv
                   </span>
                 )}

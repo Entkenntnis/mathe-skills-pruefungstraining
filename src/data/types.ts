@@ -14,16 +14,28 @@ export interface App {
   afterPush(target: string, handler: () => void): void
 }
 
+export type HistoryEntry =
+  | [
+      'E',
+      id: number,
+      ts: number,
+      seed: string,
+      result: 1 /* success*/ | 2 /* retry */,
+      duration: number
+    ]
+  | ['G', id: number, ts: number]
+
 export interface UserData {
   name: string
   goal: number | null
-  history: [id: number, seed: string, ts: number, result: number][]
+  history: HistoryEntry[]
   dashboard: { id: number; seed: string }[]
 }
 
 export interface GoalData {
   name: string
   description: string
+  exercises: number[]
 }
 
 export interface Exercise<T = unknown> {

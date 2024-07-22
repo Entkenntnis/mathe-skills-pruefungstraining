@@ -15,7 +15,7 @@ export const exercise1: Exercise<DATA> = {
     const count = rng.randomIntBetween(1, 11)
     const colored: boolean[] = []
     for (let i = 0; i < 12; i++) {
-      colored.push(i <= count)
+      colored.push(i < count)
     }
     return { colored: rng.shuffleArray(colored) }
   },

@@ -75,7 +75,7 @@ export const exercise5: Exercise<DATA> = {
                 data.fracs[i].f * data.fracs[i].n
               )}
               &nbsp;&nbsp;&nbsp;
-              <span className="italic">erweitere mit {data.fracs[i].f}</span>
+              <span className="italic">Erweitere mit {data.fracs[i].f}</span>
             </p>
           )
         })}

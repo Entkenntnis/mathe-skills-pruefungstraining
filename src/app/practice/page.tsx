@@ -5,7 +5,7 @@ import { Guard } from '@/components/Guard'
 import { CalculatorIcon } from '@/components/icons/CalculatorIcon'
 import { NoCalculatorIcon } from '@/components/icons/NoCalculatorIcon'
 import { exercisesData } from '@/content/exercises'
-import { restartExercise, showExercise } from '@/data/commands'
+import { finishExercise, restartExercise, showExercise } from '@/data/commands'
 import { generateSeed } from '@/data/generate-seed'
 import { Rng } from '@/helper/rng'
 import clsx from 'clsx'
@@ -18,6 +18,7 @@ export default function Page() {
   const router = useRouter()
 
   const [step, setStep] = useState(0)
+  const [startTs] = useState(new Date().getTime())
 
   if (!app.state.userData || !app.state.token || !app.state.showExercise) {
     return <Guard />
@@ -64,13 +65,18 @@ export default function Page() {
             {exercise.task({ data })}
           </div>
           {step >= 2 && (
-            <div
-              className={clsx(
-                'mt-4 p-3 prose prose-p:text-gray-900 border-2',
-                step == 2 || step == 3 ? 'border-secondary' : 'border-gray-300'
-              )}
-            >
-              {exercise.solution({ data })}
+            <div className="indicator w-full">
+              <span className="indicator-item mr-20 badge mt-1">Lösung</span>
+              <div
+                className={clsx(
+                  'mt-4 p-3 prose prose-p:text-gray-900 border-2 w-full',
+                  step == 2 || step == 3
+                    ? 'border-secondary'
+                    : 'border-gray-300'
+                )}
+              >
+                {exercise.solution({ data })}
+              </div>
             </div>
           )}
           <div className="h-[400px]"></div>
@@ -95,8 +101,8 @@ export default function Page() {
             )}
             {step === 1 && (
               <>
-                <strong>2. Schritt:</strong> Alle Teile der Aufgabe bearbeitet
-                und bereit zum Abgeben?
+                <strong>2. Alle Teile der Aufgabe</strong> bearbeitet und bereit
+                zum Abgeben?
                 <div>
                   <button
                     className="btn btn-secondary btn-outline ml-3 mt-6 mb-3"
@@ -120,15 +126,17 @@ export default function Page() {
             )}
             {step === 2 && (
               <>
-                <strong>3. Schritt:</strong> Vergleiche mit der Lösung und
-                schaue, ob deine Lösung übereinstimmt.
+                <strong>3. Vergleiche mit der Lösung</strong> und schaue, ob
+                deine Lösung übereinstimmt.
                 <TimerBar />
               </>
             )}
             {step === 3 && (
               <>
-                <strong>3. Schritt:</strong> Vergleiche mit der Lösung und
-                schaue, ob deine Lösung übereinstimmt. Wie schätzt du dich ein?
+                <strong>3. Vergleiche mit der Lösung</strong> und schaue, ob
+                deine Lösung übereinstimmt
+                <br />
+                <p className="mt-2">Wie schätzt du dich ein?</p>
                 <div>
                   <button
                     className="btn btn-success ml-3 mt-6 mb-3"
@@ -164,6 +172,7 @@ export default function Page() {
                   <button
                     className="btn btn-primary ml-3 mt-6 mb-3"
                     onClick={() => {
+                      finish(1)
                       router.push('/dashboard')
                     }}
                   >
@@ -180,6 +189,7 @@ export default function Page() {
                   <button
                     className="btn btn-primary ml-3 mt-6 mb-3"
                     onClick={() => {
+                      finish(2)
                       router.push('/dashboard')
                     }}
                   >
@@ -188,6 +198,7 @@ export default function Page() {
                   <button
                     className="btn btn-sm ml-3 mt-6 mb-3"
                     onClick={() => {
+                      finish(2)
                       restartExercise(app)
                       setStep(0)
                     }}
@@ -202,6 +213,11 @@ export default function Page() {
       </div>
     </>
   )
+
+  function finish(status: number) {
+    const duration = new Date().getTime() - startTs
+    finishExercise(app, status, duration)
+  }
 }
 
 function TimerBar() {
