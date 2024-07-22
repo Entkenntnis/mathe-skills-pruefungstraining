@@ -45,6 +45,7 @@ export const exercise2: Exercise<DATA> = {
         if (data.colored[i]) {
           els.push(
             <path
+              key={i}
               className="fill-blue-300"
               stroke="transparent"
               d={getSectorPath(55, 55, 109, i * 60, i * 60 + 60)}

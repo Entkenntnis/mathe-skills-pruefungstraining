@@ -25,7 +25,7 @@ export default function Page() {
 
   const goal = app.state.userData.goal
 
-  const progress = goal ? Math.round(calculateProgress(app) * 100) : 0
+  const progress = goal !== null ? Math.round(calculateProgress(app) * 100) : 0
 
   const idSeeds = new Set<string>()
   const ids = new Set<number>()
