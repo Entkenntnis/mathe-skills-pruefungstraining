@@ -176,7 +176,7 @@ export default function Page() {
                       router.push('/dashboard')
                     }}
                   >
-                    Zur nächsten Aufgabe
+                    Nächsten Aufgabe wählen
                   </button>
                 </div>
               </>
@@ -193,7 +193,7 @@ export default function Page() {
                       router.push('/dashboard')
                     }}
                   >
-                    Zur nächsten Aufgabe
+                    Nächsten Aufgabe wählen
                   </button>
                   <button
                     className="btn btn-sm ml-3 mt-6 mb-3"

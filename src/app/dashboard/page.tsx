@@ -106,6 +106,9 @@ export default function Page() {
             <div className="mt-8 flex items-baseline justify-between">
               <span>Jetzt üben:</span>
               <div className="">
+                <button className="btn btn-sm mr-3" onClick={() => {}}>
+                  Einstellungen (TODO)
+                </button>
                 <button
                   className="btn btn-sm"
                   onClick={() => {
