@@ -6,6 +6,7 @@ export interface AppState {
   token: string | null
   uploading: boolean
   showExercise: null | { id: number; seed: string; dashboardIndex: number }
+  paperHintShown: boolean
 }
 
 export interface App {

@@ -219,6 +219,38 @@ export default function Page() {
           </div>
         </div>
       </div>
+      {!app.state.paperHintShown && (
+        <div className="modal modal-open" role="dialog">
+          <div className="modal-box">
+            <h3 className="text-lg font-bold">Vorbereitung</h3>
+            <p className="py-4">
+              Lege dir bitte etwas zum Schreiben bereit, z.B. Stift und ein
+              Blatt Papier.
+            </p>
+            <img
+              src="/paper.jpg"
+              alt="Stift und Papier"
+              className="h-[230px] mx-auto"
+            />
+            <p className="py-4">
+              Mathematik passiert in der Tätigkeit ✍️ - das Schreiben ist ein
+              wichtiger Teil davon.
+            </p>
+            <div className="modal-action">
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  app.mut((state) => {
+                    state.paperHintShown = true
+                  })
+                }}
+              >
+                Ich bin bereit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 
