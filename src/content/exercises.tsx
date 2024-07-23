@@ -12,7 +12,7 @@ import { exercise10 } from './implementations/10-einheiten-umrechnen'
 import { exercise11 } from './implementations/11-brueche-addieren-und-subtrahieren-gleichnamig'
 import { exercise12 } from './implementations/12-brueche-addieren-und-subtrahieren'
 import { exercise13 } from './implementations/13-brueche-addieren-und-subtrahieren-negative-zahlen'
-import { exercise14 } from './implementations/14-brueche-addieren-und-subtrahieren-laenger-terme'
+import { exercise14 } from './implementations/14-brueche-addieren-und-subtrahieren-laengerer-terme'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,

@@ -15,18 +15,16 @@ interface DATA {
 }
 
 export const exercise14: Exercise<DATA> = {
-  title: 'Brüche addieren und subtrahieren - länger Terme',
+  title: 'Brüche addieren und subtrahieren - längerer Terme',
   useCalculator: false,
   duration: 3,
   generator(rng) {
-    const [n1, n2, n3, n] = rng.shuffleArray(
-      rng.randomItemFromArray([
-        [3, 6, 9, 18],
-        [3, 6, 12, 12],
-        [3, 4, 5, 60],
-        [2, 4, 8, 8],
-      ])
-    )
+    const [[n1, n2, n3], n] = rng.randomItemFromArray([
+      [rng.shuffleArray([3, 6, 9]), 18],
+      [rng.shuffleArray([3, 6, 12]), 12],
+      [rng.shuffleArray([3, 4, 5]), 60],
+      [rng.shuffleArray([2, 4, 8]), 8],
+    ])
     let z1 = rng.randomIntBetween(1, n1 - 1)
     const z2 = rng.randomIntBetween(1, n2 - 1)
     let z3 = rng.randomIntBetween(1, n3 - 1)
