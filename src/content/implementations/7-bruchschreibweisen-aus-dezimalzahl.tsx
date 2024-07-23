@@ -52,11 +52,15 @@ export const exercise7: Exercise<DATA> = {
   solution({ data }) {
     return (
       <>
-        {[0, 1, 2, 3].map((id) => (
-          <p className="" key={id}>
-            {data.nums[id].jsx} = {buildFrac(data.nums[id].z, data.nums[id].n)}
-          </p>
-        ))}
+        <p>
+          {' '}
+          {[0, 1, 2, 3].map((id) => (
+            <span className="inline-block mr-12" key={id}>
+              {data.nums[id].jsx} ={' '}
+              {buildFrac(data.nums[id].z, data.nums[id].n)}
+            </span>
+          ))}
+        </p>
       </>
     )
   },

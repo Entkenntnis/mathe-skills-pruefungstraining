@@ -11,6 +11,7 @@ import {
   showExercise,
   triggerUpload,
 } from '@/data/commands'
+import { generateSeed } from '@/data/generate-seed'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -19,6 +20,8 @@ import { useState } from 'react'
 export default function Page() {
   const app = useApp()
   const router = useRouter()
+
+  const [tab, setTab] = useState<'tutor' | 'list'>('tutor')
 
   if (!app.state.userData || !app.state.token) {
     return <Guard />
@@ -47,9 +50,9 @@ export default function Page() {
   return (
     <>
       <div>
-        <h1 className="text-center text-5xl mt-12">Dashboard</h1>
+        <h1 className="text-center text-4xl mt-12">Meine Mathe-Skills</h1>
         <div className="max-w-[700px] mx-auto mt-6">
-          <div className="mt-6 mb-12 flex justify-between bg-gray-50 p-3 rounded-box">
+          <div className="mt-6 mb-6 flex justify-between bg-gray-50 p-3 rounded-box">
             <p>
               Hallo {app.state.userData.name}!{' '}
               {app.state.uploading ? (
@@ -81,6 +84,61 @@ export default function Page() {
               </button>
             </div>
           </div>
+          <div role="tablist" className="tabs tabs-bordered tabs-lg">
+            <a
+              role="tab"
+              className={clsx('tab', tab == 'tutor' && 'tab-active')}
+              onClick={() => {
+                setTab('tutor')
+              }}
+            >
+              Mein Lernziel
+            </a>
+            <a
+              role="tab"
+              className={clsx('tab', tab == 'list' && 'tab-active')}
+              onClick={() => {
+                setTab('list')
+              }}
+            >
+              Aufgaben-Liste
+            </a>
+          </div>
+          {tab == 'list' && (
+            <div>
+              <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-6 rounded-box">
+                {goalsData[goal!].exercises.map((id) => {
+                  return (
+                    <div
+                      className={clsx(
+                        'rounded mx-3 px-3 py-4 cursor-pointer w-full bg-white hover:bg-gray-50'
+                      )}
+                      key={id}
+                      onClick={() => {
+                        showExercise(app, id, generateSeed(), -1)
+                        router.push('/practice')
+                      }}
+                    >
+                      {exercisesData[id].title}
+                      <span className="badge badge-outline font-normal ml-3">
+                        {exercisesData[id].duration} min
+                      </span>
+                      {ids.has(id) && !toPractice.has(id) && (
+                        <span className="badge bg-accent/30 border-0 font-normal ml-3">
+                          geübt
+                        </span>
+                      )}
+                      {toPractice.has(id) && (
+                        <span className="badge bg-warning/30 border-0 font-normal ml-3">
+                          zur Wiederholung markiert
+                        </span>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
           {goal === null && (
             <div>
               <p className="mt-8 font-bold">Der erste Schritt:</p>
@@ -91,12 +149,11 @@ export default function Page() {
               </p>
             </div>
           )}
-          {goal && (
+          {goal && tab == 'tutor' && (
             <>
-              <div className="p-3 rounded bg-gray-50">
+              <div className="p-3 pt-8 rounded bg-gray-50">
                 <div className="flex justify-between">
                   <p>
-                    Mein Lernziel:{' '}
                     <span className="font-bold">{goalsData[goal].name}</span>
                   </p>
                   <Link href="/goals">
@@ -113,7 +170,7 @@ export default function Page() {
                   max="100"
                 ></progress>
               </div>
-              <div className="mt-8 flex items-baseline justify-between">
+              <div className="mt-16 flex items-baseline justify-between">
                 <span>Jetzt üben:</span>
                 <div className="">
                   <button
@@ -137,43 +194,46 @@ export default function Page() {
                 </div>
               </div>
               <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-6 rounded-box">
-                {app.state.userData.dashboard.map((entry, i) => (
-                  <div
-                    className={clsx(
-                      'rounded mx-3 px-3 py-4 cursor-pointer w-full',
-                      idSeeds.has(entry.id.toString() + entry.seed)
-                        ? 'text-gray-400 bg-accent/10'
-                        : 'font-bold text-gray-700 bg-white hover:bg-purple-50 hover:outline outline-primary outline-1'
-                    )}
-                    onClick={() => {
-                      showExercise(app, entry.id, entry.seed, i)
-                      router.push('/practice')
-                    }}
-                    key={entry.id + entry.seed}
-                  >
-                    {exercisesData[entry.id].title}
-                    <span className="badge badge-outline font-normal ml-3">
-                      {exercisesData[entry.id].duration} min
-                    </span>
-                    {toPractice.has(entry.id) ? (
-                      <span className="badge badge-outline badge-warning font-normal ml-3">
-                        Wiederholung
+                {app.state.userData.dashboard.map((entry, i) => {
+                  if (idSeeds.has(entry.id.toString() + entry.seed)) return null
+                  return (
+                    <div
+                      className={clsx(
+                        'rounded mx-3 px-3 py-4 cursor-pointer w-full',
+                        idSeeds.has(entry.id.toString() + entry.seed)
+                          ? 'text-gray-400 bg-accent/10'
+                          : 'font-bold text-gray-700 bg-white hover:bg-purple-50 hover:outline outline-primary outline-1'
+                      )}
+                      onClick={() => {
+                        showExercise(app, entry.id, entry.seed, i)
+                        router.push('/practice')
+                      }}
+                      key={entry.id + entry.seed}
+                    >
+                      {exercisesData[entry.id].title}
+                      <span className="badge badge-outline font-normal ml-3">
+                        {exercisesData[entry.id].duration} min
                       </span>
-                    ) : idSeeds.has(entry.id.toString() + entry.seed) ? (
-                      <span className="badge bg-accent/30 border-0 font-normal ml-3">
-                        bearbeitet
-                      </span>
-                    ) : !ids.has(entry.id) ? (
-                      <span className="badge badge-primary font-normal ml-3">
-                        neu
-                      </span>
-                    ) : ids.has(entry.id) ? (
-                      <span className="badge badge-outline font-normal ml-3 hidden">
-                        Vertiefung
-                      </span>
-                    ) : null}
-                  </div>
-                ))}
+                      {toPractice.has(entry.id) ? (
+                        <span className="badge badge-outline badge-warning font-normal ml-3">
+                          Wiederholung
+                        </span>
+                      ) : idSeeds.has(entry.id.toString() + entry.seed) ? (
+                        <span className="badge bg-accent/30 border-0 font-normal ml-3">
+                          bearbeitet
+                        </span>
+                      ) : !ids.has(entry.id) ? (
+                        <span className="badge badge-primary font-normal ml-3">
+                          neu
+                        </span>
+                      ) : ids.has(entry.id) ? (
+                        <span className="badge badge-outline font-normal ml-3 hidden">
+                          Vertiefung
+                        </span>
+                      ) : null}
+                    </div>
+                  )
+                })}
               </div>
             </>
           )}

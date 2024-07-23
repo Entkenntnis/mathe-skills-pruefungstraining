@@ -111,10 +111,18 @@ export function finishExercise(app: App, status: number, duration: number) {
 export function calculateProgress(app: App) {
   const goalExercises = goalsData[app.state.userData?.goal!].exercises
   const solved = new Set<number>()
+  const toPractice = new Set<number>()
   app.state.userData!.history.forEach((entry) => {
     if (entry[0] == 'E') {
-      solved.add(entry[1])
+      if (entry[4] == 1) {
+        solved.add(entry[1])
+      } else {
+        toPractice.add(entry[1])
+      }
     }
+  })
+  toPractice.forEach((val) => {
+    solved.delete(val)
   })
   const count = goalExercises.filter((id) => solved.has(id)).length
   return count / goalExercises.length
