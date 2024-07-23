@@ -30,11 +30,17 @@ export default function Page() {
 
   const idSeeds = new Set<string>()
   const ids = new Set<number>()
+  const toPractice = new Set<number>()
 
-  app.state.userData.history.forEach((entry) => {
+  app.state.userData!.history.forEach((entry) => {
     if (entry[0] == 'E') {
-      ids.add(entry[1])
       idSeeds.add(entry[1].toString() + entry[3])
+      if (entry[4] == 1) {
+        ids.add(entry[1])
+        toPractice.delete(entry[1])
+      } else if (entry[4] == 2) {
+        toPractice.add(entry[1])
+      }
     }
   })
 
@@ -149,17 +155,21 @@ export default function Page() {
                     <span className="badge badge-outline font-normal ml-3">
                       {exercisesData[entry.id].duration} min
                     </span>
-                    {!ids.has(entry.id) ? (
-                      <span className="badge badge-primary font-normal ml-3">
-                        neu
+                    {toPractice.has(entry.id) ? (
+                      <span className="badge badge-outline badge-warning font-normal ml-3">
+                        Wiederholung
                       </span>
                     ) : idSeeds.has(entry.id.toString() + entry.seed) ? (
                       <span className="badge bg-accent/30 border-0 font-normal ml-3">
                         bearbeitet
                       </span>
+                    ) : !ids.has(entry.id) ? (
+                      <span className="badge badge-primary font-normal ml-3">
+                        neu
+                      </span>
                     ) : ids.has(entry.id) ? (
-                      <span className="badge badge-outline badge-warning font-normal ml-3">
-                        Wiederholung
+                      <span className="badge badge-outline font-normal ml-3 hidden">
+                        Vertiefung
                       </span>
                     ) : null}
                   </div>
