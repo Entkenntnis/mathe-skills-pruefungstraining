@@ -5,6 +5,7 @@ import { generateSeed } from '@/data/generate-seed'
 import { Rng } from '@/helper/rng'
 import { exercisesData } from '@/content/exercises'
 import { goalsData } from '@/content/goals'
+import { flow } from './flow'
 
 export function login(app: App, token: string, raw: string) {
   app.mut((state) => {
@@ -78,15 +79,7 @@ export function showExercise(
 }
 
 export function populateDashboard(app: App) {
-  app.mut((state) => {
-    const newDashboard = []
-    for (let i = 0; i < Object.keys(exercisesData).length; i++) {
-      newDashboard.push({ id: i + 1, seed: generateSeed() })
-    }
-    state.userData!.dashboard = new Rng(Math.random().toString()).shuffleArray(
-      newDashboard
-    )
-  })
+  flow(app)
 }
 
 export function restartExercise(app: App) {

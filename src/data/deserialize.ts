@@ -2,5 +2,9 @@ import { UserData } from './types'
 
 export function deserialize(raw: string): UserData | null {
   // todo: some basic type checking
-  return JSON.parse(raw)
+  const obj = JSON.parse(raw)
+  if (!obj.settings) {
+    obj.settings = { listLength: 4 }
+  }
+  return obj
 }

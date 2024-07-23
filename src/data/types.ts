@@ -30,6 +30,7 @@ export interface UserData {
   goal: number | null
   history: HistoryEntry[]
   dashboard: { id: number; seed: string }[]
+  settings: { listLength: number }
 }
 
 export interface GoalData {
