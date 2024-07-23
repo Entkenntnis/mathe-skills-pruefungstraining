@@ -21,8 +21,6 @@ export default function Page() {
   const app = useApp()
   const router = useRouter()
 
-  const [tab, setTab] = useState<'tutor' | 'list'>('tutor')
-
   if (!app.state.userData || !app.state.token) {
     return <Guard />
   }
@@ -84,27 +82,36 @@ export default function Page() {
               </button>
             </div>
           </div>
-          <div role="tablist" className="tabs tabs-bordered tabs-lg">
-            <a
-              role="tab"
-              className={clsx('tab', tab == 'tutor' && 'tab-active')}
-              onClick={() => {
-                setTab('tutor')
-              }}
-            >
-              Mein Lernziel
-            </a>
-            <a
-              role="tab"
-              className={clsx('tab', tab == 'list' && 'tab-active')}
-              onClick={() => {
-                setTab('list')
-              }}
-            >
-              Aufgaben-Liste
-            </a>
-          </div>
-          {tab == 'list' && (
+          {goal !== null && (
+            <div role="tablist" className="tabs tabs-bordered tabs-lg">
+              <a
+                role="tab"
+                className={clsx(
+                  'tab',
+                  app.state.tab == 'tutor' && 'tab-active'
+                )}
+                onClick={() => {
+                  app.mut((state) => {
+                    state.tab = 'tutor'
+                  })
+                }}
+              >
+                Mein Lernziel
+              </a>
+              <a
+                role="tab"
+                className={clsx('tab', app.state.tab == 'list' && 'tab-active')}
+                onClick={() => {
+                  app.mut((state) => {
+                    state.tab = 'list'
+                  })
+                }}
+              >
+                Aufgaben-Liste
+              </a>
+            </div>
+          )}
+          {app.state.tab == 'list' && (
             <div>
               <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-6 rounded-box">
                 {goalsData[goal!].exercises.map((id) => {
@@ -149,7 +156,7 @@ export default function Page() {
               </p>
             </div>
           )}
-          {goal && tab == 'tutor' && (
+          {goal && app.state.tab == 'tutor' && (
             <>
               <div className="p-3 pt-8 rounded bg-gray-50">
                 <div className="flex justify-between">

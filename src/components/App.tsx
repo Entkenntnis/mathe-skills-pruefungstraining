@@ -36,6 +36,7 @@ export function AppWrapper({ children }: AppWrapperProps) {
     uploading: false,
     showExercise: null,
     paperHintShown: false,
+    tab: 'tutor',
   })
   const stateRef = useRef(state)
   const app = {

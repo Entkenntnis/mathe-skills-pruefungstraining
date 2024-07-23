@@ -7,6 +7,7 @@ export interface AppState {
   uploading: boolean
   showExercise: null | { id: number; seed: string; dashboardIndex: number }
   paperHintShown: boolean
+  tab: 'tutor' | 'list'
 }
 
 export interface App {
