@@ -27,10 +27,13 @@ export const exercise12: Exercise<DATA> = {
         i == 1 ? !fracs[0].add : rng.randomItemFromArray([true, false])
       let n1 = rng.randomIntBetween(5, 11)
       let n2 = rng.randomIntBetween(5, 11)
+      if (n1 == n2) {
+        n1--
+      }
       const n = (n1 * n2) / getGcd(n1, n2)
-      let z1 = rng.randomIntBetween(1, n1)
-      let z2 = rng.randomIntBetween(1, n2)
-      if (!add && z1 / n1 + z2 / n2 < 0) {
+      let z1 = rng.randomIntBetween(1, n1 - 1)
+      let z2 = rng.randomIntBetween(1, n2 - 1)
+      if (!add && z1 / n1 - z2 / n2 < 0) {
         let t = n1
         n1 = n2
         n2 = t
@@ -38,7 +41,7 @@ export const exercise12: Exercise<DATA> = {
         z1 = z2
         z2 = t
       }
-      const r = z1 * n2 + z2 * n1
+      const r = z1 * (n / n1) + z2 * (n / n2) * (add ? 1 : -1)
       fracs.push({ z1, z2, n, n1, n2, add, r })
     }
 
@@ -70,9 +73,9 @@ export const exercise12: Exercise<DATA> = {
             <p key={id}>
               {buildFrac(z1, n1)}{' '}
               <span className="text-xl">{add ? '+' : '−'} </span>
-              {buildFrac(z2, n2)} = {buildFrac(z1 * n2, n)}{' '}
+              {buildFrac(z2, n2)} = {buildFrac(z1 * (n / n1), n)}{' '}
               <span className="text-xl">{add ? '+' : '−'} </span>
-              {buildFrac(z2 * n1, n)} ={' '}
+              {buildFrac(z2 * (n / n2), n)} ={' '}
               <span className={clsx(f == 1 && 'font-bold')}>
                 {buildFrac(r, n)}
               </span>

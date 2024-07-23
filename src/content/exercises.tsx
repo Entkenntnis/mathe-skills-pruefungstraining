@@ -13,6 +13,10 @@ import { exercise11 } from './implementations/11-brueche-addieren-und-subtrahier
 import { exercise12 } from './implementations/12-brueche-addieren-und-subtrahieren'
 import { exercise13 } from './implementations/13-brueche-addieren-und-subtrahieren-negative-zahlen'
 import { exercise14 } from './implementations/14-brueche-addieren-und-subtrahieren-laengerer-terme'
+import { exercise15 } from './implementations/15-brueche-multiplizieren und dividieren'
+import { exercise16 } from './implementations/16-brueche-multiplizieren und dividieren-negative-zahlen'
+import { exercise17 } from './implementations/17-bruchterme-punkt-vor-strich'
+import { exercise18 } from './implementations/18-sachaufgabe-mit-bruechen-fussballfans'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -29,4 +33,8 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   12: exercise12,
   13: exercise13,
   14: exercise14,
+  15: exercise15,
+  16: exercise16,
+  17: exercise17,
+  18: exercise18,
 }

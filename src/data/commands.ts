@@ -85,7 +85,10 @@ export function populateDashboard(app: App) {
 export function restartExercise(app: App) {
   const newSeed = generateSeed()
   app.mut((state) => {
-    state.userData!.dashboard[state.showExercise!.dashboardIndex].seed = newSeed
+    if (state.showExercise!.dashboardIndex >= 0) {
+      state.userData!.dashboard[state.showExercise!.dashboardIndex].seed =
+        newSeed
+    }
   })
   showExercise(
     app,
