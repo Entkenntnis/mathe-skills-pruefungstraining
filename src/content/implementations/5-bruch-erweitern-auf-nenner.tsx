@@ -70,7 +70,7 @@ export const exercise5: Exercise<DATA> = {
               {buildFrac(data.fracs[i].z, data.fracs[i].n)} ={' '}
               {buildFrac(
                 <span className="font-bold">
-                  {data.fracs[i].f * data.fracs[0].z}
+                  {data.fracs[i].f * data.fracs[i].z}
                 </span>,
                 data.fracs[i].f * data.fracs[i].n
               )}

@@ -4,12 +4,17 @@ import { useApp } from '@/components/App'
 import { Guard } from '@/components/Guard'
 import { exercisesData } from '@/content/exercises'
 import { goalsData } from '@/content/goals'
-import { selectGoal } from '@/data/commands'
 import { HistoryEntry } from '@/data/types'
+import { Rng } from '@/helper/rng'
 import Link from 'next/link'
+import { useState } from 'react'
 
 export default function Page() {
   const app = useApp()
+  const [showExercise, setShowExercise] = useState<{
+    id: number
+    seed: string
+  } | null>(null)
 
   if (!app.state.userData || !app.state.token) {
     return <Guard />
@@ -20,17 +25,60 @@ export default function Page() {
   entries.sort((a, b) => b[2] - a[2])
 
   return (
-    <div>
-      <h1 className="text-center text-5xl mt-12">Lern-Verlauf</h1>
-      <div className="max-w-[700px] mx-auto mt-6 mb-96">
-        <div className="mt-6 mb-12 text-center">
-          <Link href="/dashboard">
-            <button className="btn btn-sm">zurück</button>
-          </Link>
+    <>
+      <div>
+        <h1 className="text-center text-5xl mt-12">Lern-Verlauf</h1>
+        <div className="max-w-[700px] mx-auto mt-6 mb-96">
+          <div className="mt-6 mb-12 text-center">
+            <Link href="/dashboard">
+              <button className="btn btn-sm">zurück</button>
+            </Link>
+          </div>
+          <div>{entries.map(renderHistoryEntry)}</div>
         </div>
-        <div>{entries.map(renderHistoryEntry)}</div>
       </div>
-    </div>
+      {showExercise && (
+        <div className="modal modal-open" role="dialog">
+          <div className="modal-box">
+            <h3 className="text-lg font-bold">
+              {exercisesData[showExercise.id].title}
+            </h3>
+            <div className="mt-2 pt-2 pb-6 prose prose-p:text-gray-900">
+              {exercisesData[showExercise.id].task({
+                data: exercisesData[showExercise.id].generator(
+                  new Rng(showExercise.id + '#' + showExercise.seed)
+                ),
+              })}
+            </div>
+            <details>
+              <summary className="cursor-pointer">Lösung</summary>
+              <div className="border p-2 prose prose-p:text-gray-900">
+                {exercisesData[showExercise.id].solution({
+                  data: exercisesData[showExercise.id].generator(
+                    new Rng(showExercise.id + '#' + showExercise.seed)
+                  ),
+                })}
+              </div>
+            </details>
+
+            <div className="modal-action">
+              <button
+                className="btn btn-sm"
+                onClick={() => setShowExercise(null)}
+              >
+                Schließen
+              </button>
+            </div>
+          </div>
+          <label
+            className="modal-backdrop"
+            onClick={() => setShowExercise(null)}
+          >
+            Close
+          </label>
+        </div>
+      )}
+    </>
   )
 
   function renderHistoryEntry(entry: HistoryEntry) {
@@ -47,7 +95,15 @@ export default function Page() {
             <>{Math.round(entry[5] / 60)} min</>
           ) : (
             <>{entry[5]} s</>
-          )}
+          )}{' '}
+          <button
+            className="link"
+            onClick={() => {
+              setShowExercise({ id: entry[1], seed: entry[3] })
+            }}
+          >
+            [anzeigen]
+          </button>
         </>
       )
     return (
