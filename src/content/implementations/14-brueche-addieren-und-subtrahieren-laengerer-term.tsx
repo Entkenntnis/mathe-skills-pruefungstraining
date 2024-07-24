@@ -15,7 +15,7 @@ interface DATA {
 }
 
 export const exercise14: Exercise<DATA> = {
-  title: 'Brüche addieren und subtrahieren - längerer Terme',
+  title: 'Brüche addieren und subtrahieren - längerer Term',
   useCalculator: false,
   duration: 3,
   generator(rng) {
