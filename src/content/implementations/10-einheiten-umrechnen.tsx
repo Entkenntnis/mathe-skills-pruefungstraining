@@ -41,7 +41,7 @@ export const exercise10: Exercise<DATA> = {
           {pp(data.a)} m = <strong>{Math.round(data.a * 10)} dm</strong>
         </p>
         <p>
-          {pp(data.b)} km = <strong>{Math.round(data.b * 1000)} km</strong>
+          {pp(data.b)} km = <strong>{Math.round(data.b * 1000)} m</strong>
         </p>
         <p>
           {pp(data.c)} kg = <strong>{Math.round(data.c * 1000)} g</strong>

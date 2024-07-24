@@ -55,6 +55,9 @@ export const exercise9: Exercise<DATA> = {
             {renderCell(11)}
           </div>
         </div>
+        <p>
+          <small>Das ist ein Beispiel. Andere Lösungen sind möglich.</small>
+        </p>
       </>
     )
 

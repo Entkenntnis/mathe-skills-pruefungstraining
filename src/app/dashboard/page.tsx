@@ -45,6 +45,10 @@ export default function Page() {
     }
   })
 
+  const visibleCount = app.state.userData!.dashboard.filter(
+    ({ id, seed }) => !idSeeds.has(id.toString() + seed)
+  ).length
+
   return (
     <>
       <div>
@@ -178,7 +182,7 @@ export default function Page() {
                 ></progress>
               </div>
               <div className="mt-16 flex items-baseline justify-between">
-                <span>Jetzt üben:</span>
+                <span className="text-lg ml-6">Jetzt üben:</span>
                 <div className="">
                   <button
                     className="btn btn-sm mr-3"
@@ -190,7 +194,10 @@ export default function Page() {
                     Einstellungen
                   </button>
                   <button
-                    className="btn btn-sm"
+                    className={clsx(
+                      'btn btn-sm',
+                      visibleCount === 0 && 'btn-primary'
+                    )}
                     onClick={() => {
                       populateDashboard(app)
                       triggerUpload(app)
@@ -200,7 +207,7 @@ export default function Page() {
                   </button>
                 </div>
               </div>
-              <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-6 rounded-box">
+              <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-4 rounded-box">
                 {app.state.userData.dashboard.map((entry, i) => {
                   if (idSeeds.has(entry.id.toString() + entry.seed)) return null
                   return (
