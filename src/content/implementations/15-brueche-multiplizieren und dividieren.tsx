@@ -21,10 +21,28 @@ export const exercise15: Exercise<DATA> = {
     const fracs: DATA['fracs'] = []
 
     for (let i = 0; i < 3; i++) {
-      const z1 = rng.randomIntBetween(1, 9)
-      const n1 = rng.randomIntBetween(2, 9)
-      const z2 = rng.randomIntBetween(1, 9)
-      const n2 = rng.randomIntBetween(2, 9)
+      let z1 = rng.randomIntBetween(1, 9)
+      let n1 = rng.randomIntBetween(2, 9)
+      let z2 = rng.randomIntBetween(1, 9)
+      let n2 = rng.randomIntBetween(2, 9)
+      const f1 = getGcd(z1, n1)
+      z1 /= f1
+      n1 /= f1
+      const f2 = getGcd(z2, n2)
+      z2 /= f2
+      n2 /= f2
+      if (n1 == 1) {
+        n1++
+      }
+      if (n2 == 1) {
+        n2++
+      }
+      if (n1 == z1) {
+        n1++
+      }
+      if (n2 == z2) {
+        n2++
+      }
       fracs.push({ z1, z2, n1, n2 })
     }
 
