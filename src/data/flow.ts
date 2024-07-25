@@ -38,20 +38,23 @@ export function flow(app: App) {
       score += 150
     }
 
-    // bonus for short exercises
-    const duration = exercisesData[exercise].duration
-    if (duration <= 1) {
-      score += 30
-    } else if (duration <= 2) {
-      score += 20
-    } else if (duration <= 4) {
-      score += 10
-    }
+    if (!ids.has(exercise)) {
+      // bonus for short exercises
+      const duration = exercisesData[exercise].duration
+      if (duration <= 1) {
+        score += 30
+      } else if (duration <= 2) {
+        score += 20
+      } else if (duration <= 4) {
+        score += 10
+      }
 
-    // bonus for order
-    const position = goalData.exercises.indexOf(exercise)
-    score +=
-      15 * ((goalData.exercises.length - position) / goalData.exercises.length)
+      // bonus for order
+      const position = goalData.exercises.indexOf(exercise)
+      score +=
+        15 *
+        ((goalData.exercises.length - position) / goalData.exercises.length)
+    }
 
     result.push({ id: exercise, score })
   }

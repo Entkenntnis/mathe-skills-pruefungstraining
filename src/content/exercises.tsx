@@ -17,6 +17,7 @@ import { exercise15 } from './implementations/15-brueche-multiplizieren und divi
 import { exercise16 } from './implementations/16-brueche-multiplizieren und dividieren-negative-zahlen'
 import { exercise17 } from './implementations/17-bruchterme-punkt-vor-strich'
 import { exercise18 } from './implementations/18-sachaufgabe-mit-bruechen-fussballfans'
+import { exercise19 } from './implementations/19-dezimalzahlen-addieren-und-subtrahieren'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -37,4 +38,5 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   16: exercise16,
   17: exercise17,
   18: exercise18,
+  19: exercise19,
 }

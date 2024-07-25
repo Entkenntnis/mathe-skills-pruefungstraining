@@ -20,6 +20,16 @@ export default function Page() {
   const [step, setStep] = useState(0)
   const [startTs, setStartTs] = useState(new Date().getTime())
 
+  const [positiveFeedback] = useState(
+    new Rng(generateSeed()).randomItemFromArray([
+      'Bravo!',
+      'Super!',
+      'Nice :)',
+      'Hurra!',
+      'Gut gemacht!',
+    ])
+  )
+
   const [altSeed] = useState(() => {
     let candidate = generateSeed()
     while (app.state.showExercise && app.state.showExercise.seed == candidate) {
@@ -233,7 +243,7 @@ export default function Page() {
             )}
             {step === 4 && (
               <>
-                <strong>Bravo!</strong>
+                <strong>{positiveFeedback}</strong>
                 <div>
                   <button
                     className="btn btn-primary ml-3 mt-6 mb-3"

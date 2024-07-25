@@ -39,6 +39,8 @@ export interface GoalData {
   name: string
   description: string
   exercises: number[]
+  draft?: boolean
+  index: number
 }
 
 export interface Exercise<T = unknown> {

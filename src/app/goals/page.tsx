@@ -13,23 +13,25 @@ export default function Page() {
     return <Guard />
   }
 
+  const goals = Object.entries(goalsData)
+  goals.sort((a, b) => a[1].index - b[1].index)
+
   return (
     <div>
       <h1 className="text-center text-5xl mt-12">Lernziel auswählen</h1>
-      <div className="w-[500px] mx-auto mt-6">
+      <div className="mx-12 mt-6">
         <div className="mt-6 mb-12 text-center">
           <Link href="/dashboard">
             <button className="btn btn-sm">zurück</button>
           </Link>
         </div>
         <div>
-          <p className="mt-8">
-            Die Lernziele orientieren sich an der Realschule Bayern. Du kannst
-            dein Ziel jederzeit anpassen.
+          <p className="mt-8 text-center">
+            Du kannst dein Ziel jederzeit anpassen.
           </p>
         </div>
-        <div className="flex flex-wrap mt-8 justify-center gap-8">
-          {Object.entries(goalsData).map(([id, goal]) => {
+        <div className="flex flex-wrap mt-8 justify-center gap-12">
+          {goals.map(([id, goal]) => {
             const isSelected = parseInt(id) == app.state.userData?.goal
             return (
               <div className="indicator" key={goal.name}>
@@ -38,11 +40,11 @@ export default function Page() {
                     aktiv
                   </span>
                 )}
-                <div className="card bg-base-100 w-96 shadow-xl">
+                <div className="card bg-base-100 w-64 shadow-xl">
                   <div className="card-body">
                     <h2 className="card-title">{goal.name}</h2>
                     <p>{goal.description}</p>
-                    {!isSelected && (
+                    {!isSelected && !goal.draft && (
                       <div className="card-actions justify-end">
                         <button
                           className="btn btn-primary"
@@ -53,6 +55,11 @@ export default function Page() {
                         >
                           Auswählen
                         </button>
+                      </div>
+                    )}
+                    {goal.draft && (
+                      <div className="card-actions justify-center font-bold text-gray-500 mt-6">
+                        demnächst verfügbar
                       </div>
                     )}
                   </div>

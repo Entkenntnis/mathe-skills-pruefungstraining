@@ -46,7 +46,7 @@ export default function Page() {
             <div className="mt-2 pt-2 pb-6 prose prose-p:text-gray-900">
               {exercisesData[showExercise.id].task({
                 data: exercisesData[showExercise.id].generator(
-                  new Rng(showExercise.id + '#' + showExercise.seed)
+                  new Rng(showExercise.seed + '#' + showExercise.id.toString())
                 ),
               })}
             </div>
@@ -55,7 +55,9 @@ export default function Page() {
               <div className="border p-2 prose prose-p:text-gray-900">
                 {exercisesData[showExercise.id].solution({
                   data: exercisesData[showExercise.id].generator(
-                    new Rng(showExercise.id + '#' + showExercise.seed)
+                    new Rng(
+                      showExercise.seed + '#' + showExercise.id.toString()
+                    )
                   ),
                 })}
               </div>
