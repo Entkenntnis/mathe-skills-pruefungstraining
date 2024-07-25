@@ -21,7 +21,10 @@ export const exercise18: Exercise<DATA> = {
       [3, 4],
       [4, 5],
     ])
-    const r = rng.randomIntBetween(3, 9) * 1000
+    let r = rng.randomIntBetween(3, 9) * 1000
+    while (r * n1 * n2 > 100000) {
+      r -= 1000
+    }
     return { z1, n1, z2, n2, r }
   },
   task({ data }) {
@@ -49,7 +52,7 @@ export const exercise18: Exercise<DATA> = {
             {buildFrac(data.n1 - data.z1, data.n1)} ·{' '}
             {buildFrac(data.z2, data.n2)}
           </span>{' '}
-          der Fans verließen das Stadion 30 Miuten später.
+          der Fans verließen das Stadion 30 Minuten später.
         </p>
         <p>Berechne den Gesamtanteil der Fans, die das Stadion verließen:</p>
         <p>

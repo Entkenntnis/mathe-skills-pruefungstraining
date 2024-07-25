@@ -42,7 +42,9 @@ export const exercise13: Exercise<DATA> = {
         z1 = z2
         z2 = t
       }
-      const r = z1 * n2 + z2 * n1
+      const r = add
+        ? z1 * (n / n1) + z2 * (n / n2)
+        : z1 * (n / n1) - z2 * (n / n2)
       fracs.push({ z1, z2, n, n1, n2, add, r })
     }
 
@@ -72,6 +74,10 @@ export const exercise13: Exercise<DATA> = {
   solution({ data }) {
     return (
       <>
+        <p>
+          Erweitere die Brüche auf den gleichen Nenner. Addiere/Subtrahiere dann
+          die Zähler:
+        </p>
         {[0, 1, 2].map((id) => {
           const { r, n, z1, z2, n1, n2, add } = data.fracs[id]
           const f = Math.abs(getGcd(r, n))
@@ -84,9 +90,9 @@ export const exercise13: Exercise<DATA> = {
               )}
               {buildFrac(Math.abs(z1), n1)}{' '}
               <span className="text-xl">{add ? '+' : '−'} </span>
-              {buildFrac(z2, n2)} = {buildFrac(pp(z1 * n2), n)}{' '}
+              {buildFrac(z2, n2)} = {buildFrac(pp(z1 * (n / n1)), n)}{' '}
               <span className="text-xl">{add ? '+' : '−'} </span>
-              {buildFrac(z2 * n1, n)} ={' '}
+              {buildFrac(z2 * (n / n2), n)} ={' '}
               <span className={clsx(f == 1 && 'font-bold')}>
                 {r < 0 && (
                   <>

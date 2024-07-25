@@ -5,19 +5,57 @@ import { Guard } from '@/components/Guard'
 import { CalculatorIcon } from '@/components/icons/CalculatorIcon'
 import { NoCalculatorIcon } from '@/components/icons/NoCalculatorIcon'
 import { exercisesData } from '@/content/exercises'
-import { finishExercise, restartExercise } from '@/data/commands'
+import { finishExercise, restartExercise, showExercise } from '@/data/commands'
+import { generateSeed } from '@/data/generate-seed'
 import { Rng } from '@/helper/rng'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Page() {
   const app = useApp()
   const router = useRouter()
 
   const [step, setStep] = useState(0)
-  const [startTs] = useState(new Date().getTime())
+  const [startTs, setStartTs] = useState(new Date().getTime())
+
+  const [altSeed] = useState(() => {
+    let candidate = generateSeed()
+    while (app.state.showExercise && app.state.showExercise.seed == candidate) {
+      candidate = generateSeed()
+    }
+    return candidate
+  })
+
+  const [example, setExample] = useState<null | { id: number; seed: string }>(
+    null
+  )
+
+  const [timeGuard, setTimeGuard] = useState<null | number>(null)
+
+  const [minTimeDone, setMinTimeDone] = useState(false)
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (app.state.showExercise && timeGuard === null) {
+        const ts = new Date().getTime()
+        const duration = ts - startTs
+        if (
+          duration / 1000 >=
+          exercisesData[app.state.showExercise.id].duration * 60 * 0.2
+        ) {
+          //setMinTimeDone(true)
+        }
+      }
+    }, 1000)
+
+    // clear interval on re-render to avoid memory leaks
+    return () => clearInterval(intervalId)
+    // add timeLeft as a dependency to re-rerun the effect
+    // when we update it
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startTs])
 
   if (!app.state.userData || !app.state.token || !app.state.showExercise) {
     return <Guard />
@@ -96,12 +134,33 @@ export default function Page() {
                 auf einem Blatt Papier.
                 <div>
                   <button
-                    className="btn btn-secondary btn-outline ml-3 mt-6 mb-6"
+                    className={clsx(
+                      'btn btn-secondary ml-3 mt-6 mb-6',
+                      !minTimeDone && 'btn-outline'
+                    )}
                     onClick={() => {
-                      setStep(1)
+                      const ts = new Date().getTime()
+                      const duration = ts - startTs
+                      if (duration / 1000 < exercise.duration * 60 * 0.2) {
+                        setTimeGuard(ts)
+                      } else {
+                        setStep(1)
+                      }
                     }}
                   >
                     Ich bin fertig
+                  </button>
+                  <button
+                    className="text-left btn ml-3 btn-primary btn-outline leading-snug"
+                    onClick={() => {
+                      setExample({
+                        id: app.state.showExercise!.id,
+                        seed: altSeed,
+                      })
+                    }}
+                  >
+                    Ich weiß nicht wie das geht - <br />
+                    zeige mir ein Beispiel
                   </button>
                 </div>
               </>
@@ -248,6 +307,68 @@ export default function Page() {
               </button>
             </div>
           </div>
+        </div>
+      )}
+      {timeGuard !== null && (
+        <div className="modal modal-open" role="dialog">
+          <div className="modal-box">
+            <h3 className="text-lg font-bold">Mathematik braucht Zeit</h3>
+            <p className="py-4">
+              Nimm dir bitte noch mindestens{' '}
+              <strong>
+                {exercise.duration * 60 * 0.2 -
+                  Math.round((timeGuard - startTs) / 1000)}{' '}
+                Sekunden
+              </strong>{' '}
+              Zeit zur Bearbeitung dieser Aufgabe.
+            </p>
+            <div className="modal-action">
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  setStartTs(startTs + (new Date().getTime() - timeGuard))
+                  setTimeGuard(null)
+                }}
+              >
+                Ok
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {example && (
+        <div className="modal modal-open" role="dialog">
+          <div className="modal-box max-w-fit">
+            <h3 className="text-lg border-b border-primary">
+              <strong>Beispiel:</strong> {exercisesData[example.id].title}
+            </h3>
+            <div className="mt-2 pt-2 pb-6 prose prose-p:text-gray-900">
+              {exercisesData[example.id].task({
+                data: exercisesData[example.id].generator(
+                  new Rng(example.id + '#' + example.seed)
+                ),
+              })}
+            </div>
+            <details open>
+              <summary className="pointer-events-none">Lösung</summary>
+              <div className="border p-2 prose prose-p:text-gray-900">
+                {exercisesData[example.id].solution({
+                  data: exercisesData[example.id].generator(
+                    new Rng(example.id + '#' + example.seed)
+                  ),
+                })}
+              </div>
+            </details>
+
+            <div className="modal-action">
+              <button className="btn btn-sm" onClick={() => setExample(null)}>
+                Schließen
+              </button>
+            </div>
+          </div>
+          <label className="modal-backdrop" onClick={() => setExample(null)}>
+            Close
+          </label>
         </div>
       )}
     </>
