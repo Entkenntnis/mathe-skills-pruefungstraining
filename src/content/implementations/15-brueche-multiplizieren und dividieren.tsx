@@ -80,6 +80,7 @@ export const exercise15: Exercise<DATA> = {
             </p>
           )
         })}
+        <p>Um einen Bruch zu dividieren, multipliziere mit dem Kehrbruch.</p>
       </>
     )
   },

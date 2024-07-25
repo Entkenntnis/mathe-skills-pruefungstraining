@@ -64,8 +64,8 @@ export const exercise17: Exercise<DATA> = {
       z6--
     }
 
-    const r2 = z1 * (z2 + z3)
-    const n6 = n1 * n2
+    const r2 = z4 * (z5 + z6)
+    const n6 = n4 * n5
 
     return { z1, z2, z3, n1, n2, r1, n3, z4, z5, z6, n4, n5, n6, r2 }
   },

@@ -17,12 +17,12 @@ interface DATA {
 export const exercise14: Exercise<DATA> = {
   title: 'Brüche addieren und subtrahieren - längerer Term',
   useCalculator: false,
-  duration: 3,
+  duration: 2,
   generator(rng) {
     const [[n1, n2, n3], n] = rng.randomItemFromArray([
       [rng.shuffleArray([3, 6, 9]), 18],
       [rng.shuffleArray([3, 6, 12]), 12],
-      [rng.shuffleArray([3, 4, 5]), 60],
+      [rng.shuffleArray([3, 4, 6]), 12],
       [rng.shuffleArray([2, 4, 8]), 8],
     ])
     let z1 = rng.randomIntBetween(1, n1 - 1)
@@ -55,6 +55,10 @@ export const exercise14: Exercise<DATA> = {
     const f = getGcd(n, r)
     return (
       <>
+        <p>
+          Bestimme den Hauptnenner mit kgV({n1}, {n2}, {n3}) = {n}
+        </p>
+        <p>Erweitere auf den Hauptnenner und berechne.</p>
         <p>
           {buildFrac(z1, n1)} <span className="text-xl">+</span>{' '}
           {buildFrac(z2, n2)} <span className="text-xl">−</span>{' '}
