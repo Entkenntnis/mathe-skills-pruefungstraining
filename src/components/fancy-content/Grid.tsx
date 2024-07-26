@@ -11,17 +11,22 @@ export function Grid({ data }: GridProps) {
     </div>
   )
 
-  function renderRow(data: string[]) {
-    return <div className="flex gap-[1px]">{data.map(renderCell)}</div>
+  function renderRow(data: string[], i: number) {
+    return (
+      <div key={i} className="flex gap-[1px]">
+        {data.map(renderCell)}
+      </div>
+    )
   }
 
-  function renderCell(data: string) {
+  function renderCell(data: string, i: number) {
     return (
       <div
         className={clsx(
           'bg-white w-7 h-7 flex items-center justify-center text-xl',
           data.includes('  ') && 'border-b-primary border-b'
         )}
+        key={i}
       >
         {data.replace('  ', '')}
       </div>

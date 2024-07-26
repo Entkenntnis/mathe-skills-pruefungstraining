@@ -24,6 +24,8 @@ import { exercise21 } from './implementations/21-dezimalzahlen-multiplizieren-sc
 import { exercise22 } from './implementations/22-dezimalzahlen-dividieren-schriftlich'
 import { exercise24 } from './implementations/24-rechengesetze-vorteilhaft-addieren'
 import { exercise25 } from './implementations/25-distributivgesetz-vorteilhaft-rechnen'
+import { exercise26 } from './implementations/26-raetsel-passendes-rechenzeichen'
+import { exercise27 } from './implementations/27-rationale-zahlen-multiplizieren-geschickt-kuerzen'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -51,4 +53,6 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   23: exercise23,
   24: exercise24,
   25: exercise25,
+  26: exercise26,
+  27: exercise27,
 }
