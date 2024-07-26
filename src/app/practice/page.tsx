@@ -5,7 +5,7 @@ import { Guard } from '@/components/Guard'
 import { CalculatorIcon } from '@/components/icons/CalculatorIcon'
 import { NoCalculatorIcon } from '@/components/icons/NoCalculatorIcon'
 import { exercisesData } from '@/content/exercises'
-import { finishExercise, restartExercise, showExercise } from '@/data/commands'
+import { finishExercise, restartExercise } from '@/data/commands'
 import { generateSeed } from '@/data/generate-seed'
 import { Rng } from '@/helper/rng'
 import clsx from 'clsx'
@@ -151,7 +151,10 @@ export default function Page() {
                     onClick={() => {
                       const ts = new Date().getTime()
                       const duration = ts - startTs
-                      if (duration / 1000 < exercise.duration * 60 * 0.2) {
+                      if (
+                        duration / 1000 < exercise.duration * 60 * 0.2 &&
+                        !minTimeDone
+                      ) {
                         setTimeGuard(ts)
                       } else {
                         setStep(1)
@@ -324,15 +327,28 @@ export default function Page() {
           <div className="modal-box">
             <h3 className="text-lg font-bold">Mathematik braucht Zeit</h3>
             <p className="py-4">
-              Nimm dir bitte noch mindestens{' '}
+              Wir empfehlen dir, dich noch weitere{' '}
               <strong>
                 {exercise.duration * 60 * 0.2 -
                   Math.round((timeGuard - startTs) / 1000)}{' '}
                 Sekunden
               </strong>{' '}
-              Zeit zur Bearbeitung dieser Aufgabe.
+              Zeit zur Bearbeitung dieser Aufgabe zu nehmen.
             </p>
-            <div className="modal-action">
+            <p>
+              Du kannst dein Ergebnis Probe rechnen, den Lösungsweg schön
+              aufschreiben, nochmal die Angabe lesen ...
+            </p>
+            <div className="modal-action justify-between">
+              <button
+                className="link"
+                onClick={() => {
+                  setTimeGuard(null)
+                  setMinTimeDone(true)
+                }}
+              >
+                Timer überspringen(*)
+              </button>
               <button
                 className="btn btn-primary"
                 onClick={() => {
@@ -343,6 +359,9 @@ export default function Page() {
                 Ok
               </button>
             </div>
+            <p className="pt-4">
+              <small>(*) Ich tue das in meiner eigenen Verantwortung.</small>
+            </p>
           </div>
         </div>
       )}
