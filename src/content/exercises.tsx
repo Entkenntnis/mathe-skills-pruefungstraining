@@ -18,6 +18,10 @@ import { exercise16 } from './implementations/16-brueche-multiplizieren und divi
 import { exercise17 } from './implementations/17-bruchterme-punkt-vor-strich'
 import { exercise18 } from './implementations/18-sachaufgabe-mit-bruechen-fussballfans'
 import { exercise19 } from './implementations/19-dezimalzahlen-addieren-und-subtrahieren'
+import { exercise20 } from './implementations/20-dezimalzahlen-multiplizieren-im-kopf'
+import { exercise23 } from './implementations/23-rechnen-mit-zehnerpotenzen'
+import { exercise21 } from './implementations/21-dezimalzahlen-multiplizieren-schriftlich'
+import { exercise22 } from './implementations/22-dezimalzahlen-dividieren-schriftlich'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -39,4 +43,8 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   17: exercise17,
   18: exercise18,
   19: exercise19,
+  20: exercise20,
+  21: exercise21,
+  22: exercise22,
+  23: exercise23,
 }
