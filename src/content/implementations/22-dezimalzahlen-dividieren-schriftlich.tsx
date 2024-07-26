@@ -1,6 +1,7 @@
 import { Grid } from '@/components/fancy-content/Grid'
 import { Exercise } from '@/data/types'
 import { pp } from '@/helper/pretty-print'
+import { roundToDigits } from '@/helper/round-to-digits'
 
 interface DATA {
   a: number
@@ -58,6 +59,8 @@ export const exercise22: Exercise<DATA> = {
       digits.push(r)
       t -= r
       t *= 10
+      t = roundToDigits(t, 5)
+      if (digits.length > 10) break
     }
 
     let c = digits[0]
