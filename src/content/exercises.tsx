@@ -22,6 +22,8 @@ import { exercise20 } from './implementations/20-dezimalzahlen-multiplizieren-im
 import { exercise23 } from './implementations/23-rechnen-mit-zehnerpotenzen'
 import { exercise21 } from './implementations/21-dezimalzahlen-multiplizieren-schriftlich'
 import { exercise22 } from './implementations/22-dezimalzahlen-dividieren-schriftlich'
+import { exercise24 } from './implementations/24-rechengesetze-vorteilhaft-addieren'
+import { exercise25 } from './implementations/25-distributivgesetz-vorteilhaft-rechnen'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -47,4 +49,6 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   21: exercise21,
   22: exercise22,
   23: exercise23,
+  24: exercise24,
+  25: exercise25,
 }

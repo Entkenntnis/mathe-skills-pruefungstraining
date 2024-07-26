@@ -221,6 +221,7 @@ export default function Page() {
                     className="btn btn-success ml-2 mt-6 mb-3"
                     onClick={() => {
                       setStep(4)
+                      finish(1)
                     }}
                   >
                     Kann ich
@@ -229,6 +230,7 @@ export default function Page() {
                     className="btn btn-warning ml-5 mt-6 mb-3"
                     onClick={() => {
                       setStep(5)
+                      finish(2)
                     }}
                   >
                     Nochmal üben
@@ -251,7 +253,6 @@ export default function Page() {
                   <button
                     className="btn btn-primary ml-3 mt-6 mb-3"
                     onClick={() => {
-                      finish(1)
                       router.push('/dashboard')
                     }}
                   >
@@ -268,7 +269,6 @@ export default function Page() {
                   <button
                     className="btn btn-primary ml-3 mt-6 mb-3"
                     onClick={() => {
-                      finish(2)
                       router.push('/dashboard')
                     }}
                   >
@@ -335,19 +335,15 @@ export default function Page() {
               </strong>{' '}
               Zeit zur Bearbeitung dieser Aufgabe zu nehmen.
             </p>
-            <p>
-              Du kannst dein Ergebnis Probe rechnen, den Lösungsweg schön
-              aufschreiben, nochmal die Angabe lesen ...
-            </p>
             <div className="modal-action justify-between">
               <button
-                className="link"
+                className="hover:underline"
                 onClick={() => {
                   setTimeGuard(null)
                   setMinTimeDone(true)
                 }}
               >
-                Timer überspringen(*)
+                <small>Timer auf eigene Verantwortung überspringen</small>
               </button>
               <button
                 className="btn btn-primary"
@@ -359,9 +355,6 @@ export default function Page() {
                 Ok
               </button>
             </div>
-            <p className="pt-4">
-              <small>(*) Ich tue das in meiner eigenen Verantwortung.</small>
-            </p>
           </div>
         </div>
       )}
