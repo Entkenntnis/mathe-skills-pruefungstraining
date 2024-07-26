@@ -19,11 +19,11 @@ export function Grid({ data }: GridProps) {
     return (
       <div
         className={clsx(
-          'bg-white w-8 h-8 flex items-center justify-center text-xl',
+          'bg-white w-7 h-7 flex items-center justify-center text-xl',
           data.includes('  ') && 'border-b-primary border-b'
         )}
       >
-        {data.trim()}
+        {data.replace('  ', '')}
       </div>
     )
   }
