@@ -140,9 +140,6 @@ export default function Page() {
           )}
           {app.state.tab == 'list' && (
             <div>
-              <p className="my-5 ml-5 text-gray-600">
-                Verschaffe dir einen Überblick über alle Inhalte:
-              </p>
               <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-6 rounded-box">
                 {goalsData[goal!].exercises.map((id) => {
                   return (

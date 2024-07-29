@@ -30,13 +30,15 @@ export default function Page() {
     ])
   )
 
-  const [altSeed] = useState(() => {
+  function generateAltSeed() {
     let candidate = generateSeed()
     while (app.state.showExercise && app.state.showExercise.seed == candidate) {
       candidate = generateSeed()
     }
     return candidate
-  })
+  }
+
+  const [altSeed, setAltSeed] = useState(generateAltSeed)
 
   const [example, setExample] = useState<null | { id: number; seed: string }>(
     null
@@ -382,7 +384,20 @@ export default function Page() {
               </div>
             </details>
 
-            <div className="modal-action">
+            <div className="modal-action justify-between">
+              <button
+                className="hover:underline"
+                onClick={() => {
+                  const seed = generateAltSeed()
+                  setAltSeed(generateAltSeed())
+                  setExample({
+                    id: app.state.showExercise!.id,
+                    seed,
+                  })
+                }}
+              >
+                neues Beispiel
+              </button>
               <button className="btn btn-sm" onClick={() => setExample(null)}>
                 Schließen
               </button>

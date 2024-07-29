@@ -26,6 +26,10 @@ import { exercise24 } from './implementations/24-rechengesetze-vorteilhaft-addie
 import { exercise25 } from './implementations/25-distributivgesetz-vorteilhaft-rechnen'
 import { exercise26 } from './implementations/26-raetsel-passendes-rechenzeichen'
 import { exercise27 } from './implementations/27-rationale-zahlen-multiplizieren-geschickt-kuerzen'
+import { exercise28 } from './implementations/28-potenzwert-berechnen'
+import { exercise29 } from './implementations/29-potenzwert-berechnen-rationale-zahlen'
+import { exercise32 } from './implementations/32-als-potenz-schreiben'
+import { exercise33 } from './implementations/33-potenzwert-berechnen-term'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -55,4 +59,8 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   25: exercise25,
   26: exercise26,
   27: exercise27,
+  28: exercise28,
+  29: exercise29,
+  32: exercise32,
+  33: exercise33,
 }
