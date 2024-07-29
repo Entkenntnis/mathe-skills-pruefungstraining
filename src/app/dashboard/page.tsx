@@ -51,7 +51,9 @@ export default function Page() {
   return (
     <>
       <div>
-        <h1 className="text-center text-4xl mt-12">Meine Mathe-Skills</h1>
+        <h1 className="text-center text-4xl mt-12">
+          Mathe-Skills Intensivtraining
+        </h1>
         <div className="max-w-[700px] mx-auto mt-6">
           <div className="mt-6 mb-6 flex justify-between bg-gray-50 p-3 rounded-box">
             <p>
@@ -86,7 +88,29 @@ export default function Page() {
             </div>
           </div>
           {goal !== null && (
-            <div role="tablist" className="tabs tabs-bordered tabs-lg">
+            <div className="p-3 rounded bg-gray-50">
+              <div className="flex justify-between">
+                <p>
+                  <span>
+                    Dein Lernziel:{' '}
+                    <span className="font-bold">{goalsData[goal].name}</span>
+                  </span>
+                </p>
+                <Link href="/goals">
+                  <button className="btn btn-sm btn-accent">ändern</button>
+                </Link>
+              </div>
+              <div className="mt-2 italic">{goalsData[goal].description}.</div>
+              <div className="mt-4">Fortschritt: {progress}%</div>
+              <progress
+                className="progress w-full progress-accent"
+                value={progress}
+                max="100"
+              ></progress>
+            </div>
+          )}
+          {goal !== null && (
+            <div role="tablist" className="tabs tabs-bordered tabs-lg mt-12">
               <a
                 role="tab"
                 className={clsx(
@@ -99,7 +123,7 @@ export default function Page() {
                   })
                 }}
               >
-                Mein Lernziel
+                Jetzt üben
               </a>
               <a
                 role="tab"
@@ -110,12 +134,15 @@ export default function Page() {
                   })
                 }}
               >
-                Aufgaben-Liste
+                Alle Aufgaben
               </a>
             </div>
           )}
           {app.state.tab == 'list' && (
             <div>
+              <p className="my-5 ml-5 text-gray-600">
+                Verschaffe dir einen Überblick über alle Inhalte:
+              </p>
               <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-6 rounded-box">
                 {goalsData[goal!].exercises.map((id) => {
                   return (
@@ -161,51 +188,9 @@ export default function Page() {
           )}
           {goal && app.state.tab == 'tutor' && (
             <>
-              <div className="p-3 pt-8 rounded bg-gray-50">
-                <div className="flex justify-between">
-                  <p>
-                    <span className="font-bold">{goalsData[goal].name}</span>
-                  </p>
-                  <Link href="/goals">
-                    <button className="btn btn-sm btn-accent">ändern</button>
-                  </Link>
-                </div>
-                <div className="mt-2 italic">
-                  {goalsData[goal].description}.
-                </div>
-                <div className="mt-4">Fortschritt: {progress}%</div>
-                <progress
-                  className="progress w-full progress-accent"
-                  value={progress}
-                  max="100"
-                ></progress>
-              </div>
-              <div className="mt-16 flex items-baseline justify-between">
-                <span className="text-lg ml-6">Jetzt üben:</span>
-                <div className="">
-                  <button
-                    className="btn btn-sm mr-3"
-                    onClick={() => {
-                      // @ts-ignore
-                      document.getElementById('settings-modal')?.showModal()
-                    }}
-                  >
-                    Einstellungen
-                  </button>
-                  <button
-                    className={clsx(
-                      'btn btn-sm',
-                      visibleCount === 0 && 'btn-primary'
-                    )}
-                    onClick={() => {
-                      populateDashboard(app)
-                      triggerUpload(app)
-                    }}
-                  >
-                    Neue Auswahl
-                  </button>
-                </div>
-              </div>
+              <p className="my-5 ml-5 text-gray-600">
+                Diese Aufgaben empfehlen wir dir für heute:
+              </p>
               <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-4 rounded-box">
                 {app.state.userData.dashboard.map((entry, i) => {
                   if (idSeeds.has(entry.id.toString() + entry.seed)) return null
@@ -247,6 +232,31 @@ export default function Page() {
                     </div>
                   )
                 })}
+              </div>
+              <div className="mt-8 flex items-baseline justify-end">
+                <div className="">
+                  <button
+                    className="btn btn-sm mr-3"
+                    onClick={() => {
+                      // @ts-ignore
+                      document.getElementById('settings-modal')?.showModal()
+                    }}
+                  >
+                    Einstellungen
+                  </button>
+                  <button
+                    className={clsx(
+                      'btn btn-sm',
+                      visibleCount === 0 && 'btn-primary'
+                    )}
+                    onClick={() => {
+                      populateDashboard(app)
+                      triggerUpload(app)
+                    }}
+                  >
+                    Neue Auswahl
+                  </button>
+                </div>
               </div>
             </>
           )}

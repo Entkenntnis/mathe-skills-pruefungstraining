@@ -9,16 +9,15 @@ export default function Home() {
     <div>
       <div className="hero bg-base-200 min-h-screen">
         <div className="hero-content text-center">
-          <div className="max-w-lg">
-            <h1 className="text-5xl font-bold">Meine Mathe-Skills</h1>
-            <p className="pt-6">
-              Einfache Lernumgebung mit eingebauten Aufgaben und strukturierten
-              Lernzielen.
+          <div className="max-w-[700px] mt-12">
+            <h1 className="text-4xl sm:text-5xl font-bold">
+              Mathe-Skills Intensivtraining
+            </h1>
+            <p className="pt-8 text-2xl">
+              Einfache Lernumgebung mit Fokus auf <br />
+              Aufgaben-Rechnen und Erklärung am Beispiel
             </p>
-            <p className="pt-2 pb-6">
-              Inhalte für die Sekundarstufe 1 der Realschule Bayern im Aufbau.
-            </p>
-            <div className="flex gap-6 justify-center">
+            <div className="flex gap-6 justify-center mt-10 mb-12">
               <>
                 <Link href="/login">
                   <button className="btn btn-primary">Login</button>
@@ -28,6 +27,18 @@ export default function Home() {
                 </Link>
               </>
             </div>
+            <p className="py-3">
+              Inhalte für Realschule Bayern sind im Aufbau. Weitere Inhalte sind
+              in Planung.
+            </p>
+            <p className="py-3 text-gray-600">
+              Mit dem Rechnen von Aufgaben kannst du deine mathematischen
+              Fähigkeiten auf effektive Art verbessern. Diese Methode ist umso
+              wirksamer, je selbstständiger du bist. Dazu bietet dir die
+              Lernumgebung zu allen Aufgaben Musterlösungen, viele
+              Beispielrechnungen zur Orientierung und einen vorstrukturierten
+              Lernplan. Das sind deine Werkzeuge für ein erfolgreiches Lernen.
+            </p>
           </div>
         </div>
       </div>

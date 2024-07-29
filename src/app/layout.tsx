@@ -3,8 +3,9 @@ import './globals.css'
 import { AppWrapper } from '@/components/App'
 
 export const metadata: Metadata = {
-  title: 'Meine Mathe-Skills',
-  description: 'Übungs-Tool für Mathematik, hauptsächlich Realschule Bayern',
+  title: 'Mathe-Skills Intensivtraining',
+  description:
+    'Einfache Lernumgebung mit Fokus auf Aufgaben-Rechnen und Erklärung am Beispiel',
 }
 
 export default function RootLayout({
