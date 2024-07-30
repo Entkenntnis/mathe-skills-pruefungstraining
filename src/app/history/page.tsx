@@ -4,14 +4,18 @@ import { useApp } from '@/components/App'
 import { Guard } from '@/components/Guard'
 import { exercisesData } from '@/content/exercises'
 import { goalsData } from '@/content/goals'
+import { showExercise } from '@/data/commands'
+import { generateSeed } from '@/data/generate-seed'
 import { HistoryEntry } from '@/data/types'
 import { Rng } from '@/helper/rng'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export default function Page() {
   const app = useApp()
-  const [showExercise, setShowExercise] = useState<{
+  const router = useRouter()
+  const [showExerciseModal, setShowExercise] = useState<{
     id: number
     seed: string
   } | null>(null)
@@ -37,26 +41,32 @@ export default function Page() {
           <div>{entries.map(renderHistoryEntry)}</div>
         </div>
       </div>
-      {showExercise && (
+      {showExerciseModal && (
         <div className="modal modal-open" role="dialog">
           <div className="modal-box">
             <h3 className="text-lg font-bold">
-              {exercisesData[showExercise.id].title}
+              {exercisesData[showExerciseModal.id].title}
             </h3>
             <div className="mt-2 pt-2 pb-6 prose prose-p:text-gray-900">
-              {exercisesData[showExercise.id].task({
-                data: exercisesData[showExercise.id].generator(
-                  new Rng(showExercise.seed + '#' + showExercise.id.toString())
+              {exercisesData[showExerciseModal.id].task({
+                data: exercisesData[showExerciseModal.id].generator(
+                  new Rng(
+                    showExerciseModal.seed +
+                      '#' +
+                      showExerciseModal.id.toString()
+                  )
                 ),
               })}
             </div>
             <details>
               <summary className="cursor-pointer">Lösung</summary>
               <div className="border p-2 prose prose-p:text-gray-900">
-                {exercisesData[showExercise.id].solution({
-                  data: exercisesData[showExercise.id].generator(
+                {exercisesData[showExerciseModal.id].solution({
+                  data: exercisesData[showExerciseModal.id].generator(
                     new Rng(
-                      showExercise.seed + '#' + showExercise.id.toString()
+                      showExerciseModal.seed +
+                        '#' +
+                        showExerciseModal.id.toString()
                     )
                   ),
                 })}
@@ -105,6 +115,15 @@ export default function Page() {
             }}
           >
             [anzeigen]
+          </button>{' '}
+          <button
+            className="link"
+            onClick={() => {
+              showExercise(app, entry[1], generateSeed(), -1)
+              router.push('/practice')
+            }}
+          >
+            [nochmal üben]
           </button>
         </>
       )

@@ -3,7 +3,10 @@ export function pp(
   x: number,
   mode: 'normal' | 'embrace_neg' | 'merge_op' = 'normal'
 ): string {
-  const numStr = Math.abs(x).toLocaleString('de-De').replace(/\./g, '\xa0')
+  const numStr = Math.abs(x)
+    .toLocaleString('de-De')
+    .replace(/\./g, '\xa0')
+    .replace(' ', '')
   if (mode === 'normal') {
     return (x < 0 ? '−' : '') + numStr
   }
@@ -15,7 +18,7 @@ export function pp(
     if (x >= 0) {
       return `+ ${numStr}`
     }
-    return `- ${numStr}`
+    return `− ${numStr}`
   }
   return x.toString()
 }

@@ -63,7 +63,7 @@ export function flow(app: App) {
 
   app.mut((state) => {
     const newDashboard = []
-    for (let i = 0; i < num; i++) {
+    for (let i = 0; i < num && i < result.length; i++) {
       newDashboard.push({ id: result[i].id, seed: generateSeed() })
     }
     state.userData!.dashboard = newDashboard

@@ -30,6 +30,12 @@ import { exercise28 } from './implementations/28-potenzwert-berechnen'
 import { exercise29 } from './implementations/29-potenzwert-berechnen-rationale-zahlen'
 import { exercise32 } from './implementations/32-als-potenz-schreiben'
 import { exercise33 } from './implementations/33-potenzwert-berechnen-term'
+import { exercise51 } from './implementations/51-2023-1-a'
+import { exercise52 } from './implementations/52-2023-1-b'
+import { exercise53 } from './implementations/53-2023-1-c'
+import { exercise54 } from './implementations/54-2023-1-d'
+import { exercise55 } from './implementations/55-2023-2'
+import { exercise56 } from './implementations/56-2023-3'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -63,4 +69,11 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   29: exercise29,
   32: exercise32,
   33: exercise33,
+  // ----
+  51: exercise51,
+  52: exercise52,
+  53: exercise53,
+  54: exercise54,
+  55: exercise55,
+  56: exercise56,
 }

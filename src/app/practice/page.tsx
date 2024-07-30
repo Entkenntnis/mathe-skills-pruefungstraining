@@ -375,7 +375,7 @@ export default function Page() {
               </div>
               <details open>
                 <summary className="pointer-events-none">Lösung</summary>
-                <div className="border p-2 prose prose-p:text-gray-900">
+                <div className="border pt-5 pb-3 px-4 prose prose-p:text-gray-900">
                   {exercisesData[example.id].solution({
                     data: exercisesData[example.id].generator(
                       new Rng(example.id + '#' + example.seed)
