@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="de" className={inter.className}>
+    <html lang="de" className={inter.variable}>
       <body>
         <AppWrapper>{children}</AppWrapper>
       </body>

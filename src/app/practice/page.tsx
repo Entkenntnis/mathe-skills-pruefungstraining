@@ -139,7 +139,7 @@ export default function Page() {
           <div className="h-[400px]"></div>
         </div>
         <div className="md:flex-grow-0 md:flex-shrink-0 md:w-[280px] mx-3 md:mx-0">
-          <div className="mt-3 bg-gray-50 sticky top-4 p-3 rounded-box">
+          <div className="mt-3 bg-gray-50 md:sticky md:top-4 fixed bottom-3 left-3 right-3 p-3 rounded-box">
             {step === 0 && (
               <>
                 <strong>1. Löse die Aufgabe</strong> und notiere dein Ergebnis

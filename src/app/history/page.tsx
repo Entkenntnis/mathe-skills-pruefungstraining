@@ -83,10 +83,10 @@ export default function Page() {
     </>
   )
 
-  function renderHistoryEntry(entry: HistoryEntry) {
+  function renderHistoryEntry(entry: HistoryEntry, i: number) {
     const inner =
       entry[0] == 'G' ? (
-        <>Lernziel gewechselt auf &quot;{goalsData[entry[1]].name}&quot;</>
+        <>Lernziel gewechselt auf &quot;{goalsData[entry[1]]?.name}&quot;</>
       ) : (
         <>
           Aufgabe &quot;{exercisesData[entry[1]].title}
@@ -109,7 +109,7 @@ export default function Page() {
         </>
       )
     return (
-      <div className="bg-gray-50 px-3 py-1 my-5">
+      <div className="bg-gray-50 px-3 py-1 my-5" key={i}>
         <div>
           <small>{new Date(entry[2] * 1000).toLocaleString('de-De')}</small>
         </div>
