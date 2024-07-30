@@ -12,6 +12,7 @@
     "clsx": "^2.1.1",
     "esm-seedrandom": "^3.0.5",
     "immer": "^10.1.1",
+    "jsxgraph": "^1.9.2",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18"

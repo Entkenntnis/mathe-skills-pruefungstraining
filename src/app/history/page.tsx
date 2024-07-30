@@ -7,6 +7,7 @@ import { goalsData } from '@/content/goals'
 import { showExercise } from '@/data/commands'
 import { generateSeed } from '@/data/generate-seed'
 import { HistoryEntry } from '@/data/types'
+import { proseWrapper } from '@/helper/prose-wrapper'
 import { Rng } from '@/helper/rng'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -47,21 +48,9 @@ export default function Page() {
             <h3 className="text-lg font-bold">
               {exercisesData[showExerciseModal.id].title}
             </h3>
-            <div className="mt-2 pt-2 pb-6 prose prose-p:text-gray-900">
-              {exercisesData[showExerciseModal.id].task({
-                data: exercisesData[showExerciseModal.id].generator(
-                  new Rng(
-                    showExerciseModal.seed +
-                      '#' +
-                      showExerciseModal.id.toString()
-                  )
-                ),
-              })}
-            </div>
-            <details>
-              <summary className="cursor-pointer">Lösung</summary>
-              <div className="border p-2 prose prose-p:text-gray-900">
-                {exercisesData[showExerciseModal.id].solution({
+            <div className="mt-2 pt-2 pb-6">
+              {proseWrapper(
+                exercisesData[showExerciseModal.id].task({
                   data: exercisesData[showExerciseModal.id].generator(
                     new Rng(
                       showExerciseModal.seed +
@@ -69,7 +58,23 @@ export default function Page() {
                         showExerciseModal.id.toString()
                     )
                   ),
-                })}
+                })
+              )}
+            </div>
+            <details>
+              <summary className="cursor-pointer">Lösung</summary>
+              <div className="border p-2">
+                {proseWrapper(
+                  exercisesData[showExerciseModal.id].solution({
+                    data: exercisesData[showExerciseModal.id].generator(
+                      new Rng(
+                        showExerciseModal.seed +
+                          '#' +
+                          showExerciseModal.id.toString()
+                      )
+                    ),
+                  })
+                )}
               </div>
             </details>
 

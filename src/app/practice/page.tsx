@@ -7,6 +7,7 @@ import { NoCalculatorIcon } from '@/components/icons/NoCalculatorIcon'
 import { exercisesData } from '@/content/exercises'
 import { finishExercise, restartExercise } from '@/data/commands'
 import { generateSeed } from '@/data/generate-seed'
+import { proseWrapper } from '@/helper/prose-wrapper'
 import { Rng } from '@/helper/rng'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -113,25 +114,25 @@ export default function Page() {
           </Link>
           <div
             className={clsx(
-              'mt-2 p-3 pb-6 prose prose-p:text-gray-900',
+              'mt-2 p-3 pb-6',
               step == 1 && 'border-b-secondary border-b-2'
             )}
           >
-            {exercise.task({ data })}
+            {proseWrapper(exercise.task({ data }))}
           </div>
           {step >= 2 && (
             <>
-              <div className="indicator w-full">
-                <span className="indicator-item mr-20 badge mt-1">Lösung</span>
+              <div className="indicator w-full pr-4">
+                <span className="indicator-item mr-14 badge mt-1">Lösung</span>
                 <div
                   className={clsx(
-                    'mt-4 p-3 prose prose-p:text-gray-900 border-2 w-full',
+                    'mt-4 p-3 border-2 w-full',
                     step == 2 || step == 3
                       ? 'border-secondary'
                       : 'border-gray-300'
                   )}
                 >
-                  {exercise.solution({ data })}
+                  {proseWrapper(exercise.solution({ data }))}
                 </div>
               </div>
             </>
@@ -362,25 +363,29 @@ export default function Page() {
       {example && (
         <div className="modal modal-open" role="dialog">
           <div className="modal-box max-w-fit">
-            <div className="min-w-[600px]">
+            <div className="w-[586px]">
               <h3 className="text-lg border-b border-primary">
                 <strong>Beispiel:</strong> {exercisesData[example.id].title}
               </h3>
-              <div className="mt-2 pt-2 pb-6 prose prose-p:text-gray-900">
-                {exercisesData[example.id].task({
-                  data: exercisesData[example.id].generator(
-                    new Rng(example.id + '#' + example.seed)
-                  ),
-                })}
-              </div>
-              <details open>
-                <summary className="pointer-events-none">Lösung</summary>
-                <div className="border pt-5 pb-3 px-4 prose prose-p:text-gray-900">
-                  {exercisesData[example.id].solution({
+              <div className="mt-2 pt-2 pb-6">
+                {proseWrapper(
+                  exercisesData[example.id].task({
                     data: exercisesData[example.id].generator(
                       new Rng(example.id + '#' + example.seed)
                     ),
-                  })}
+                  })
+                )}
+              </div>
+              <details open>
+                <summary className="pointer-events-none">Lösung</summary>
+                <div className="border pt-5 pb-3 px-4">
+                  {proseWrapper(
+                    exercisesData[example.id].solution({
+                      data: exercisesData[example.id].generator(
+                        new Rng(example.id + '#' + example.seed)
+                      ),
+                    })
+                  )}
                 </div>
               </details>
 

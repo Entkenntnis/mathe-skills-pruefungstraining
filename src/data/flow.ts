@@ -1,7 +1,6 @@
 import { goalsData } from '@/content/goals'
 import { App } from './types'
 import { generateSeed } from './generate-seed'
-import { Rng } from '@/helper/rng'
 import { exercisesData } from '@/content/exercises'
 
 export function flow(app: App) {

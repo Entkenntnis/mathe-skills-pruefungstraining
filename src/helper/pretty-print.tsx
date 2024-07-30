@@ -6,7 +6,7 @@ export function pp(
   const numStr = Math.abs(x)
     .toLocaleString('de-De')
     .replace(/\./g, '\xa0')
-    .replace(' ', '')
+    .replace(/\s/g, '')
   if (mode === 'normal') {
     return (x < 0 ? '−' : '') + numStr
   }

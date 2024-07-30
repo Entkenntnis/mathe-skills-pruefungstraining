@@ -2,7 +2,7 @@
 
 import { App, AppState } from '@/data/types'
 import { Draft, produce } from 'immer'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 
 const AppContext = createContext<App | null>(null)

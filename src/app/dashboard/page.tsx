@@ -6,12 +6,11 @@ import { exercisesData } from '@/content/exercises'
 import { goalsData } from '@/content/goals'
 import {
   calculateProgress,
-  logout,
   populateDashboard,
   showExercise,
-  triggerUpload,
 } from '@/data/commands'
 import { generateSeed } from '@/data/generate-seed'
+import { logout, triggerUpload } from '@/data/user-commands'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'

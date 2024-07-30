@@ -2,8 +2,7 @@
 
 import { useApp } from '@/components/App'
 import { AlertIcon } from '@/components/icons/AlertIcon'
-import { login } from '@/data/commands'
-import { buildInitialUserData } from '@/data/user-data'
+import { login } from '@/data/user-commands'
 import { makePost } from '@/helper/make-post'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'

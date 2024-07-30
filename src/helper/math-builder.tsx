@@ -1,5 +1,6 @@
-// import { StaticMath } from '@editor/plugins/text/static-components/static-math'
 import clsx from 'clsx'
+import JXG from 'jsxgraph'
+import { useEffect, useRef, useState } from 'react'
 // import { useState, useEffect } from 'react'
 
 // import { JSXGraphWrapper } from './jsx-graph-wrapper'
@@ -152,53 +153,61 @@ const rightarrow = (
   </svg>
 )
 
-/*interface JSXOptions {
-  id?: string
+interface JSXOptions {
   width?: number
   height?: number
-}*/
+  boardOptions?: BoardOptions
+}
 
-/*export function buildJSX(f: () => Board, dep: object, opts: JSXOptions = {}) {
+type BoardOptions = Partial<JXG.BoardAttributes>
+
+export function buildJSX(f: (b: Board) => void, opts: JSXOptions = {}) {
   if (!opts.width) opts.width = 300
   if (!opts.height) opts.height = 300
-  if (!opts.id) opts.id = 'jxgbox'
-  return (
-    <JSXGraph
-      f={f}
-      id={opts.id}
-      dep={dep}
-      width={opts.width}
-      height={opts.height}
-    />
-  )
-}*/
+  if (!opts.boardOptions) opts.boardOptions = {}
+  return <JSXGraph f={f} options={opts} />
+}
 
-// type Board = ReturnType<typeof JXG.JSXGraph.initBoard>
+type Board = ReturnType<typeof JXG.JSXGraph.initBoard>
 
-/*function JSXGraph({
+function JSXGraph({
   f,
-  dep,
-  id,
-  width,
-  height,
+  options,
 }: {
-  f: () => Board
-  dep: object
-  id: string
-  width: number
-  height: number
+  f: (b: Board) => void
+  options: JSXOptions
 }) {
-  const [board, setBoard] = useState<Board | null>(null)
+  const [id] = useState(Math.random().toString())
+  const board = useRef<Board | null>(null)
 
   useEffect(() => {
-    setBoard(f())
+    const b = JXG.JSXGraph.initBoard(id, {
+      boundingBox: [-5, 5, 5, -5],
+      drag: { enabled: false },
+      pan: { enabled: false },
+      showCopyright: false,
+      showInfobox: false,
+      ...options.boardOptions,
+    })
+    f(b)
+    board.current = b
 
     return () => {
-      if (board) JXG.JSXGraph.freeBoard(board)
+      if (board.current) JXG.JSXGraph.freeBoard(board.current)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dep])
+  })
 
-  return <JSXGraphWrapper id={id} width={width} height={height} />
+  return (
+    <div
+      onClick={(e) => {
+        e.preventDefault()
+      }}
+    >
+      <div
+        id={id}
+        className="pointer-events-none my-3 rounded-2xl border border-gray-200"
+        style={{ width: options.width, height: options.height }}
+      ></div>
+    </div>
+  )
 }
-*/

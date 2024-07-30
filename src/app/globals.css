@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.JXGtext {
+  font-size: 1rem !important;
+  font-family: var(--font-inter) !important;
+}
