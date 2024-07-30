@@ -174,8 +174,7 @@ export default function Page() {
                       })
                     }}
                   >
-                    Ich weiß nicht wie das geht - <br />
-                    zeige mir ein Beispiel
+                    Zeige mir ein Beispiel
                   </button>
                 </div>
               </>
@@ -363,44 +362,46 @@ export default function Page() {
       {example && (
         <div className="modal modal-open" role="dialog">
           <div className="modal-box max-w-fit">
-            <h3 className="text-lg border-b border-primary">
-              <strong>Beispiel:</strong> {exercisesData[example.id].title}
-            </h3>
-            <div className="mt-2 pt-2 pb-6 prose prose-p:text-gray-900">
-              {exercisesData[example.id].task({
-                data: exercisesData[example.id].generator(
-                  new Rng(example.id + '#' + example.seed)
-                ),
-              })}
-            </div>
-            <details open>
-              <summary className="pointer-events-none">Lösung</summary>
-              <div className="border p-2 prose prose-p:text-gray-900">
-                {exercisesData[example.id].solution({
+            <div className="min-w-[600px]">
+              <h3 className="text-lg border-b border-primary">
+                <strong>Beispiel:</strong> {exercisesData[example.id].title}
+              </h3>
+              <div className="mt-2 pt-2 pb-6 prose prose-p:text-gray-900">
+                {exercisesData[example.id].task({
                   data: exercisesData[example.id].generator(
                     new Rng(example.id + '#' + example.seed)
                   ),
                 })}
               </div>
-            </details>
+              <details open>
+                <summary className="pointer-events-none">Lösung</summary>
+                <div className="border p-2 prose prose-p:text-gray-900">
+                  {exercisesData[example.id].solution({
+                    data: exercisesData[example.id].generator(
+                      new Rng(example.id + '#' + example.seed)
+                    ),
+                  })}
+                </div>
+              </details>
 
-            <div className="modal-action justify-between">
-              <button
-                className="hover:underline"
-                onClick={() => {
-                  const seed = generateAltSeed()
-                  setAltSeed(generateAltSeed())
-                  setExample({
-                    id: app.state.showExercise!.id,
-                    seed,
-                  })
-                }}
-              >
-                neues Beispiel
-              </button>
-              <button className="btn btn-sm" onClick={() => setExample(null)}>
-                Schließen
-              </button>
+              <div className="modal-action justify-between">
+                <button
+                  className="underline"
+                  onClick={() => {
+                    const seed = generateAltSeed()
+                    setAltSeed(generateAltSeed())
+                    setExample({
+                      id: app.state.showExercise!.id,
+                      seed,
+                    })
+                  }}
+                >
+                  neues Beispiel
+                </button>
+                <button className="btn btn-sm" onClick={() => setExample(null)}>
+                  Schließen
+                </button>
+              </div>
             </div>
           </div>
           <label className="modal-backdrop" onClick={() => setExample(null)}>

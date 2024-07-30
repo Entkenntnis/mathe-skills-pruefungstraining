@@ -15,7 +15,7 @@ export default function Page() {
   const [name, setName] = useState('')
   const [pw, setPw] = useState('')
   const [error, setError] = useState('')
-  const canLogin = name.length > 0 && pw.length > 0
+  const [pending, setPending] = useState(false)
   return (
     <div>
       <h1 className="mt-12 text-center text-5xl">Login</h1>
@@ -23,6 +23,7 @@ export default function Page() {
         <form
           onSubmit={async (e) => {
             e.preventDefault()
+            setPending(true)
             try {
               const res = await makePost('/login', { name, password: pw })
               if (res.ok) {
@@ -30,9 +31,11 @@ export default function Page() {
                 router.push('/dashboard')
               } else {
                 setError('Zugangsdaten nicht gefunden.')
+                setPending(false)
               }
             } catch (e) {
               setError('Fehler beim Login')
+              setPending(false)
             }
           }}
         >
@@ -75,6 +78,9 @@ export default function Page() {
               </button>
             </Link>
             <button className="btn btn-primary" type="submit">
+              {pending && (
+                <span className="loading loading-spinner loading-md"></span>
+              )}
               Login
             </button>
           </p>

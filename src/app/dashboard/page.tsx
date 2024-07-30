@@ -100,8 +100,10 @@ export default function Page() {
                   <button className="btn btn-sm btn-accent">ändern</button>
                 </Link>
               </div>
-              <div className="mt-2 italic">{goalsData[goal].description}.</div>
-              <div className="mt-4">Fortschritt: {progress}%</div>
+              <div className="mt-2">{goalsData[goal].description}.</div>
+              <div className="mt-4 font-semibold text-gray-500">
+                Fortschritt: {progress}%
+              </div>
               <progress
                 className="progress w-full progress-accent"
                 value={progress}
@@ -185,9 +187,32 @@ export default function Page() {
           )}
           {goal && app.state.tab == 'tutor' && (
             <>
-              <p className="my-5 ml-5 text-gray-600">
-                Diese Aufgaben empfehlen wir dir für heute:
-              </p>
+              <div className="my-5 ml-5 text-gray-600 flex justify-between mt-8">
+                <p>Diese Aufgaben empfehlen wir dir für heute:</p>
+                <div className="">
+                  <button
+                    className="btn btn-sm mr-3"
+                    onClick={() => {
+                      // @ts-ignore
+                      document.getElementById('settings-modal')?.showModal()
+                    }}
+                  >
+                    Einstellungen
+                  </button>
+                  <button
+                    className={clsx(
+                      'btn btn-sm',
+                      visibleCount === 0 && 'btn-primary'
+                    )}
+                    onClick={() => {
+                      populateDashboard(app)
+                      triggerUpload(app)
+                    }}
+                  >
+                    Neue Auswahl
+                  </button>
+                </div>
+              </div>
               <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-4 rounded-box">
                 {app.state.userData.dashboard.map((entry, i) => {
                   if (idSeeds.has(entry.id.toString() + entry.seed)) return null
@@ -229,31 +254,6 @@ export default function Page() {
                     </div>
                   )
                 })}
-              </div>
-              <div className="mt-8 flex items-baseline justify-end">
-                <div className="">
-                  <button
-                    className="btn btn-sm mr-3"
-                    onClick={() => {
-                      // @ts-ignore
-                      document.getElementById('settings-modal')?.showModal()
-                    }}
-                  >
-                    Einstellungen
-                  </button>
-                  <button
-                    className={clsx(
-                      'btn btn-sm',
-                      visibleCount === 0 && 'btn-primary'
-                    )}
-                    onClick={() => {
-                      populateDashboard(app)
-                      triggerUpload(app)
-                    }}
-                  >
-                    Neue Auswahl
-                  </button>
-                </div>
               </div>
             </>
           )}

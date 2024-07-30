@@ -1,3 +1,11 @@
+import { Inter } from 'next/font/google'
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
+
 import type { Metadata } from 'next'
 import './globals.css'
 import { AppWrapper } from '@/components/App'
@@ -14,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="de">
+    <html lang="de" className={inter.className}>
       <body>
         <AppWrapper>{children}</AppWrapper>
       </body>

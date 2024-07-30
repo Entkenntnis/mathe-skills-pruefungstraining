@@ -16,11 +16,13 @@ export default function Page() {
   const [name, setName] = useState('')
   const [pw, setPw] = useState('')
   const [error, setError] = useState('')
+  const [pending, setPending] = useState(false)
 
   const canRegister = name.length >= 3 && name.length <= 30 && pw.length >= 4
 
   async function submit() {
     if (canRegister) {
+      setPending(true)
       try {
         const result = await makePost('/register', {
           name,
@@ -35,12 +37,15 @@ export default function Page() {
           } else {
             // interner Fehler
             alert(JSON.stringify(res))
+            setPending(false)
           }
         } else {
           setError(result.reason || 'Fehler bei Registrierung.')
+          setPending(false)
         }
       } catch (e) {
         setError('Fehler bei Registrierung')
+        setPending(false)
       }
     }
   }
@@ -99,6 +104,9 @@ export default function Page() {
             type="submit"
             disabled={!canRegister}
           >
+            {pending && (
+              <span className="loading loading-spinner loading-md"></span>
+            )}{' '}
             Jetzt registrieren
           </button>
         </p>
