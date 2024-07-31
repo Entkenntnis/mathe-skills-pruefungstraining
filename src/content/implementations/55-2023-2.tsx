@@ -48,7 +48,7 @@ export const exercise55: Exercise<DATA> = {
         </p>
         <p>
           Gib in Prozent an, welcher Anteil der Figur aus farbigen Spielsteinen
-          besteht
+          besteht.
         </p>
         <Cells data={data.grid} size={20} />
       </>

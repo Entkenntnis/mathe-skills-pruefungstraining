@@ -1,7 +1,7 @@
 import React from 'react'
 
 interface HandballDiagramProps {
-  markers: { x: number; y: number; name: string }[]
+  markers: { x: number; y: number; name: string; stroke?: string }[]
 }
 
 export function HandballDiagram({ markers }: HandballDiagramProps) {
@@ -95,6 +95,7 @@ export function HandballDiagram({ markers }: HandballDiagramProps) {
         {markers.map((marker, index) => {
           const h = 270 - marker.y * 27
           const w = 50 + (marker.x / 1000) * 60
+          const stroke = marker.stroke ?? 'black'
           return (
             <g key={index} transform={`translate(${w}, ${h})`}>
               <line
@@ -102,7 +103,7 @@ export function HandballDiagram({ markers }: HandballDiagramProps) {
                 y1="-5"
                 x2="5"
                 y2="5"
-                stroke="black"
+                stroke={stroke}
                 strokeWidth={2}
               />
               <line
@@ -110,10 +111,16 @@ export function HandballDiagram({ markers }: HandballDiagramProps) {
                 y1="5"
                 x2="5"
                 y2="-5"
-                stroke="black"
+                stroke={stroke}
                 strokeWidth={2}
               />
-              <text x={6} y={-6} fontSize={18} textAnchor="left">
+              <text
+                x={6}
+                y={-6}
+                fontSize={18}
+                textAnchor="left"
+                stroke={stroke}
+              >
                 {marker.name}
               </text>
             </g>

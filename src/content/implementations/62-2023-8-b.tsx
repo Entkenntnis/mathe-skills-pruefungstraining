@@ -73,7 +73,10 @@ export const exercise62: Exercise<DATA> = {
     return (
       <>
         <HandballDiagram
-          markers={[...data.markers, { x: data.x, y: data.y, name: 'F' }]}
+          markers={[
+            ...data.markers,
+            { x: data.x, y: data.y, name: 'F', stroke: 'blue' },
+          ]}
         />
       </>
     )
