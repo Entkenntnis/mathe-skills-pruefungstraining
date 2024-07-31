@@ -42,6 +42,7 @@ import { exercise59 } from './implementations/59-2023-6'
 import { exercise60 } from './implementations/60-2023-7'
 import { exercise61 } from './implementations/61-2023-8-a'
 import { exercise62 } from './implementations/62-2023-8-b'
+import { exercise63 } from './implementations/63-2023-9'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -88,4 +89,5 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   60: exercise60,
   61: exercise61,
   62: exercise62,
+  63: exercise63,
 }
