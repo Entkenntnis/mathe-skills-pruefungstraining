@@ -72,6 +72,11 @@ export const exercise55: Exercise<DATA> = {
           Der Anteil der farbigen Spielsteine beträgt{' '}
           <strong>{data.count * 2} %</strong>.
         </p>
+        <p>
+          <small>
+            Dieser Lösungsweg dient als Beispiel, andere Wege sind möglich.
+          </small>
+        </p>
       </>
     )
   },

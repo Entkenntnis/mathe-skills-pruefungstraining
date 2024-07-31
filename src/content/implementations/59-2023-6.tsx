@@ -74,8 +74,8 @@ export const exercise59: Exercise<DATA> = {
           <small>
             Strategie: Bilde die kleinste Zahl, die mit {data.target / 1000}{' '}
             startet und die größte Zahl, die mit {data.target / 1000 - 1}{' '}
-            startet. Vergleiche, welche dieser zwei Zahl näher an {data.target}{' '}
-            liegt.
+            startet. Vergleiche, welche dieser zwei Zahlen näher an{' '}
+            {data.target} liegt.
           </small>
         </p>
       </>

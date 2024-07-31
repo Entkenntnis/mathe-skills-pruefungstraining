@@ -49,7 +49,7 @@ export default function PracticeView() {
 
   const [minTimeDone, setMinTimeDone] = useState(false)
 
-  const { id, seed, dashboardIndex } = app.state.showExercise!
+  const { id, seed } = app.state.showExercise!
 
   const exercise = exercisesData[id]
 
@@ -114,7 +114,7 @@ export default function PracticeView() {
           </Link>
           <div
             className={clsx(
-              'mt-2 p-3 pb-6',
+              'mt-2 p-3 pb-6 mr-4',
               step == 1 && 'border-b-secondary border-b-2'
             )}
           >
