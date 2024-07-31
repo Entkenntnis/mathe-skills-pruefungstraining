@@ -7,7 +7,7 @@ interface DATA {
 }
 
 export const exercise63: Exercise<DATA> = {
-  title: '2023 / 9',
+  title: '2023 / 9 (Raum und Form)',
   useCalculator: false,
   duration: 2,
   generator(rng) {
