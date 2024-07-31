@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import JXG from 'jsxgraph'
+import type JXG from 'jsxgraph'
 import { useEffect, useRef, useState } from 'react'
 // import { useState, useEffect } from 'react'
 
@@ -178,24 +178,35 @@ function JSXGraph({
   options: JSXOptions
 }) {
   const [id] = useState(Math.random().toString())
+  const [hide, setHide] = useState(true)
+
   const board = useRef<Board | null>(null)
+  const JXGref = useRef<typeof JXG | null>(null)
 
   useEffect(() => {
-    const b = JXG.JSXGraph.initBoard(id, {
-      boundingBox: [-5, 5, 5, -5],
-      drag: { enabled: false },
-      pan: { enabled: false },
-      showCopyright: false,
-      showInfobox: false,
-      ...options.boardOptions,
-    })
-    f(b)
-    board.current = b
+    setHide(true)
+    setTimeout(async () => {
+      JXGref.current = await import('jsxgraph')
+      const b = JXGref.current.JSXGraph.initBoard(id, {
+        boundingBox: [-5, 5, 5, -5],
+        drag: { enabled: false },
+        pan: { enabled: false },
+        showCopyright: false,
+        showInfobox: false,
+        ...options.boardOptions,
+      })
+      f(b)
+      board.current = b
+      setTimeout(() => {
+        setHide(false)
+      }, 0)
+    }, 0)
 
     return () => {
-      if (board.current) JXG.JSXGraph.freeBoard(board.current)
+      if (board.current && JXGref.current)
+        JXGref.current.JSXGraph.freeBoard(board.current)
     }
-  })
+  }, [f, options, id])
 
   return (
     <div
@@ -205,7 +216,10 @@ function JSXGraph({
     >
       <div
         id={id}
-        className="pointer-events-none my-3 rounded-2xl border border-gray-200"
+        className={clsx(
+          'pointer-events-none my-3 rounded-2xl border border-gray-200',
+          hide && 'invisible'
+        )}
         style={{ width: options.width, height: options.height }}
       ></div>
     </div>
