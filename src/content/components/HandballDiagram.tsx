@@ -6,7 +6,7 @@ interface HandballDiagramProps {
 
 export function HandballDiagram({ markers }: HandballDiagramProps) {
   return (
-    <svg viewBox="0 0 500 350" width={500}>
+    <svg viewBox="0 0 500 330" width={500}>
       <defs>
         <marker
           id="arrow"
@@ -113,7 +113,7 @@ export function HandballDiagram({ markers }: HandballDiagramProps) {
                 stroke="black"
                 strokeWidth={2}
               />
-              <text x={6} y={-6} fontSize={16} textAnchor="left">
+              <text x={6} y={-6} fontSize={18} textAnchor="left">
                 {marker.name}
               </text>
             </g>

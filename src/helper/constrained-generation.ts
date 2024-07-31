@@ -6,6 +6,7 @@ export function constrainedGeneration<T>(
   for (;;) {
     const data = gen()
     if (constraint(data)) {
+      // console.log('found in', 1000 - limit, 'attempts')
       return data
     }
 
