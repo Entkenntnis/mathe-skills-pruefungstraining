@@ -22,12 +22,12 @@ export const exercise63: Exercise<DATA> = {
     return (
       <>
         <p>Drei Geraden schneiden sich in einem Punkt.</p>
-        <div className="my-3 relative">
+        <div className="my-3 relative w-fit">
           <img src="/content/63.png" alt="Aufgabenstellung" />
-          <div className="absolute" style={{ left: 80, top: 11 }}>
+          <div className="absolute" style={{ left: '24%', top: '8%' }}>
             <p>{data.b}°</p>
           </div>
-          <div className="absolute" style={{ left: 140, top: 45 }}>
+          <div className="absolute" style={{ left: '41%', top: '27%' }}>
             <p>{data.a}°</p>
           </div>
         </div>

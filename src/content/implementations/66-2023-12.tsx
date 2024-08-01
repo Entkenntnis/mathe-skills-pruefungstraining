@@ -91,7 +91,7 @@ function renderSvg(data: DATA, showResult?: boolean) {
   const prx = 340 + 20 * data.l
   const pry = p3y
   return (
-    <svg width="601" height="201" viewBox="0 0 601 201">
+    <svg className="w-full" viewBox="0 0 601 201">
       <defs>
         <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
           <path

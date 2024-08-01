@@ -50,6 +50,7 @@ import { exercise67 } from './implementations/67-2023-13'
 import { exercise68 } from './implementations/68-2023-14'
 import { exercise69 } from './implementations/69-2023-15'
 import { exercise70 } from './implementations/70-2023-16'
+import { exercise71 } from './implementations/71-2023-17'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -104,6 +105,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   68: exercise68,
   69: exercise69,
   70: exercise70,
+  71: exercise71,
 }
 
 // symbols:
@@ -111,3 +113,4 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
 // ℚ
 // ·
 // −
+// ×

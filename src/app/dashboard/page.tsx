@@ -159,12 +159,12 @@ export default function Page() {
                         {exercisesData[id].duration} min
                       </span>
                       {ids.has(id) && !toPractice.has(id) && (
-                        <span className="badge bg-accent/30 border-0 font-normal ml-3">
+                        <span className="badge badge-outline border-accent text-accent-content font-normal ml-3">
                           kann ich
                         </span>
                       )}
                       {toPractice.has(id) && (
-                        <span className="badge bg-warning/30 border-0 font-normal ml-3">
+                        <span className="badge text-warning-content border-warning font-normal ml-3">
                           nochmal üben
                         </span>
                       )}
@@ -235,7 +235,12 @@ export default function Page() {
                         {exercisesData[entry.id].duration} min
                       </span>
                       {toPractice.has(entry.id) ? (
-                        <span className="badge opacity-60 badge-warning font-normal ml-3">
+                        <span
+                          className={clsx(
+                            'badge badge-warning font-normal ml-3',
+                            solved && 'opacity-70'
+                          )}
+                        >
                           {solved ? 'später nochmal üben' : 'Wiederholung'}
                         </span>
                       ) : idSeeds.has(entry.id.toString() + entry.seed) ? (
