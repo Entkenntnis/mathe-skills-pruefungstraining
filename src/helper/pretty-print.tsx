@@ -4,7 +4,7 @@ export function pp(
   mode: 'normal' | 'embrace_neg' | 'merge_op' = 'normal'
 ): string {
   const numStr = Math.abs(x)
-    .toLocaleString('de-De')
+    .toLocaleString('de-De', { maximumFractionDigits: 7 })
     .replace(/\./g, '\xa0')
     .replace(/\s/g, '')
   if (mode === 'normal') {
