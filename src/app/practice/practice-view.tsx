@@ -8,11 +8,9 @@ import { exercisesData } from '@/content/exercises'
 import { finishExercise, restartExercise } from '@/data/commands'
 import { generateData } from '@/data/generate-data'
 import { generateSeed } from '@/data/generate-seed'
-import { constrainedGeneration } from '@/helper/constrained-generation'
 import { proseWrapper } from '@/helper/prose-wrapper'
 import { Rng } from '@/helper/rng'
 import clsx from 'clsx'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
@@ -109,11 +107,12 @@ export default function PracticeView() {
               )}
             </span>
           </div>
-          <Link href="/dashboard">
-            <button className="btn btn-sm ml-3 mt-3 text-gray-600">
-              zurück
-            </button>
-          </Link>
+          <button
+            className="btn btn-sm ml-3 mt-3 text-gray-600"
+            onClick={() => router.back()}
+          >
+            zurück
+          </button>
           <div
             className={clsx(
               'mt-2 p-3 pb-6 mr-4',
@@ -224,8 +223,8 @@ export default function PracticeView() {
                   <button
                     className="btn btn-success ml-2 mt-6 mb-3"
                     onClick={() => {
-                      setStep(4)
                       finish(1)
+                      router.back()
                     }}
                   >
                     Kann ich
@@ -233,50 +232,11 @@ export default function PracticeView() {
                   <button
                     className="btn btn-warning ml-5 mt-6 mb-3"
                     onClick={() => {
-                      setStep(5)
                       finish(2)
+                      router.back()
                     }}
                   >
                     Nochmal üben
-                  </button>
-                  <button
-                    className="btn btn-sm ml-3 mt-6 mb-3"
-                    onClick={() => {
-                      setStep(1)
-                    }}
-                  >
-                    Lösung verbergen
-                  </button>
-                </div>
-              </>
-            )}
-            {step === 4 && (
-              <>
-                <strong>{positiveFeedback}</strong>
-                <div>
-                  <button
-                    className="btn btn-primary ml-3 mt-6 mb-3"
-                    onClick={() => {
-                      router.push('/dashboard')
-                    }}
-                  >
-                    Nächsten Aufgabe wählen
-                  </button>
-                </div>
-              </>
-            )}
-            {step === 5 && (
-              <>
-                <strong>Das System hat sich die Aufgabe gemerkt</strong> und
-                wird sie dir bald zur Wiederholung vorschlagen.
-                <div>
-                  <button
-                    className="btn btn-primary ml-3 mt-6 mb-3"
-                    onClick={() => {
-                      router.push('/dashboard')
-                    }}
-                  >
-                    Nächsten Aufgabe wählen
                   </button>
                   <button
                     className="btn btn-sm ml-3 mt-6 mb-3"
@@ -369,7 +329,7 @@ export default function PracticeView() {
           const data = generateData(example.id, example.seed, e)
           return (
             <div className="modal modal-open" role="dialog">
-              <div className="modal-box max-w-fit">
+              <div className="modal-box max-w-fit pb-0">
                 <div className="w-[586px]">
                   <h3 className="text-lg border-b border-primary">
                     <strong>Beispiel:</strong> {exercisesData[example.id].title}
@@ -392,7 +352,7 @@ export default function PracticeView() {
                     </div>
                   </details>
 
-                  <div className="modal-action justify-between">
+                  <div className="modal-action justify-between sticky bottom-0 bg-white pb-6 pt-3 border-t-gray-300 border-t">
                     <button
                       className="underline"
                       onClick={() => {

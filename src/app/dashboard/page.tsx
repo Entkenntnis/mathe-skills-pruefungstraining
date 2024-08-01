@@ -160,12 +160,12 @@ export default function Page() {
                       </span>
                       {ids.has(id) && !toPractice.has(id) && (
                         <span className="badge bg-accent/30 border-0 font-normal ml-3">
-                          geübt
+                          kann ich
                         </span>
                       )}
                       {toPractice.has(id) && (
                         <span className="badge bg-warning/30 border-0 font-normal ml-3">
-                          zur Wiederholung markiert
+                          nochmal üben
                         </span>
                       )}
                     </div>
@@ -214,13 +214,14 @@ export default function Page() {
               </div>
               <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-4 rounded-box">
                 {app.state.userData.dashboard.map((entry, i) => {
-                  if (idSeeds.has(entry.id.toString() + entry.seed)) return null
+                  const solved = idSeeds.has(entry.id.toString() + entry.seed)
+                  //if (idSeeds.has(entry.id.toString() + entry.seed)) return null
                   return (
                     <div
                       className={clsx(
                         'rounded mx-3 px-3 py-4 cursor-pointer w-full',
                         idSeeds.has(entry.id.toString() + entry.seed)
-                          ? 'text-gray-400 bg-accent/10'
+                          ? 'text-gray-400 bg-accent/10 pointer-events-none'
                           : 'font-bold text-gray-700 bg-white hover:bg-purple-50 hover:outline outline-primary outline-1'
                       )}
                       onClick={() => {
@@ -234,12 +235,12 @@ export default function Page() {
                         {exercisesData[entry.id].duration} min
                       </span>
                       {toPractice.has(entry.id) ? (
-                        <span className="badge badge-outline badge-warning font-normal ml-3">
-                          Wiederholung
+                        <span className="badge opacity-60 badge-warning font-normal ml-3">
+                          {solved ? 'später nochmal üben' : 'Wiederholung'}
                         </span>
                       ) : idSeeds.has(entry.id.toString() + entry.seed) ? (
                         <span className="badge bg-accent/30 border-0 font-normal ml-3">
-                          bearbeitet
+                          kann ich
                         </span>
                       ) : !ids.has(entry.id) ? (
                         <span className="badge badge-primary font-normal ml-3">
