@@ -1,9 +1,5 @@
 import { Exercise } from '@/data/types'
-import { constrainedGeneration } from '@/helper/constrained-generation'
-import { getGcd } from '@/helper/get-gcd'
-import { buildFrac } from '@/helper/math-builder'
 import { pp } from '@/helper/pretty-print'
-import { roundToDigits } from '@/helper/round-to-digits'
 
 interface DATA {
   a: number
@@ -16,17 +12,13 @@ export const exercise54: Exercise<DATA> = {
   useCalculator: false,
   duration: 1,
   generator(rng) {
-    return constrainedGeneration(
-      () => {
-        const a = rng.randomIntBetween(1, 4)
-        const b = rng.randomIntBetween(1, 4) * -1
-        const c = rng.randomIntBetween(1, 4) * rng.randomItemFromArray([1, -1])
-        return { a, b, c }
-      },
-      (data) => {
-        return data.a + data.b < 0
-      }
-    )
+    const a = rng.randomIntBetween(1, 4)
+    const b = rng.randomIntBetween(1, 4) * -1
+    const c = rng.randomIntBetween(1, 4) * rng.randomItemFromArray([1, -1])
+    return { a, b, c }
+  },
+  constraint({ data }) {
+    return data.a + data.b < 0
   },
   task({ data }) {
     return (

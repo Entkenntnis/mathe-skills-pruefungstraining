@@ -1,5 +1,4 @@
 import { Exercise } from '@/data/types'
-import { constrainedGeneration } from '@/helper/constrained-generation'
 import { pp } from '@/helper/pretty-print'
 
 interface DATA {
@@ -14,25 +13,21 @@ export const exercise65: Exercise<DATA> = {
   useCalculator: false,
   duration: 2,
   generator(rng) {
-    return constrainedGeneration(
-      () => {
-        const m = rng.randomIntBetween(2, 6)
-        const t = rng.randomIntBetween(-5, 5)
-        const f = (x: number) => m * x + t
-        const correct = [f(-1), f(0), f(2)]
-        const vars = []
-        for (let i = 0; i < 3; i++) {
-          const copy = correct.slice()
-          vars.push(copy.map((n) => n + rng.randomIntBetween(-1, 1)))
-        }
-        const tables = rng.shuffleArray([correct, ...vars])
-        return { m, t, tables, correct: tables.indexOf(correct) }
-      },
-      (data) => {
-        return (
-          data.t != 0 && new Set(data.tables.map((x) => x.join('-'))).size === 4
-        )
-      }
+    const m = rng.randomIntBetween(2, 6)
+    const t = rng.randomIntBetween(-5, 5)
+    const f = (x: number) => m * x + t
+    const correct = [f(-1), f(0), f(2)]
+    const vars = []
+    for (let i = 0; i < 3; i++) {
+      const copy = correct.slice()
+      vars.push(copy.map((n) => n + rng.randomIntBetween(-1, 1)))
+    }
+    const tables = rng.shuffleArray([correct, ...vars])
+    return { m, t, tables, correct: tables.indexOf(correct) }
+  },
+  constraint({ data }) {
+    return (
+      data.t != 0 && new Set(data.tables.map((x) => x.join('-'))).size === 4
     )
   },
   task({ data }) {

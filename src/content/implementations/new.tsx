@@ -9,6 +9,9 @@ export const exerciseXXX: Exercise<DATA> = {
   generator(rng) {
     return {}
   },
+  constraint({ data }) {
+    return true
+  },
   task({ data }) {
     return <></>
   },

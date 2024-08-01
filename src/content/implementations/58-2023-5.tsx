@@ -1,5 +1,4 @@
 import { Exercise } from '@/data/types'
-import { constrainedGeneration } from '@/helper/constrained-generation'
 import { pp } from '@/helper/pretty-print'
 
 interface DATA {
@@ -16,26 +15,22 @@ export const exercise58: Exercise<DATA> = {
   useCalculator: false,
   duration: 1,
   generator(rng) {
-    return constrainedGeneration(
-      () => {
-        const a_base = rng.randomIntBetween(1, 9) * 1000
-        const b_base = rng.randomIntBetween(1, 9) * 1000
-        const a = a_base + rng.randomIntBetween(1, 9)
-        const b = b_base + rng.randomIntBetween(1, 9)
-        const digits = rng.randomItemFromArray([2, 3, 4, 5, 6])
-        const c = (a * b) / Math.pow(10, digits)
-        const digits_a = Math.floor(digits / 2)
-        const res_a = a / Math.pow(10, digits_a)
-        const res_b = b / Math.pow(10, digits - digits_a)
-        return { a, b, c, res_a, res_b, digits }
-      },
-      (data) => {
-        return (
-          pp(data.c).length >= 9 &&
-          pp(data.res_a).length >= 5 &&
-          pp(data.res_b).length >= 5
-        )
-      }
+    const a_base = rng.randomIntBetween(1, 9) * 1000
+    const b_base = rng.randomIntBetween(1, 9) * 1000
+    const a = a_base + rng.randomIntBetween(1, 9)
+    const b = b_base + rng.randomIntBetween(1, 9)
+    const digits = rng.randomItemFromArray([2, 3, 4, 5, 6])
+    const c = (a * b) / Math.pow(10, digits)
+    const digits_a = Math.floor(digits / 2)
+    const res_a = a / Math.pow(10, digits_a)
+    const res_b = b / Math.pow(10, digits - digits_a)
+    return { a, b, c, res_a, res_b, digits }
+  },
+  constraint({ data }) {
+    return (
+      pp(data.c).length >= 9 &&
+      pp(data.res_a).length >= 5 &&
+      pp(data.res_b).length >= 5
     )
   },
   task({ data }) {

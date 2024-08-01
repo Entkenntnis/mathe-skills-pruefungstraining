@@ -1,5 +1,4 @@
 import { Exercise } from '@/data/types'
-import { constrainedGeneration } from '@/helper/constrained-generation'
 import { pp } from '@/helper/pretty-print'
 
 interface DATA {
@@ -12,19 +11,15 @@ export const exercise52: Exercise<DATA> = {
   useCalculator: false,
   duration: 1,
   generator(rng) {
-    return constrainedGeneration(
-      () => {
-        const a = rng.randomIntBetween(11, 99) / 10
-        const b = 0.1
-        if (rng.randomIntBetween(1, 2) == 1) {
-          return { a: b, b: a }
-        }
-        return { a, b }
-      },
-      (data) => {
-        return pp(data.a).length > 1 && pp(data.b).length > 1
-      }
-    )
+    const a = rng.randomIntBetween(11, 99) / 10
+    const b = 0.1
+    if (rng.randomIntBetween(1, 2) == 1) {
+      return { a: b, b: a }
+    }
+    return { a, b }
+  },
+  constraint({ data }) {
+    return pp(data.a).length > 1 && pp(data.b).length > 1
   },
   task({ data }) {
     return (

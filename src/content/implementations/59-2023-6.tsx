@@ -1,5 +1,4 @@
 import { Exercise } from '@/data/types'
-import { constrainedGeneration } from '@/helper/constrained-generation'
 
 interface DATA {
   digits: number[]
@@ -13,42 +12,38 @@ export const exercise59: Exercise<DATA> = {
   useCalculator: false,
   duration: 2,
   generator(rng) {
-    return constrainedGeneration(
-      () => {
-        const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-        const selected = rng.shuffleArray(digits).slice(0, 7)
-        selected.sort()
-        const target = rng.randomItemFromArray(digits) * 1000
-        const candidate1 = [
-          target / 1000,
-          ...selected.filter((x) => x != target).slice(0, 3),
-        ]
-        const candidate2 = [
-          target / 1000 - 1,
-          ...selected
-            .filter((x) => x != target)
-            .reverse()
-            .slice(0, 3),
-        ]
-        const diff1 = parseInt(candidate1.join('')) - target
-        const diff2 = target - parseInt(candidate2.join(''))
+    const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const selected = rng.shuffleArray(digits).slice(0, 7)
+    selected.sort()
+    const target = rng.randomItemFromArray(digits) * 1000
+    const candidate1 = [
+      target / 1000,
+      ...selected.filter((x) => x != target).slice(0, 3),
+    ]
+    const candidate2 = [
+      target / 1000 - 1,
+      ...selected
+        .filter((x) => x != target)
+        .reverse()
+        .slice(0, 3),
+    ]
+    const diff1 = parseInt(candidate1.join('')) - target
+    const diff2 = target - parseInt(candidate2.join(''))
 
-        return {
-          digits: selected,
-          target,
-          solution: diff1 < diff2 ? candidate1 : candidate2,
-          bad: diff1 == diff2,
-        }
-      },
-      (data) => {
-        const d = data.target / 1000
-        return (
-          d > 1 &&
-          data.digits.includes(d) &&
-          data.digits.includes(d - 1) &&
-          !data.bad
-        )
-      }
+    return {
+      digits: selected,
+      target,
+      solution: diff1 < diff2 ? candidate1 : candidate2,
+      bad: diff1 == diff2,
+    }
+  },
+  constraint({ data }) {
+    const d = data.target / 1000
+    return (
+      d > 1 &&
+      data.digits.includes(d) &&
+      data.digits.includes(d - 1) &&
+      !data.bad
     )
   },
   task({ data }) {

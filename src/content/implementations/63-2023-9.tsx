@@ -1,5 +1,4 @@
 import { Exercise } from '@/data/types'
-import { constrainedGeneration } from '@/helper/constrained-generation'
 
 interface DATA {
   a: number
@@ -11,15 +10,13 @@ export const exercise63: Exercise<DATA> = {
   useCalculator: false,
   duration: 2,
   generator(rng) {
-    return constrainedGeneration(
-      () => {
-        return {
-          a: rng.randomIntBetween(10, 15) * 5,
-          b: rng.randomIntBetween(20, 30) * 5,
-        }
-      },
-      (data) => data.a + data.b - 180 > 10
-    )
+    return {
+      a: rng.randomIntBetween(10, 15) * 5,
+      b: rng.randomIntBetween(20, 30) * 5,
+    }
+  },
+  constraint({ data }) {
+    return data.a + data.b - 180 > 10
   },
   task({ data }) {
     return (

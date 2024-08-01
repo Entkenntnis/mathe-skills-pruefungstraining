@@ -1,5 +1,4 @@
 import { Exercise } from '@/data/types'
-import { constrainedGeneration } from '@/helper/constrained-generation'
 import { getGcd } from '@/helper/get-gcd'
 import { buildFrac } from '@/helper/math-builder'
 import { pp } from '@/helper/pretty-print'
@@ -14,22 +13,15 @@ export const exercise64: Exercise<DATA> = {
   useCalculator: false,
   duration: 1,
   generator(rng) {
-    return constrainedGeneration(
-      () => {
-        const n = rng.randomItemFromArray([2, 4, 5])
-        let z = rng.randomIntBetween(1, n - 1)
-        while (getGcd(z, n) > 1) {
-          z--
-        }
-        const f = rng.randomItemFromArray(
-          n == 2 ? [5, 50, 100] : n == 4 ? [3, 25] : [2, 20]
-        )
-        return { z: z * f, n: n * f }
-      },
-      (data) => {
-        return true
-      }
+    const n = rng.randomItemFromArray([2, 4, 5])
+    let z = rng.randomIntBetween(1, n - 1)
+    while (getGcd(z, n) > 1) {
+      z--
+    }
+    const f = rng.randomItemFromArray(
+      n == 2 ? [5, 50, 100] : n == 4 ? [3, 25] : [2, 20]
     )
+    return { z: z * f, n: n * f }
   },
   task({ data }) {
     return (

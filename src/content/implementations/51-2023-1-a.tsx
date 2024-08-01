@@ -1,8 +1,6 @@
 import { Exercise } from '@/data/types'
-import { constrainedGeneration } from '@/helper/constrained-generation'
 import { getGcd } from '@/helper/get-gcd'
 import { buildFrac } from '@/helper/math-builder'
-import { simplifyFrac } from '@/helper/simplify-frac'
 
 interface DATA {
   a: number
@@ -16,23 +14,19 @@ export const exercise51: Exercise<DATA> = {
   useCalculator: false,
   duration: 1,
   generator(rng) {
-    return constrainedGeneration(
-      () => {
-        const b = rng.randomIntBetween(2, 8)
-        const d = b * rng.randomItemFromArray([2, 3])
-        const a = rng.randomIntBetween(1, b - 1)
-        const c = rng.randomIntBetween(1, d - 1)
-        return { a, b, c, d }
-      },
-      (data) => {
-        return (
-          getGcd(data.a, data.b) == 1 &&
-          getGcd(data.c, data.d) == 1 &&
-          data.a / data.b + data.c / data.d < 1 &&
-          getGcd((data.a * data.d) / data.b + data.c, data.d) == 1 &&
-          data.a !== data.c
-        )
-      }
+    const b = rng.randomIntBetween(2, 8)
+    const d = b * rng.randomItemFromArray([2, 3])
+    const a = rng.randomIntBetween(1, b - 1)
+    const c = rng.randomIntBetween(1, d - 1)
+    return { a, b, c, d }
+  },
+  constraint({ data }) {
+    return (
+      getGcd(data.a, data.b) == 1 &&
+      getGcd(data.c, data.d) == 1 &&
+      data.a / data.b + data.c / data.d < 1 &&
+      getGcd((data.a * data.d) / data.b + data.c, data.d) == 1 &&
+      data.a !== data.c
     )
   },
   task({ data }) {

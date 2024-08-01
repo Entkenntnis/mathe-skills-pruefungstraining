@@ -6,7 +6,9 @@ import { CalculatorIcon } from '@/components/icons/CalculatorIcon'
 import { NoCalculatorIcon } from '@/components/icons/NoCalculatorIcon'
 import { exercisesData } from '@/content/exercises'
 import { finishExercise, restartExercise } from '@/data/commands'
+import { generateData } from '@/data/generate-data'
 import { generateSeed } from '@/data/generate-seed'
+import { constrainedGeneration } from '@/helper/constrained-generation'
 import { proseWrapper } from '@/helper/prose-wrapper'
 import { Rng } from '@/helper/rng'
 import clsx from 'clsx'
@@ -54,7 +56,7 @@ export default function PracticeView() {
   const exercise = exercisesData[id]
 
   const data = useMemo(
-    () => exercise.generator(new Rng(seed + '#' + id.toString())),
+    () => generateData(id, seed, exercise),
     [exercise, id, seed]
   )
 
@@ -360,60 +362,68 @@ export default function PracticeView() {
           </div>
         </div>
       )}
-      {example && (
-        <div className="modal modal-open" role="dialog">
-          <div className="modal-box max-w-fit">
-            <div className="w-[586px]">
-              <h3 className="text-lg border-b border-primary">
-                <strong>Beispiel:</strong> {exercisesData[example.id].title}
-              </h3>
-              <div className="mt-2 pt-2 pb-6">
-                {proseWrapper(
-                  exercisesData[example.id].task({
-                    data: exercisesData[example.id].generator(
-                      new Rng(example.id + '#' + example.seed)
-                    ),
-                  })
-                )}
-              </div>
-              <details open>
-                <summary className="pointer-events-none">Lösung</summary>
-                <div className="border pt-5 pb-3 px-4">
-                  {proseWrapper(
-                    exercisesData[example.id].solution({
-                      data: exercisesData[example.id].generator(
-                        new Rng(example.id + '#' + example.seed)
-                      ),
-                    })
-                  )}
-                </div>
-              </details>
+      {example &&
+        (() => {
+          const rng = new Rng(example.id + '#' + example.seed)
+          const e = exercisesData[example.id]
+          const data = generateData(example.id, example.seed, e)
+          return (
+            <div className="modal modal-open" role="dialog">
+              <div className="modal-box max-w-fit">
+                <div className="w-[586px]">
+                  <h3 className="text-lg border-b border-primary">
+                    <strong>Beispiel:</strong> {exercisesData[example.id].title}
+                  </h3>
+                  <div className="mt-2 pt-2 pb-6">
+                    {proseWrapper(
+                      exercisesData[example.id].task({
+                        data,
+                      })
+                    )}
+                  </div>
+                  <details open>
+                    <summary className="pointer-events-none">Lösung</summary>
+                    <div className="border pt-5 pb-3 px-4">
+                      {proseWrapper(
+                        exercisesData[example.id].solution({
+                          data,
+                        })
+                      )}
+                    </div>
+                  </details>
 
-              <div className="modal-action justify-between">
-                <button
-                  className="underline"
-                  onClick={() => {
-                    const seed = generateAltSeed()
-                    setAltSeed(generateAltSeed())
-                    setExample({
-                      id: app.state.showExercise!.id,
-                      seed,
-                    })
-                  }}
-                >
-                  neues Beispiel
-                </button>
-                <button className="btn btn-sm" onClick={() => setExample(null)}>
-                  Schließen
-                </button>
+                  <div className="modal-action justify-between">
+                    <button
+                      className="underline"
+                      onClick={() => {
+                        const seed = generateAltSeed()
+                        setAltSeed(generateAltSeed())
+                        setExample({
+                          id: app.state.showExercise!.id,
+                          seed,
+                        })
+                      }}
+                    >
+                      neues Beispiel
+                    </button>
+                    <button
+                      className="btn btn-sm"
+                      onClick={() => setExample(null)}
+                    >
+                      Schließen
+                    </button>
+                  </div>
+                </div>
               </div>
+              <label
+                className="modal-backdrop"
+                onClick={() => setExample(null)}
+              >
+                Close
+              </label>
             </div>
-          </div>
-          <label className="modal-backdrop" onClick={() => setExample(null)}>
-            Close
-          </label>
-        </div>
-      )}
+          )
+        })()}
     </>
   )
 

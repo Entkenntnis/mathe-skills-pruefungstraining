@@ -1,5 +1,4 @@
 import { Exercise } from '@/data/types'
-import { constrainedGeneration } from '@/helper/constrained-generation'
 import { buildOverline } from '@/helper/math-builder'
 
 interface DATA {
@@ -15,32 +14,26 @@ export const exercise66: Exercise<DATA> = {
   useCalculator: false,
   duration: 2,
   generator(rng) {
-    return constrainedGeneration(
-      () => {
-        const letters = rng.shuffleArray([
-          'DEF',
-          'LMN',
-          'STU',
-          'PQR',
-          'GHI',
-          'ABC',
-          'XYZ',
-        ])
-        return {
-          l: rng.randomIntBetween(2, 5),
-          h: rng.randomIntBetween(3, 7),
-          offset: rng.randomIntBetween(-2, 11),
-          lettersL: letters[0].split(''),
-          lettersR: letters[1].split(''),
-        }
-      },
-      (data) => {
-        return (
-          data.offset !== data.l &&
-          data.offset !== data.l * 2 &&
-          data.offset !== 0
-        )
-      }
+    const letters = rng.shuffleArray([
+      'DEF',
+      'LMN',
+      'STU',
+      'PQR',
+      'GHI',
+      'ABC',
+      'XYZ',
+    ])
+    return {
+      l: rng.randomIntBetween(2, 5),
+      h: rng.randomIntBetween(3, 7),
+      offset: rng.randomIntBetween(-2, 11),
+      lettersL: letters[0].split(''),
+      lettersR: letters[1].split(''),
+    }
+  },
+  constraint({ data }) {
+    return (
+      data.offset !== data.l && data.offset !== data.l * 2 && data.offset !== 0
     )
   },
   task({ data }) {

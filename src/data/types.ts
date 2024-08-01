@@ -48,6 +48,7 @@ export interface Exercise<T = unknown> {
   useCalculator: boolean
   duration: number
   generator: (rng: Rng) => T
+  constraint?: (props: { data: T; rng: Rng }) => boolean
   task: (props: { data: T }) => JSX.Element
   solution: (props: { data: T }) => JSX.Element
 }

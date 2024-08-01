@@ -5,8 +5,10 @@ import { Guard } from '@/components/Guard'
 import { exercisesData } from '@/content/exercises'
 import { goalsData } from '@/content/goals'
 import { showExercise } from '@/data/commands'
+import { generateData } from '@/data/generate-data'
 import { generateSeed } from '@/data/generate-seed'
 import { HistoryEntry } from '@/data/types'
+import { constrainedGeneration } from '@/helper/constrained-generation'
 import { proseWrapper } from '@/helper/prose-wrapper'
 import { Rng } from '@/helper/rng'
 import Link from 'next/link'
@@ -42,59 +44,55 @@ export default function Page() {
           <div>{entries.map(renderHistoryEntry)}</div>
         </div>
       </div>
-      {showExerciseModal && (
-        <div className="modal modal-open" role="dialog">
-          <div className="modal-box">
-            <h3 className="text-lg font-bold">
-              {exercisesData[showExerciseModal.id].title}
-            </h3>
-            <div className="mt-2 pt-2 pb-6">
-              {proseWrapper(
-                exercisesData[showExerciseModal.id].task({
-                  data: exercisesData[showExerciseModal.id].generator(
-                    new Rng(
-                      showExerciseModal.seed +
-                        '#' +
-                        showExerciseModal.id.toString()
-                    )
-                  ),
-                })
-              )}
-            </div>
-            <details>
-              <summary className="cursor-pointer">Lösung</summary>
-              <div className="border p-2">
-                {proseWrapper(
-                  exercisesData[showExerciseModal.id].solution({
-                    data: exercisesData[showExerciseModal.id].generator(
-                      new Rng(
-                        showExerciseModal.seed +
-                          '#' +
-                          showExerciseModal.id.toString()
-                      )
-                    ),
-                  })
-                )}
-              </div>
-            </details>
+      {showExerciseModal &&
+        (() => {
+          const data = generateData(
+            showExerciseModal.id,
+            showExerciseModal.seed,
+            exercisesData[showExerciseModal.id]
+          )
+          return (
+            <div className="modal modal-open" role="dialog">
+              <div className="modal-box">
+                <h3 className="text-lg font-bold">
+                  {exercisesData[showExerciseModal.id].title}
+                </h3>
+                <div className="mt-2 pt-2 pb-6">
+                  {proseWrapper(
+                    exercisesData[showExerciseModal.id].task({
+                      data,
+                    })
+                  )}
+                </div>
+                <details>
+                  <summary className="cursor-pointer">Lösung</summary>
+                  <div className="border p-2">
+                    {proseWrapper(
+                      exercisesData[showExerciseModal.id].solution({
+                        data,
+                      })
+                    )}
+                  </div>
+                </details>
 
-            <div className="modal-action">
-              <button
-                className="btn btn-sm"
+                <div className="modal-action">
+                  <button
+                    className="btn btn-sm"
+                    onClick={() => setShowExercise(null)}
+                  >
+                    Schließen
+                  </button>
+                </div>
+              </div>
+              <label
+                className="modal-backdrop"
                 onClick={() => setShowExercise(null)}
               >
-                Schließen
-              </button>
+                Close
+              </label>
             </div>
-          </div>
-          <label
-            className="modal-backdrop"
-            onClick={() => setShowExercise(null)}
-          >
-            Close
-          </label>
-        </div>
-      )}
+          )
+        })()}
     </>
   )
 
