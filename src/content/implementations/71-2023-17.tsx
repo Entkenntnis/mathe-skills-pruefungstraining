@@ -57,27 +57,45 @@ export const exercise71: Exercise<DATA> = {
     )
   },
   solution({ data }) {
-    const upper = 84.5
-    const lower = 5
-    const top = lower + ((upper - lower) / 8) * data.result
+    const upper = 212
+    const lower = 23
+    const step = (upper - lower) / 8
+    const cy = lower + step * data.result
     return (
       <>
         <p>Das ist ein möglicher Punkt:</p>
-        <div className="relative w-fit">
-          <div
-            className="absolute text-lg text-blue-600"
-            style={{ left: '43.7%', top: `${top - 6}%` }}
-          >
-            M
-          </div>
-          <div
-            className="absolute text-lg text-blue-600"
-            style={{ left: '38.3%', top: `${top}%` }}
-          >
-            <XIcon />
-          </div>
-          <img src="/content/71.png" alt="Achse a" />
-        </div>
+        <svg viewBox="0 0 339 237" className="max-w-[339px]">
+          <image href="/content/71.png" height="237" width="339" />
+          <g transform={`translate(111, ${cy})`}>
+            <line x1="-5" y1="-5" x2="5" y2="5" stroke="blue" strokeWidth={2} />
+            <line x1="-5" y1="5" x2="5" y2="-5" stroke="blue" strokeWidth={2} />
+            <text x={6} y={-6} fontSize={18} textAnchor="left" stroke="blue">
+              M
+            </text>
+          </g>
+
+          <circle
+            stroke="lightblue"
+            strokeWidth={2}
+            cx={111}
+            cy={cy}
+            r={data.distance * step * 2}
+            fill="none"
+          />
+          {!data.text.includes('selbst') && (
+            <circle
+              stroke="lightblue"
+              strokeWidth={2}
+              cx={111}
+              cy={lower + step * (8 - data.result)}
+              r={data.distance * step * 2}
+              fill="none"
+            />
+          )}
+        </svg>
+        <p>
+          <small>Die Kreise sind zur Veranschlichung eingezeichnet.</small>
+        </p>
       </>
     )
   },
