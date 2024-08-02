@@ -2,8 +2,12 @@ import { goalsData } from '@/content/goals'
 import { App } from './types'
 import { generateSeed } from './generate-seed'
 import { exercisesData } from '@/content/exercises'
+import { buildHistoryStats } from './build-history-stats'
+import { constrainedGeneration } from '@/helper/constrained-generation'
 
 export function flow(app: App) {
+  const historyStats = buildHistoryStats(app)
+
   // calculate dashboard entries
   const { listLength } = app.state.userData!.settings
   const goal = app.state.userData!.goal!
@@ -12,32 +16,25 @@ export function flow(app: App) {
 
   const num = listLength == -1 ? goalData.exercises.length : listLength
 
-  const ids = new Set<number>()
-  const toPractice = new Set<number>()
-
-  app.state.userData!.history.forEach((entry) => {
-    if (entry[0] == 'E') {
-      if (entry[4] == 1) {
-        ids.add(entry[1])
-        toPractice.delete(entry[1])
-      } else if (entry[4] == 2) {
-        toPractice.add(entry[1])
-      }
-    }
-  })
-
   const result: { id: number; score: number }[] = []
   for (const exercise of goalData.exercises) {
+    const currentLevel = historyStats[exercise]
+      ? historyStats[exercise].solvedCount
+      : 0
+
+    const targetLevel = app.state.userData!.level
+
     let score = Math.random() * 20 // jitter
 
     // status value
-    if (!ids.has(exercise)) {
-      score += 100
-    } else if (toPractice.has(exercise)) {
+    if (historyStats[exercise]?.practice) {
       score += 150
     }
 
-    if (!ids.has(exercise)) {
+    const diff = targetLevel - currentLevel
+    score += diff * 80
+
+    if (currentLevel < targetLevel) {
       // bonus for short exercises
       const duration = exercisesData[exercise].duration
       if (duration <= 1) {
@@ -63,7 +60,14 @@ export function flow(app: App) {
   app.mut((state) => {
     const newDashboard = []
     for (let i = 0; i < num && i < result.length; i++) {
-      newDashboard.push({ id: result[i].id, seed: generateSeed() })
+      const id = result[i].id
+      newDashboard.push({
+        id,
+        seed: constrainedGeneration<string>(
+          () => generateSeed(),
+          (seed) => !historyStats[id] || !historyStats[id].seeds.includes(seed)
+        ),
+      })
     }
     state.userData!.dashboard = newDashboard
   })

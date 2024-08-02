@@ -63,6 +63,12 @@ export function finishExercise(app: App, status: number, duration: number) {
   })
 }
 
+export function unlockNextLevel(app: App) {
+  app.mut((state) => {
+    state.userData!.level++
+  })
+}
+
 export function calculateProgress(app: App) {
   const goalExercises = goalsData[app.state.userData?.goal!].exercises
   const solved = new Set<number>()

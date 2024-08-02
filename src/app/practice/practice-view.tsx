@@ -8,6 +8,7 @@ import { exercisesData } from '@/content/exercises'
 import { finishExercise, restartExercise } from '@/data/commands'
 import { generateData } from '@/data/generate-data'
 import { generateSeed } from '@/data/generate-seed'
+import { triggerUpload } from '@/data/user-commands'
 import { proseWrapper } from '@/helper/prose-wrapper'
 import { Rng } from '@/helper/rng'
 import clsx from 'clsx'
@@ -393,6 +394,7 @@ export default function PracticeView() {
   function finish(status: number) {
     const duration = new Date().getTime() - startTs
     finishExercise(app, status, duration)
+    triggerUpload(app)
   }
 }
 

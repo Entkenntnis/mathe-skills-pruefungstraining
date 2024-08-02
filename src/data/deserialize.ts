@@ -6,5 +6,8 @@ export function deserialize(raw: string): UserData | null {
   if (!obj.settings) {
     obj.settings = { listLength: 4 }
   }
+  if (!obj.level) {
+    obj.level = 1
+  }
   return obj
 }

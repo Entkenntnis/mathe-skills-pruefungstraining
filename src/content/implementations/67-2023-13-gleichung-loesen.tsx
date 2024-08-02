@@ -13,7 +13,7 @@ export const exercise67: Exercise<DATA> = {
   duration: 2,
   generator(rng) {
     return {
-      a: -rng.randomIntBetween(1, 5),
+      a: -rng.randomIntBetween(2, 5),
       b: rng.randomIntBetween(-15, -2),
       c: rng.randomIntBetween(-10, -1),
     }

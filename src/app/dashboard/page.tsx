@@ -4,11 +4,14 @@ import { useApp } from '@/components/App'
 import { Guard } from '@/components/Guard'
 import { exercisesData } from '@/content/exercises'
 import { goalsData } from '@/content/goals'
+import { buildHistoryStats } from '@/data/build-history-stats'
 import {
   calculateProgress,
   populateDashboard,
   showExercise,
+  unlockNextLevel,
 } from '@/data/commands'
+import { dashboardProgress } from '@/data/dashboard-progress'
 import { generateSeed } from '@/data/generate-seed'
 import { logout, triggerUpload } from '@/data/user-commands'
 import clsx from 'clsx'
@@ -24,28 +27,6 @@ export default function Page() {
   }
 
   const goal = app.state.userData.goal
-
-  const progress = goal !== null ? Math.round(calculateProgress(app) * 100) : 0
-
-  const idSeeds = new Set<string>()
-  const ids = new Set<number>()
-  const toPractice = new Set<number>()
-
-  app.state.userData!.history.forEach((entry) => {
-    if (entry[0] == 'E') {
-      idSeeds.add(entry[1].toString() + entry[3])
-      if (entry[4] == 1) {
-        ids.add(entry[1])
-        toPractice.delete(entry[1])
-      } else if (entry[4] == 2) {
-        toPractice.add(entry[1])
-      }
-    }
-  })
-
-  const visibleCount = app.state.userData!.dashboard.filter(
-    ({ id, seed }) => !idSeeds.has(id.toString() + seed)
-  ).length
 
   return (
     <>
@@ -86,30 +67,74 @@ export default function Page() {
               </button>
             </div>
           </div>
-          {goal !== null && (
-            <div className="p-3 rounded bg-gray-50">
-              <div className="flex justify-between">
-                <p>
-                  <span>
-                    Dein Lernziel:{' '}
-                    <span className="font-bold">{goalsData[goal].name}</span>
-                  </span>
-                </p>
-                <Link href="/goals">
-                  <button className="btn btn-sm btn-accent">ändern</button>
-                </Link>
-              </div>
-              <div className="mt-2">{goalsData[goal].description}.</div>
-              <div className="mt-4 font-semibold text-gray-500">
-                Fortschritt: {progress}%
-              </div>
-              <progress
-                className="progress w-full progress-accent"
-                value={progress}
-                max="100"
-              ></progress>
-            </div>
-          )}
+          {goal !== null &&
+            (() => {
+              const progressData = dashboardProgress(app)
+              const n = goalsData[goal].exercises.length
+              const showUnlock =
+                progressData.practice == 0 &&
+                n - progressData.levels[progressData.levels.length - 1].n < 4
+              return (
+                <div className="p-3 rounded bg-gray-50">
+                  <div className="flex justify-between">
+                    <p>
+                      <span>
+                        Dein Lernziel:{' '}
+                        <span className="font-bold">
+                          {goalsData[goal].name}
+                        </span>
+                      </span>
+                    </p>
+                    <Link href="/goals">
+                      <button className="btn btn-sm btn-accent">ändern</button>
+                    </Link>
+                  </div>
+                  <div className="mt-2">{goalsData[goal].description}.</div>
+                  <div className="mt-4 font-semibold text-gray-500 flex justify-between">
+                    <span>Fortschritt: {progressData.p}%</span>
+                    <span>Level {app.state.userData.level}</span>
+                  </div>
+                  <progress
+                    className="progress w-full progress-accent"
+                    value={progressData.p}
+                    max="100"
+                  ></progress>
+                  {(() => {
+                    const values = []
+                    if (progressData.new > 0) {
+                      values.push(`Neu: ${progressData.new}`)
+                    }
+                    if (progressData.practice > 0) {
+                      values.push(`Nochmal üben: ${progressData.practice}`)
+                    }
+                    progressData.levels.forEach((l) => {
+                      if (
+                        (l.n > 0 && l.n < n) ||
+                        l.level == app.state.userData!.level
+                      ) {
+                        values.push(`Level ${l.level}: ${l.n}/${n}`)
+                      }
+                    })
+                    return (
+                      <div className="text-sm mt-1">{values.join(', ')}</div>
+                    )
+                  })()}
+                  {showUnlock && (
+                    <div className="text-center">
+                      <button
+                        className="btn btn-sm btn-accent"
+                        onClick={() => {
+                          unlockNextLevel(app)
+                          triggerUpload(app)
+                        }}
+                      >
+                        Level {app.state.userData.level + 1} starten
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )
+            })()}
           {goal !== null && (
             <div role="tablist" className="tabs tabs-bordered tabs-lg mt-12">
               <a
@@ -139,41 +164,50 @@ export default function Page() {
               </a>
             </div>
           )}
-          {app.state.tab == 'list' && (
-            <div>
-              <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-6 rounded-box">
-                {goalsData[goal!].exercises.map((id) => {
-                  return (
-                    <div
-                      className={clsx(
-                        'rounded mx-3 px-3 py-4 cursor-pointer w-full bg-white hover:bg-gray-50'
-                      )}
-                      key={id}
-                      onClick={() => {
-                        showExercise(app, id, generateSeed(), -1)
-                        router.push('/practice')
-                      }}
-                    >
-                      {exercisesData[id].title}
-                      <span className="badge badge-outline font-normal ml-3">
-                        {exercisesData[id].duration} min
-                      </span>
-                      {ids.has(id) && !toPractice.has(id) && (
-                        <span className="badge badge-outline border-accent text-accent-content font-normal ml-3">
-                          kann ich
-                        </span>
-                      )}
-                      {toPractice.has(id) && (
-                        <span className="badge text-warning-content border-warning font-normal ml-3">
-                          nochmal üben
-                        </span>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          )}
+          {app.state.tab == 'list' &&
+            (() => {
+              const historyStats = buildHistoryStats(app)
+              return (
+                <div>
+                  <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-6 rounded-box">
+                    {goalsData[goal!].exercises.map((id) => {
+                      return (
+                        <div
+                          className={clsx(
+                            'rounded mx-3 px-3 py-4 cursor-pointer w-full bg-white hover:bg-gray-50'
+                          )}
+                          key={id}
+                          onClick={() => {
+                            showExercise(app, id, generateSeed(), -1)
+                            router.push('/practice')
+                          }}
+                        >
+                          {exercisesData[id].title}
+                          <span className="badge badge-outline font-normal ml-3">
+                            {exercisesData[id].duration} min
+                          </span>
+                          {!historyStats[id]?.practice &&
+                            historyStats[id]?.solvedCount > 0 && (
+                              <span className="badge badge-outline border-accent text-accent-content font-normal ml-3">
+                                kann ich - lvl{' '}
+                                {Math.min(
+                                  historyStats[id].solvedCount,
+                                  app.state.userData!.level
+                                )}
+                              </span>
+                            )}
+                          {historyStats[id]?.practice && (
+                            <span className="badge text-warning-content border-warning font-normal ml-3">
+                              nochmal üben
+                            </span>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )
+            })()}
           {goal === null && (
             <div>
               <p className="mt-8 font-bold">Der erste Schritt:</p>
@@ -184,84 +218,133 @@ export default function Page() {
               </p>
             </div>
           )}
-          {goal && app.state.tab == 'tutor' && (
-            <>
-              <div className="my-5 ml-5 text-gray-600 flex justify-between mt-8">
-                <p>Diese Aufgaben empfehlen wir dir für heute:</p>
-                <div className="">
-                  <button
-                    className="btn btn-sm mr-3"
-                    onClick={() => {
-                      // @ts-ignore
-                      document.getElementById('settings-modal')?.showModal()
-                    }}
-                  >
-                    Einstellungen
-                  </button>
-                  <button
-                    className={clsx(
-                      'btn btn-sm',
-                      visibleCount === 0 && 'btn-primary'
-                    )}
-                    onClick={() => {
-                      populateDashboard(app)
-                      triggerUpload(app)
-                    }}
-                  >
-                    Neue Auswahl
-                  </button>
-                </div>
-              </div>
-              <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-4 rounded-box">
-                {app.state.userData.dashboard.map((entry, i) => {
-                  const solved = idSeeds.has(entry.id.toString() + entry.seed)
-                  //if (idSeeds.has(entry.id.toString() + entry.seed)) return null
-                  return (
-                    <div
-                      className={clsx(
-                        'rounded mx-3 px-3 py-4 cursor-pointer w-full',
-                        idSeeds.has(entry.id.toString() + entry.seed)
-                          ? 'text-gray-400 bg-accent/10 pointer-events-none'
-                          : 'font-bold text-gray-700 bg-white hover:bg-purple-50 hover:outline outline-primary outline-1'
-                      )}
-                      onClick={() => {
-                        showExercise(app, entry.id, entry.seed, i)
-                        router.push('/practice')
-                      }}
-                      key={entry.id + entry.seed}
-                    >
-                      {exercisesData[entry.id].title}
-                      <span className="badge badge-outline font-normal ml-3">
-                        {exercisesData[entry.id].duration} min
-                      </span>
-                      {toPractice.has(entry.id) ? (
-                        <span
-                          className={clsx(
-                            'badge badge-warning font-normal ml-3',
-                            solved && 'opacity-70'
-                          )}
-                        >
-                          {solved ? 'später nochmal üben' : 'Wiederholung'}
-                        </span>
-                      ) : idSeeds.has(entry.id.toString() + entry.seed) ? (
-                        <span className="badge bg-accent/30 border-0 font-normal ml-3">
-                          kann ich
-                        </span>
-                      ) : !ids.has(entry.id) ? (
-                        <span className="badge badge-primary font-normal ml-3">
-                          neu
-                        </span>
-                      ) : ids.has(entry.id) ? (
-                        <span className="badge badge-outline font-normal ml-3 hidden">
-                          Vertiefung
-                        </span>
-                      ) : null}
-                    </div>
+          {goal &&
+            app.state.tab == 'tutor' &&
+            (() => {
+              const historyStats = buildHistoryStats(app)
+              const visibleCount = app.state.userData.dashboard.filter(
+                (d) =>
+                  !(
+                    historyStats[d.id] &&
+                    historyStats[d.id].seeds.includes(d.seed)
                   )
-                })}
-              </div>
-            </>
-          )}
+              ).length
+              return (
+                <>
+                  <div className="my-5 ml-5 text-gray-600 flex justify-between mt-8">
+                    <p>Diese Aufgaben empfehlen wir dir für heute:</p>
+                    <div className="">
+                      <button
+                        className="btn btn-sm mr-3"
+                        onClick={() => {
+                          // @ts-ignore
+                          document.getElementById('settings-modal')?.showModal()
+                        }}
+                      >
+                        Einstellungen
+                      </button>
+                      <button
+                        className={clsx(
+                          'btn btn-sm',
+                          visibleCount === 0 && 'btn-primary'
+                        )}
+                        onClick={() => {
+                          populateDashboard(app)
+                          triggerUpload(app)
+                        }}
+                      >
+                        Neue Auswahl
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap justify-center gap-8 py-5 bg-gray-100 mt-4 rounded-box">
+                    {app.state.userData.dashboard.map((entry, i) => {
+                      const solved =
+                        historyStats[entry.id] &&
+                        historyStats[entry.id].seeds.includes(entry.seed)
+                      return (
+                        <div
+                          className={clsx(
+                            'rounded mx-3 px-3 py-4 cursor-pointer w-full',
+                            solved
+                              ? 'text-gray-400 bg-accent/10 pointer-events-none'
+                              : 'font-bold text-gray-700 bg-white hover:bg-purple-50 hover:outline outline-primary outline-1'
+                          )}
+                          onClick={() => {
+                            showExercise(app, entry.id, entry.seed, i)
+                            router.push('/practice')
+                          }}
+                          key={entry.id + entry.seed}
+                        >
+                          {exercisesData[entry.id].title}
+                          <span className="badge badge-outline font-normal ml-3">
+                            {exercisesData[entry.id].duration} min
+                          </span>
+                          {historyStats[entry.id] ? (
+                            historyStats[entry.id].practice ? (
+                              <span
+                                className={clsx(
+                                  'badge badge-warning font-normal ml-3',
+                                  solved && 'opacity-70'
+                                )}
+                              >
+                                {solved
+                                  ? 'später nochmal üben'
+                                  : 'Wiederholung'}
+                              </span>
+                            ) : solved ? (
+                              <span className="badge bg-accent/30 border-0 font-normal ml-3">
+                                kann ich
+                              </span>
+                            ) : historyStats[entry.id].solvedCount == 0 ? (
+                              <span className="badge badge-primary font-normal ml-3">
+                                neu
+                              </span>
+                            ) : historyStats[entry.id].solvedCount ==
+                              app.state.userData!.level - 1 ? (
+                              <span className="badge badge-primary badge-outline font-normal ml-3">
+                                Level {historyStats[entry.id].solvedCount}
+                              </span>
+                            ) : historyStats[entry.id].solvedCount <
+                              app.state.userData!.level ? (
+                              <span className="badge badge-primary font-normal ml-3">
+                                Level {historyStats[entry.id].solvedCount}
+                              </span>
+                            ) : null
+                          ) : (
+                            <span className="badge badge-primary font-normal ml-3">
+                              neu
+                            </span>
+                          )}
+                          {/*toPractice.has(entry.id) ? (
+                            <span
+                              className={clsx(
+                                'badge badge-warning font-normal ml-3',
+                                solved && 'opacity-70'
+                              )}
+                            >
+                              {solved ? 'später nochmal üben' : 'Wiederholung'}
+                            </span>
+                          ) : idSeeds.has(entry.id.toString() + entry.seed) ? (
+                            <span className="badge bg-accent/30 border-0 font-normal ml-3">
+                              kann ich
+                            </span>
+                          ) : !ids.has(entry.id) ? (
+                            <span className="badge badge-primary font-normal ml-3">
+                              neu
+                            </span>
+                          ) : ids.has(entry.id) ? (
+                            <span className="badge badge-outline font-normal ml-3 hidden">
+                              Vertiefung
+                            </span>
+                          ) : null*/}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </>
+              )
+            })()}
           <div className="h-[400px]"></div>
         </div>
       </div>

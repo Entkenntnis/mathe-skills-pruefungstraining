@@ -33,6 +33,7 @@ export interface UserData {
   history: HistoryEntry[]
   dashboard: { id: number; seed: string }[]
   settings: { listLength: number }
+  level: number
 }
 
 export interface GoalData {
@@ -51,4 +52,14 @@ export interface Exercise<T = unknown> {
   constraint?: (props: { data: T; rng: Rng }) => boolean
   task: (props: { data: T }) => JSX.Element
   solution: (props: { data: T }) => JSX.Element
+}
+
+export interface ProgressData {
+  p: number
+  new: number
+  practice: number
+  levels: {
+    level: number
+    n: number
+  }[]
 }
