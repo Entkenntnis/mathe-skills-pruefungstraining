@@ -7,5 +7,6 @@ export function buildInitialUserData(name: string): UserData {
     history: [],
     dashboard: [],
     settings: { listLength: 4 },
+    level: 1,
   }
 }
