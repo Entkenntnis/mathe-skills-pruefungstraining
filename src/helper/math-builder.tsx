@@ -17,6 +17,18 @@ export function buildFrac(
   )
 }
 
+export function buildInlineFrac(
+  x: JSX.Element | string | number,
+  y: JSX.Element | string | number
+) {
+  return (
+    <span className="relative mx-0.5 inline-block text-center align-middle text-sm">
+      <span className="block p-0.5">{x}</span>
+      <span className="block border-t border-black p-0.5">{y}</span>
+    </span>
+  )
+}
+
 export function buildOverline(x: JSX.Element | number | string) {
   return <span className="overline">{x}</span>
 }

@@ -51,6 +51,8 @@ import { exercise68 } from './implementations/68-2023-14-zahlen-runden'
 import { exercise69 } from './implementations/69-2023-15-volumen-eines-quaders'
 import { exercise70 } from './implementations/70-2023-16-schaetzen'
 import { exercise71 } from './implementations/71-2023-17-achsenspiegelung'
+import { exercise72 } from './implementations/72-2023-18-mias-freigehege'
+import { exercise73 } from './implementations/73-2023-19'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -106,6 +108,8 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   69: exercise69,
   70: exercise70,
   71: exercise71,
+  72: exercise72,
+  73: exercise73,
 }
 
 // symbols:

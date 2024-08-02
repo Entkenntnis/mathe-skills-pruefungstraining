@@ -5,7 +5,9 @@ export const goalsData: { [key: number]: GoalData } = {
   1: {
     name: 'Test: Fit für die 7. Klasse Realschule Bayern',
     description: 'Testlauf zum Setup der Lernumgebung',
-    exercises: Object.keys(exercisesData).map((x) => parseInt(x)), // temporary
+    exercises: Object.keys(exercisesData)
+      .map((x) => parseInt(x))
+      .filter((x) => x < 50), // temporary
     index: 2,
   },
   2: {

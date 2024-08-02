@@ -108,7 +108,10 @@ export default function PracticeView() {
             </span>
           </div>
           <button
-            className="btn btn-sm ml-3 mt-3 text-gray-600"
+            className={clsx(
+              'btn btn-sm ml-3 mt-3 text-gray-600',
+              step == 3 && 'opacity-20 pointer-events-none'
+            )}
             onClick={() => router.back()}
           >
             zurück
