@@ -10,7 +10,7 @@ interface DATA {
 }
 
 export const exercise51: Exercise<DATA> = {
-  title: '2023 / 1a (Zahl)',
+  title: '2023 / 1a) Brüche addieren',
   useCalculator: false,
   duration: 1,
   generator(rng) {

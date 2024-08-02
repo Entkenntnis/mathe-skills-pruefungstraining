@@ -8,7 +8,7 @@ interface DATA {
 }
 
 export const exercise67: Exercise<DATA> = {
-  title: '2023 / 13 (Funktionaler Zusammenhang)',
+  title: '2023 / 13) Gleichung lösen',
   useCalculator: false,
   duration: 2,
   generator(rng) {

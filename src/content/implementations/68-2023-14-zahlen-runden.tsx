@@ -9,7 +9,7 @@ interface DATA {
 }
 
 export const exercise68: Exercise<DATA> = {
-  title: '2023 / 14 (Zahl)',
+  title: '2023 / 14) Zahlen runden',
   useCalculator: false,
   duration: 2,
   generator(rng) {

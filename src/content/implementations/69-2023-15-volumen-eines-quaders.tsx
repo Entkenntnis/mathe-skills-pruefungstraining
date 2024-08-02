@@ -11,7 +11,7 @@ interface DATA {
 const l = <span className="font-mono">l</span>
 
 export const exercise69: Exercise<DATA> = {
-  title: '2023 / 15 (Messen)',
+  title: '2023 / 15) Volumen eines Quaders',
   useCalculator: false,
   duration: 2,
   generator(rng) {

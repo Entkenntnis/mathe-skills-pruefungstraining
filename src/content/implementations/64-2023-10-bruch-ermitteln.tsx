@@ -9,7 +9,7 @@ interface DATA {
 }
 
 export const exercise64: Exercise<DATA> = {
-  title: '2023 / 10 (Zahl)',
+  title: '2023 / 10) Bruch ermitteln',
   useCalculator: false,
   duration: 1,
   generator(rng) {

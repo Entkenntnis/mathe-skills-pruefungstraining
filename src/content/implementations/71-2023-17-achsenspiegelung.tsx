@@ -9,7 +9,7 @@ interface DATA {
 }
 
 export const exercise71: Exercise<DATA> = {
-  title: '2023 / 17 (Raum und Form)',
+  title: '2023 / 17) Achsenspiegelung',
   useCalculator: false,
   duration: 1,
   generator(rng) {
@@ -63,7 +63,7 @@ export const exercise71: Exercise<DATA> = {
     const cy = lower + step * data.result
     return (
       <>
-        <p>Das ist ein möglicher Punkt:</p>
+        <p>Das ist ein möglicher Punkt M:</p>
         <svg viewBox="0 0 339 237" className="max-w-[339px]">
           <image href="/content/71.png" height="237" width="339" />
           <g transform={`translate(111, ${cy})`}>

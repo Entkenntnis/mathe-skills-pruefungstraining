@@ -11,7 +11,7 @@ interface DATA {
 }
 
 export const exercise58: Exercise<DATA> = {
-  title: '2023 / 5 (Zahl)',
+  title: '2023 / 5) Dezimalzahlen als Faktoren',
   useCalculator: false,
   duration: 1,
   generator(rng) {

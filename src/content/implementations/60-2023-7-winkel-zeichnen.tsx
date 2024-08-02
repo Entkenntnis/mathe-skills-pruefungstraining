@@ -8,7 +8,7 @@ interface DATA {
 }
 
 export const exercise60: Exercise<DATA> = {
-  title: '2023 / 7 (Raum und Form)',
+  title: '2023 / 7) Winkel zeichnen',
   useCalculator: false,
   duration: 2,
   generator(rng) {

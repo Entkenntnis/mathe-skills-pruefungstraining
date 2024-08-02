@@ -9,7 +9,7 @@ interface DATA {
 }
 
 export const exercise65: Exercise<DATA> = {
-  title: '2023 / 11 (Zahl)',
+  title: '2023 / 11) Wertetabelle finden',
   useCalculator: false,
   duration: 2,
   generator(rng) {

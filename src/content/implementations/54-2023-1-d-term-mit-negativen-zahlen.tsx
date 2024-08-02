@@ -8,7 +8,7 @@ interface DATA {
 }
 
 export const exercise54: Exercise<DATA> = {
-  title: '2023 / 1d (Zahl)',
+  title: '2023 / 1d) Term mit negativen Zahlen',
   useCalculator: false,
   duration: 1,
   generator(rng) {

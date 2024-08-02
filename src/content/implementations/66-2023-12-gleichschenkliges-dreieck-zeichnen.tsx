@@ -10,7 +10,7 @@ interface DATA {
 }
 
 export const exercise66: Exercise<DATA> = {
-  title: '2023 / 12 (Raum und Form)',
+  title: '2023 / 12) Gleichschenkliges Dreieck zeichnen',
   useCalculator: false,
   duration: 2,
   generator(rng) {

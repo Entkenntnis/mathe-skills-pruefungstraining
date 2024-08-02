@@ -7,7 +7,7 @@ interface DATA {
 }
 
 export const exercise57: Exercise<DATA> = {
-  title: '2023 / 4 (Messen)',
+  title: '2023 / 4) Rechnen mit Längeneinheiten',
   useCalculator: false,
   duration: 1,
   generator(rng) {

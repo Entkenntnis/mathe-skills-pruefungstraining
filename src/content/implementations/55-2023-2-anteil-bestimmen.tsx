@@ -8,7 +8,7 @@ interface DATA {
 }
 
 export const exercise55: Exercise<DATA> = {
-  title: '2023 / 2 (Zahl)',
+  title: '2023 / 2) Anteil bestimmen',
   useCalculator: false,
   duration: 1,
   generator(rng) {

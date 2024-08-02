@@ -8,7 +8,7 @@ interface DATA {
 }
 
 export const exercise53: Exercise<DATA> = {
-  title: '2023 / 1c (Zahl)',
+  title: '2023 / 1c) Term mit Dezimalzahlen',
   useCalculator: false,
   duration: 1,
   generator(rng) {

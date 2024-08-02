@@ -10,7 +10,7 @@ interface DATA {
 }
 
 export const exercise61: Exercise<DATA> = {
-  title: '2023 / 8a (Daten und Zufall)',
+  title: '2023 / 8a) Diagramm ablesen',
   useCalculator: false,
   duration: 2,
   generator(rng) {

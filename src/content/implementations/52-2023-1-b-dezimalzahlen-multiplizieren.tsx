@@ -7,7 +7,7 @@ interface DATA {
 }
 
 export const exercise52: Exercise<DATA> = {
-  title: '2023 / 1b (Zahl)',
+  title: '2023 / 1b) Dezimalzahlen multiplizieren',
   useCalculator: false,
   duration: 1,
   generator(rng) {
