@@ -52,6 +52,10 @@ export interface Exercise<T = unknown> {
   constraint?: (props: { data: T; rng: Rng }) => boolean
   task: (props: { data: T }) => JSX.Element
   solution: (props: { data: T }) => JSX.Element
+  subtasks?: {
+    tasks: ((props: { data: T }) => JSX.Element)[]
+    solutions: ((props: { data: T }) => JSX.Element)[]
+  }
 }
 
 export interface ProgressData {

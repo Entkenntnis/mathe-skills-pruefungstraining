@@ -62,6 +62,31 @@ export default function PracticeView() {
   const task = useMemo(() => exercise.task({ data }), [data, exercise])
   const solution = useMemo(() => exercise.solution({ data }), [data, exercise])
 
+  const useSubtasks = !!exercise.subtasks
+  const subtasksCount = useSubtasks ? exercise.subtasks!.tasks.length : 0
+
+  const [subtaskState, setSubtaskState] = useState(
+    useSubtasks ? Array.from({ length: subtasksCount }).fill(0) : []
+  )
+
+  const subtasks = useMemo(() => {
+    if (!useSubtasks) return []
+    return exercise.subtasks!.tasks.map((t) => t({ data }))
+  }, [data, exercise.subtasks, useSubtasks])
+
+  const subsolutions = useMemo(() => {
+    if (!useSubtasks) return []
+    return exercise.subtasks!.solutions.map((t) => t({ data }))
+  }, [data, exercise.subtasks, useSubtasks])
+
+  const allRevealed = subtaskState.every((x) => x == 2)
+
+  useEffect(() => {
+    if (useSubtasks && allRevealed && step < 3) {
+      setStep(3)
+    }
+  }, [allRevealed, step, useSubtasks])
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (app.state.showExercise && timeGuard === null) {
@@ -117,15 +142,70 @@ export default function PracticeView() {
           >
             zurück
           </button>
-          <div
-            className={clsx(
-              'mt-2 p-3 pb-6 mr-4',
-              step == 1 && 'border-b-secondary border-b-2'
-            )}
-          >
-            {proseWrapper(task)}
-          </div>
-          {step >= 2 && (
+          {useSubtasks ? (
+            subtasks.map((t, i) => {
+              const state = subtaskState[i]
+              return (
+                <div key={i} className={clsx('mt-2 p-3 pb-6 mr-4')}>
+                  {proseWrapper(t)}
+                  {state == 0 && (
+                    <div className="ml-4 mt-4">
+                      <button
+                        className="btn btn-secondary btn-outline btn-sm"
+                        onClick={() => {
+                          const newState = subtaskState.slice()
+                          newState[i] = 1
+                          setSubtaskState(newState)
+                        }}
+                      >
+                        Ich bin fertig
+                      </button>
+                    </div>
+                  )}
+                  {state == 1 && (
+                    <div className="ml-4 mt-4">
+                      <button
+                        className="btn btn-secondary btn-outline btn-sm"
+                        onClick={() => {
+                          const newState = subtaskState.slice()
+                          newState[i] = 2
+                          setSubtaskState(newState)
+                        }}
+                      >
+                        Zeige mir die Lösung
+                      </button>
+                    </div>
+                  )}
+                  {state == 2 && (
+                    <div className="indicator w-full pr-4">
+                      <span className="indicator-item mr-14 badge mt-1">
+                        Lösung
+                      </span>
+                      <div
+                        className={clsx(
+                          'mt-4 p-3 border-2 w-full',
+                          step < 4 ? 'border-secondary' : 'border-gray-300'
+                        )}
+                      >
+                        {proseWrapper(subsolutions[i])}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )
+            })
+          ) : (
+            <div
+              className={clsx(
+                'mt-2 p-3 pb-6 mr-4',
+                step == 1 && 'border-b-secondary border-b-2'
+              )}
+            >
+              {proseWrapper(task)}
+            </div>
+          )}
+
+          {step >= 2 && !useSubtasks && (
             <>
               <div className="indicator w-full pr-4">
                 <span className="indicator-item mr-14 badge mt-1">Lösung</span>
@@ -151,26 +231,30 @@ export default function PracticeView() {
                 <strong>1. Löse die Aufgabe</strong> und notiere dein Ergebnis
                 auf einem Blatt Papier.
                 <div>
-                  <button
-                    className={clsx(
-                      'btn btn-secondary ml-3 mt-6 mb-6',
-                      !minTimeDone && 'btn-outline'
-                    )}
-                    onClick={() => {
-                      const ts = new Date().getTime()
-                      const duration = ts - startTs
-                      if (
-                        duration / 1000 < exercise.duration * 60 * 0.2 &&
-                        !minTimeDone
-                      ) {
-                        setTimeGuard(ts)
-                      } else {
-                        setStep(1)
-                      }
-                    }}
-                  >
-                    Ich bin fertig
-                  </button>
+                  {!useSubtasks ? (
+                    <button
+                      className={clsx(
+                        'btn btn-secondary ml-3 mt-6 mb-6',
+                        !minTimeDone && 'btn-outline'
+                      )}
+                      onClick={() => {
+                        const ts = new Date().getTime()
+                        const duration = ts - startTs
+                        if (
+                          duration / 1000 < exercise.duration * 60 * 0.2 &&
+                          !minTimeDone
+                        ) {
+                          setTimeGuard(ts)
+                        } else {
+                          setStep(1)
+                        }
+                      }}
+                    >
+                      Ich bin fertig
+                    </button>
+                  ) : (
+                    <div className="h-8"></div>
+                  )}
                   <button
                     className="text-left btn ml-3 btn-primary btn-outline leading-snug"
                     onClick={() => {
@@ -219,10 +303,19 @@ export default function PracticeView() {
             )}
             {step === 3 && (
               <>
-                <strong>3. Vergleiche mit der Lösung</strong> und schaue, ob
-                deine Lösung übereinstimmt
-                <br />
-                <p className="mt-2">Wie schätzt du dich ein?</p>
+                {useSubtasks ? (
+                  <>
+                    <strong>2. Wie schätzt du dich ein</strong> für die gesamte
+                    Aufgabe?
+                  </>
+                ) : (
+                  <>
+                    <strong>3. Vergleiche mit der Lösung</strong> und schaue, ob
+                    deine Lösung übereinstimmt
+                    <br />
+                    <p className="mt-2">Wie schätzt du dich ein?</p>
+                  </>
+                )}
                 <div>
                   <button
                     className="btn btn-success ml-2 mt-6 mb-3"
@@ -248,6 +341,7 @@ export default function PracticeView() {
                       finish(2)
                       restartExercise(app)
                       setStep(0)
+                      setSubtaskState(subtaskState.map((x) => 0))
                     }}
                   >
                     Sofort nochmal üben

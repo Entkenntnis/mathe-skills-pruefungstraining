@@ -30,10 +30,7 @@ import { exercise28 } from './implementations/28-potenzwert-berechnen'
 import { exercise29 } from './implementations/29-potenzwert-berechnen-rationale-zahlen'
 import { exercise32 } from './implementations/32-als-potenz-schreiben'
 import { exercise33 } from './implementations/33-potenzwert-berechnen-term'
-import { exercise51 } from './implementations/51-2023-1-a-brueche-addieren'
-import { exercise52 } from './implementations/52-2023-1-b-dezimalzahlen-multiplizieren'
-import { exercise53 } from './implementations/53-2023-1-c-term-mit-dezimalzahlen'
-import { exercise54 } from './implementations/54-2023-1-d-term-mit-negativen-zahlen'
+import { exercise51 } from './implementations/51-2023-1-rechnen-mit-rationalen-zahlen'
 import { exercise55 } from './implementations/55-2023-2-anteil-bestimmen'
 import { exercise56 } from './implementations/56-2023-3-prozentrechnen'
 import { exercise57 } from './implementations/57-2023-4-rechnen-mit-laengeneinheiten'
@@ -52,7 +49,7 @@ import { exercise69 } from './implementations/69-2023-15-volumen-eines-quaders'
 import { exercise70 } from './implementations/70-2023-16-schaetzen'
 import { exercise71 } from './implementations/71-2023-17-achsenspiegelung'
 import { exercise72 } from './implementations/72-2023-18-mias-freigehege'
-import { exercise73 } from './implementations/73-2023-19'
+import { exercise73 } from './implementations/73-2023-19-flaecheninhalt-raute'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -88,9 +85,6 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   33: exercise33,
   // ----
   51: exercise51,
-  52: exercise52,
-  53: exercise53,
-  54: exercise54,
   55: exercise55,
   56: exercise56,
   57: exercise57,
