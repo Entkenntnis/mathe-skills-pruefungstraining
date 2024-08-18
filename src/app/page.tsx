@@ -28,12 +28,12 @@ export default function Home() {
               in Planung.
             </p>
             <p className="py-3 text-gray-600 mt-12 text-sm">
-              Mit dem Rechnen von Aufgaben kannst du deine mathematischen
-              Fähigkeiten auf effektive Art verbessern. Diese Methode ist umso
-              wirksamer, je selbstständiger du bist. Dazu bietet dir die
-              Lernumgebung zu allen Aufgaben Musterlösungen, viele
-              Beispielrechnungen zur Orientierung und einen vorstrukturierten
-              Lernplan.
+              Mit dem Rechnen von Prüfungsaufgaben kannst du deine
+              mathematischen Fähigkeiten auf effektive Art verbessern. Diese
+              Methode ist umso wirksamer, je selbstständiger du bist. Dazu
+              bietet dir die Lernumgebung zu allen Aufgaben Musterlösungen,
+              viele Beispielrechnungen zur Orientierung und einen
+              vorstrukturierten Lernplan.
             </p>
           </div>
         </div>
