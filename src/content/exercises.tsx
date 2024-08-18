@@ -37,8 +37,7 @@ import { exercise57 } from './implementations/57-2023-4-rechnen-mit-laengeneinhe
 import { exercise58 } from './implementations/58-2023-5-dezimalzahlen-als-faktoren'
 import { exercise59 } from './implementations/59-2023-6-zahl-legen'
 import { exercise60 } from './implementations/60-2023-7-winkel-zeichnen'
-import { exercise61 } from './implementations/61-2023-8-a-diagramm-ablesen'
-import { exercise62 } from './implementations/62-2023-8-b-digramm-ergaenzen'
+import { exercise61 } from './implementations/61-2023-8-diagramm-ablesen-und-ergaenzen'
 import { exercise63 } from './implementations/63-2023-9-geradenkreuzung'
 import { exercise64 } from './implementations/64-2023-10-bruch-ermitteln'
 import { exercise65 } from './implementations/65-2023-11-wertetabelle-finden'
@@ -92,7 +91,6 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   59: exercise59,
   60: exercise60,
   61: exercise61,
-  62: exercise62,
   63: exercise63,
   64: exercise64,
   65: exercise65,

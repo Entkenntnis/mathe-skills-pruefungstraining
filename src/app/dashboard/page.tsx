@@ -32,7 +32,7 @@ export default function Page() {
     <>
       <div>
         <h1 className="text-center text-4xl mt-12">
-          Mathe-Skills Intensivtraining
+          Mathe-Skills Prüfungstraining
         </h1>
         <div className="max-w-[700px] mx-auto mt-6">
           <div className="mt-6 mb-6 flex justify-between bg-gray-50 p-3 rounded-box">
@@ -303,12 +303,13 @@ export default function Page() {
                             ) : historyStats[entry.id].solvedCount ==
                               app.state.userData!.level - 1 ? (
                               <span className="badge badge-primary badge-outline font-normal ml-3">
-                                Level {historyStats[entry.id].solvedCount}
+                                Level {historyStats[entry.id].solvedCount + 1}
                               </span>
                             ) : historyStats[entry.id].solvedCount <
-                              app.state.userData!.level ? (
+                              app.state.userData!
+                                .level /* if level is below two */ ? (
                               <span className="badge badge-primary font-normal ml-3">
-                                Level {historyStats[entry.id].solvedCount}
+                                Level {historyStats[entry.id].solvedCount + 1}
                               </span>
                             ) : null
                           ) : (

@@ -44,7 +44,8 @@ export const exercise73: Exercise<DATA> = {
         <p>Berechne den Flächeninhalt der Raute mit den Diagonalenlängen:</p>
         <p>
           A = {buildInlineFrac(1, 2)} · e · f = {buildInlineFrac(1, 2)} ·{' '}
-          {data.e}cm · {data.f}cm = <strong>{(data.e * data.f) / 2}cm²</strong>
+          {data.e} cm · {data.f} cm ={' '}
+          <strong>{(data.e * data.f) / 2} cm²</strong>
         </p>
       </>
     )

@@ -9,9 +9,9 @@ export default function Home() {
     <div>
       <div className="hero bg-base-200 min-h-screen">
         <div className="hero-content text-center">
-          <div className="max-w-[700px] mt-12">
+          <div className="max-w-[720px] mt-12">
             <h1 className="text-4xl sm:text-5xl font-bold">
-              Mathe-Skills Intensivtraining
+              Mathe-Skills Prüfungstraining
             </h1>
             <div className="flex gap-6 justify-center mt-14 mb-12">
               <>

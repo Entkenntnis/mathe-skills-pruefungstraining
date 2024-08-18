@@ -11,7 +11,7 @@ import './globals.css'
 import { AppWrapper } from '@/components/App'
 
 export const metadata: Metadata = {
-  title: 'Mathe-Skills Intensivtraining',
+  title: 'Mathe-Skills Prüfungstraining',
   description:
     'Einfache Lernumgebung mit Fokus auf Aufgaben-Rechnen und Erklärung am Beispiel',
 }

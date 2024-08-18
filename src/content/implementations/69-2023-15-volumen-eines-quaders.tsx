@@ -63,11 +63,11 @@ export const exercise69: Exercise<DATA> = {
       <>
         <p>Berechne die restliche Höhe:</p>
         <p>
-          {data.h}cm - 2 · {data.a}cm = {d}cm
+          {data.h} cm - 2 · {data.a} cm = {d} cm
         </p>
         <p>Berechne das restliche Volumen:</p>
         <p>
-          V = {d}cm · {data.b}cm · {data.l}cm = <strong>{r}cm³</strong>
+          V = {d} cm · {data.b} cm · {data.l} cm = <strong>{r} cm³</strong>
         </p>
       </>
     )

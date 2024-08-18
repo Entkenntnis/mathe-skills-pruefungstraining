@@ -42,11 +42,11 @@ export const exercise70: Exercise<DATA> = {
       <>
         <p>Berechne die Höhe des längsten Pfeiler:</p>
         <p>
-          330m - {data.diff}m = {pf}m
+          330 m - {data.diff} m = {pf} m
         </p>
         <p>Die Brücke ist etwa {data.ratio}-mal länger als der Pfeiler:</p>
         <p>
-          {data.ratio} · {pf}m = <strong>ca. {pf * data.ratio}m</strong>
+          {data.ratio} · {pf} m = <strong>ca. {pf * data.ratio} m</strong>
         </p>
       </>
     )

@@ -58,15 +58,15 @@ export const exercise72: Exercise<DATA> = {
       <>
         <p>Berechne die Breite des Freigehege:</p>
         <p>
-          ({data.available}m - {data.wall}m) : 2 = {b}m
+          ({data.available} m - {data.wall} m) : 2 = {b} m
         </p>
         <p>Berechne den Flächeninhalt:</p>
         <p>
-          {b}m · {data.wall}m = {a}m²
+          {b} m · {data.wall} m = {a} m²
         </p>
         <p>
           <strong>
-            {a}m² &lt; {data.target}m²
+            {a} m² &lt; {data.target} m²
           </strong>
           , deshalb ist Mias Wunsch nicht möglich.
         </p>

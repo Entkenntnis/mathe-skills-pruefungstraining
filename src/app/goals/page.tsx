@@ -5,9 +5,11 @@ import { Guard } from '@/components/Guard'
 import { goalsData } from '@/content/goals'
 import { selectGoal } from '@/data/commands'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function Page() {
   const app = useApp()
+  const router = useRouter()
 
   if (!app.state.userData || !app.state.token) {
     return <Guard />
@@ -40,7 +42,7 @@ export default function Page() {
                     aktiv
                   </span>
                 )}
-                <div className="card bg-base-100 w-64 shadow-xl">
+                <div className="card bg-base-100 w-[400px] shadow-xl">
                   <div className="card-body">
                     <h2 className="card-title">{goal.name}</h2>
                     <p>{goal.description}</p>
@@ -49,8 +51,12 @@ export default function Page() {
                         <button
                           className="btn btn-primary"
                           onClick={() => {
+                            if (!app.state.userData?.goal) {
+                              setTimeout(() => {
+                                router.push('/dashboard')
+                              }, 100)
+                            }
                             selectGoal(app, parseInt(id))
-                            // router.push('/dashboard')
                           }}
                         >
                           Auswählen

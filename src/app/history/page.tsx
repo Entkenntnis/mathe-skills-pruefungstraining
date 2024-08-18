@@ -7,6 +7,7 @@ import { goalsData } from '@/content/goals'
 import { showExercise } from '@/data/commands'
 import { generateData } from '@/data/generate-data'
 import { generateSeed } from '@/data/generate-seed'
+import { renderExample } from '@/data/render-example'
 import { HistoryEntry } from '@/data/types'
 import { constrainedGeneration } from '@/helper/constrained-generation'
 import { proseWrapper } from '@/helper/prose-wrapper'
@@ -46,34 +47,19 @@ export default function Page() {
       </div>
       {showExerciseModal &&
         (() => {
-          const data = generateData(
-            showExerciseModal.id,
-            showExerciseModal.seed,
-            exercisesData[showExerciseModal.id]
-          )
           return (
             <div className="modal modal-open" role="dialog">
               <div className="modal-box">
                 <h3 className="text-lg font-bold">
                   {exercisesData[showExerciseModal.id].title}
                 </h3>
-                <div className="mt-2 pt-2 pb-6">
-                  {proseWrapper(
-                    exercisesData[showExerciseModal.id].task({
-                      data,
-                    })
-                  )}
-                </div>
-                <details>
-                  <summary className="cursor-pointer">Lösung</summary>
-                  <div className="border p-2">
-                    {proseWrapper(
-                      exercisesData[showExerciseModal.id].solution({
-                        data,
-                      })
-                    )}
-                  </div>
-                </details>
+
+                {renderExample(
+                  showExerciseModal.id,
+                  showExerciseModal.seed,
+                  exercisesData[showExerciseModal.id],
+                  'history'
+                )}
 
                 <div className="modal-action">
                   <button

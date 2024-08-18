@@ -8,6 +8,7 @@ import { exercisesData } from '@/content/exercises'
 import { finishExercise, restartExercise } from '@/data/commands'
 import { generateData } from '@/data/generate-data'
 import { generateSeed } from '@/data/generate-seed'
+import { renderExample } from '@/data/render-example'
 import { triggerUpload } from '@/data/user-commands'
 import { proseWrapper } from '@/helper/prose-wrapper'
 import { Rng } from '@/helper/rng'
@@ -422,9 +423,6 @@ export default function PracticeView() {
       )}
       {example &&
         (() => {
-          const rng = new Rng(example.id + '#' + example.seed)
-          const e = exercisesData[example.id]
-          const data = generateData(example.id, example.seed, e)
           return (
             <div className="modal modal-open" role="dialog">
               <div className="modal-box max-w-fit pb-0">
@@ -432,23 +430,12 @@ export default function PracticeView() {
                   <h3 className="text-lg border-b border-primary">
                     <strong>Beispiel:</strong> {exercisesData[example.id].title}
                   </h3>
-                  <div className="mt-2 pt-2 pb-6">
-                    {proseWrapper(
-                      exercisesData[example.id].task({
-                        data,
-                      })
-                    )}
-                  </div>
-                  <details open>
-                    <summary className="pointer-events-none">Lösung</summary>
-                    <div className="border pt-5 pb-3 px-4">
-                      {proseWrapper(
-                        exercisesData[example.id].solution({
-                          data,
-                        })
-                      )}
-                    </div>
-                  </details>
+
+                  {renderExample(
+                    example.id,
+                    example.seed,
+                    exercisesData[example.id]
+                  )}
 
                   <div className="modal-action justify-between sticky bottom-0 bg-white pb-6 pt-3 border-t-gray-300 border-t">
                     <button
