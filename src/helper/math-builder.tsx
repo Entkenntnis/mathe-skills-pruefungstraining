@@ -229,11 +229,13 @@ function JSXGraph({
       <div
         id={id}
         className={clsx(
-          'pointer-events-none my-3 rounded-2xl border border-gray-200',
+          'pointer-events-none my-3 rounded-2xl border border-gray-200 relative',
           hide && 'invisible'
         )}
         style={{ width: options.width, height: options.height }}
-      ></div>
+      >
+        {<div className="inset-0 absolute skeleton visible z-10"></div>}
+      </div>
     </div>
   )
 }

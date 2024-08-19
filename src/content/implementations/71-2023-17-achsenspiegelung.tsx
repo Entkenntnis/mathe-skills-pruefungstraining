@@ -94,7 +94,7 @@ export const exercise71: Exercise<DATA> = {
           )}
         </svg>
         <p>
-          <small>Die Kreise sind zur Veranschlichung eingezeichnet.</small>
+          <small>Die Kreise sind zur Veranschaulichung eingezeichnet.</small>
         </p>
       </>
     )
