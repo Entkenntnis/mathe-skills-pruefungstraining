@@ -37,7 +37,7 @@ export default function Page() {
           <div className="mt-6 mb-6 flex justify-between bg-gray-50 p-3 rounded-box">
             <p>
               Hallo {app.state.userData.name}!{' '}
-              {app.uploader.hasUpload() ? (
+              {app.state.uploading ? (
                 <span className="badge badge-info ml-1">
                   ... wird synchornisiert
                 </span>

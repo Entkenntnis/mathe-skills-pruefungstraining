@@ -64,7 +64,6 @@ export const exercise61: Exercise<DATA> = {
     if (values.size !== 4) {
       return false
     }
-    // todo
 
     const [g1, g2, g3, g4] = rng.shuffleArray([
       (falseClaim: boolean) => {

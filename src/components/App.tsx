@@ -38,6 +38,7 @@ export function AppWrapper({ children }: AppWrapperProps) {
     showExercise: null,
     paperHintShown: false,
     tab: 'tutor',
+    uploading: false,
   })
   const [c, setC] = useState(0)
   const stateRef = useRef(state)
