@@ -5,7 +5,7 @@ export function buildHistoryStats(app: App) {
     [id: number]: { practice: boolean; solvedCount: number; seeds: string[] }
   } = {}
 
-  for (const entry of app.state.userData!.history) {
+  for (const entry of app.state.history) {
     if (entry[0] == 'G') continue
     const id = entry[1]
     if (!historyStats[id]) {

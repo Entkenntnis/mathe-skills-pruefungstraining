@@ -1,10 +1,11 @@
 import { Rng } from '@/helper/rng'
 import { Draft } from 'immer'
+import { Uploader } from './uploader'
 
 export interface AppState {
   userData: UserData | null
+  history: HistoryEntry[]
   token: string | null
-  uploading: boolean
   showExercise: null | { id: number; seed: string; dashboardIndex: number }
   paperHintShown: boolean
   tab: 'tutor' | 'list'
@@ -14,6 +15,8 @@ export interface App {
   state: AppState
   mut(fn: (draft: Draft<AppState>) => void): void
   afterPush(target: string, handler: () => void): void
+  uploader: Uploader
+  rerender: () => void
 }
 
 export type HistoryEntry =
@@ -30,7 +33,6 @@ export type HistoryEntry =
 export interface UserData {
   name: string
   goal: number | null
-  history: HistoryEntry[]
   dashboard: { id: number; seed: string }[]
   settings: { listLength: number }
   level: number

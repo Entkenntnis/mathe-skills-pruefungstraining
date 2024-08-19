@@ -2,20 +2,20 @@ import { App } from './types'
 import { generateSeed } from '@/data/generate-seed'
 import { goalsData } from '@/content/goals'
 import { flow } from './flow'
-import { triggerUpload } from './user-commands'
 
 export function selectGoal(app: App, goal: number) {
   if (app.state.userData) {
     app.mut((state) => {
       state.userData!.goal = goal
-      state.userData!.history.push([
-        'G',
-        goal,
-        Math.floor(new Date().getTime() / 1000),
-      ])
     })
+    app.uploader.uploadUserData(app)
     populateDashboard(app)
-    triggerUpload(app)
+    app.uploader.uploadUserData(app) // for dashboard
+    app.uploader.uploadEvent(app, [
+      'G',
+      goal,
+      Math.floor(new Date().getTime() / 1000),
+    ])
   }
 }
 
@@ -51,16 +51,14 @@ export function restartExercise(app: App) {
 }
 
 export function finishExercise(app: App, status: number, duration: number) {
-  app.mut((state) => {
-    state.userData!.history.push([
-      'E',
-      app.state.showExercise!.id,
-      Math.floor(new Date().getTime() / 1000),
-      app.state.showExercise!.seed,
-      status as 1 | 2,
-      Math.floor(duration / 1000),
-    ])
-  })
+  app.uploader.uploadEvent(app, [
+    'E',
+    app.state.showExercise!.id,
+    Math.floor(new Date().getTime() / 1000),
+    app.state.showExercise!.seed,
+    status as 1 | 2,
+    Math.floor(duration / 1000),
+  ])
 }
 
 export function unlockNextLevel(app: App) {
@@ -72,7 +70,7 @@ export function unlockNextLevel(app: App) {
 export function calculateProgress(app: App) {
   const goalExercises = goalsData[app.state.userData?.goal!].exercises
   const solved = new Set<number>()
-  app.state.userData!.history.forEach((entry) => {
+  app.state.history.forEach((entry) => {
     if (entry[0] == 'E') {
       if (entry[4] == 1) {
         solved.add(entry[1])

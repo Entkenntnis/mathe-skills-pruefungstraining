@@ -34,10 +34,15 @@ module.exports = (App, route) => {
             await App.db.Data.findOne({ where: { userId: user.id } })
           ).data
 
+          const events = await App.db.Event.findAll({
+            where: { userId: user.id },
+          })
+
           return res.json({
             ok: true,
             token,
             data,
+            events: (events ?? []).map((row) => JSON.parse(row.data)),
           })
         }
       }

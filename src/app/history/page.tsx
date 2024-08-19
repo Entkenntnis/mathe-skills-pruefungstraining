@@ -28,7 +28,7 @@ export default function Page() {
     return <Guard />
   }
 
-  const entries = app.state.userData!.history.slice(0)
+  const entries = app.state.history.slice(0)
 
   entries.sort((a, b) => b[2] - a[2])
 

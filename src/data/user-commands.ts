@@ -1,15 +1,20 @@
-import { makePost } from '@/helper/make-post'
 import { deserialize } from './deserialize'
-import { App } from './types'
+import { App, HistoryEntry } from './types'
 
-export function login(app: App, token: string, raw: string) {
+export function login(
+  app: App,
+  token: string,
+  raw: string,
+  events: HistoryEntry[]
+) {
   app.mut((state) => {
     const userData = deserialize(raw)
     if (userData) {
       state.userData = userData
       state.token = token
-      state.uploading = false
+      state.history = events
     } else {
+      state.history = []
       state.userData = null
       state.token = null
     }
@@ -21,27 +26,4 @@ export function logout(app: App) {
     state.userData = null
     state.token = null
   })
-}
-export async function triggerUpload(app: App) {
-  app.mut((state) => {
-    state.uploading = true
-  })
-  const res = await makePost('/store', {
-    data: JSON.stringify(app.state.userData),
-    token: app.state.token,
-  })
-  if (res.ok) {
-    app.mut((state) => {
-      state.uploading = false
-    })
-  }
-}
-
-export async function loadData(app: App) {
-  const res = await makePost('/load', {
-    token: app.state.token,
-  })
-  if (res.ok) {
-    login(app, app.state.token!, res.data)
-  }
 }

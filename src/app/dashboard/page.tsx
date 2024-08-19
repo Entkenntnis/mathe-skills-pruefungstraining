@@ -6,14 +6,13 @@ import { exercisesData } from '@/content/exercises'
 import { goalsData } from '@/content/goals'
 import { buildHistoryStats } from '@/data/build-history-stats'
 import {
-  calculateProgress,
   populateDashboard,
   showExercise,
   unlockNextLevel,
 } from '@/data/commands'
 import { dashboardProgress } from '@/data/dashboard-progress'
 import { generateSeed } from '@/data/generate-seed'
-import { logout, triggerUpload } from '@/data/user-commands'
+import { logout } from '@/data/user-commands'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -38,7 +37,7 @@ export default function Page() {
           <div className="mt-6 mb-6 flex justify-between bg-gray-50 p-3 rounded-box">
             <p>
               Hallo {app.state.userData.name}!{' '}
-              {app.state.uploading ? (
+              {app.uploader.hasUpload() ? (
                 <span className="badge badge-info ml-1">
                   ... wird synchornisiert
                 </span>
@@ -125,7 +124,7 @@ export default function Page() {
                         className="btn btn-sm btn-accent"
                         onClick={() => {
                           unlockNextLevel(app)
-                          triggerUpload(app)
+                          app.uploader.uploadUserData(app)
                         }}
                       >
                         Level {app.state.userData.level + 1} starten
@@ -250,7 +249,7 @@ export default function Page() {
                         )}
                         onClick={() => {
                           populateDashboard(app)
-                          triggerUpload(app)
+                          app.uploader.uploadUserData(app)
                         }}
                       >
                         Neue Auswahl
@@ -363,7 +362,7 @@ export default function Page() {
                   state.userData!.settings.listLength = parseInt(e.target.value)
                 })
                 populateDashboard(app)
-                triggerUpload(app)
+                app.uploader.uploadUserData(app)
               }}
             >
               <option value="4">4 Aufgaben</option>

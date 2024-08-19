@@ -26,7 +26,7 @@ export default function Page() {
             try {
               const res = await makePost('/login', { name, password: pw })
               if (res.ok) {
-                login(app, res.token, res.data)
+                login(app, res.token, res.data, res.events)
                 router.push('/dashboard')
               } else {
                 setError('Zugangsdaten nicht gefunden.')

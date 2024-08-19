@@ -1,6 +1,7 @@
 'use client'
 
 import { App, AppState } from '@/data/types'
+import { Uploader } from '@/data/uploader'
 import { Draft, produce } from 'immer'
 import { usePathname } from 'next/navigation'
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
@@ -32,21 +33,26 @@ export function AppWrapper({ children }: AppWrapperProps) {
 
   const [state, setState] = useState<AppState>({
     userData: null,
+    history: [],
     token: null,
-    uploading: false,
     showExercise: null,
     paperHintShown: false,
     tab: 'tutor',
   })
+  const [c, setC] = useState(0)
   const stateRef = useRef(state)
   const app = {
     get state() {
       return stateRef.current
     },
     mut,
+    rerender: () => {
+      setC(c + 1)
+    },
     afterPush: (target: string, handler: () => void) => {
       afterPush.current = { target, handler }
     },
+    uploader: new Uploader(),
   }
   return <AppContext.Provider value={app}>{children}</AppContext.Provider>
 
