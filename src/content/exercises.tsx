@@ -49,7 +49,8 @@ import { exercise70 } from './implementations/by-rs-gw-7/70-2023-16-schaetzen'
 import { exercise71 } from './implementations/by-rs-gw-7/71-2023-17-achsenspiegelung'
 import { exercise72 } from './implementations/by-rs-gw-7/72-2023-18-mias-freigehege'
 import { exercise73 } from './implementations/by-rs-gw-7/73-2023-19-flaecheninhalt-raute'
-import { exercise81 } from './implementations/by-rs-gw-9/81-2023-1-geraden-im-koordinatensystem'
+import { exercise81 } from './implementations/by-rs-gw-9-z-i/81-2023-1-geraden-im-koordinatensystem'
+import { exercise82 } from './implementations/by-rs-gw-9-z-i/82-2023-2-ausklammern'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -105,6 +106,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   73: exercise73,
 
   81: exercise81,
+  82: exercise82,
 }
 
 // symbols:
