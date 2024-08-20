@@ -52,6 +52,7 @@ import { exercise73 } from './implementations/by-rs-gw-7/73-2023-19-flaecheninha
 import { exercise81 } from './implementations/by-rs-gw-9-z-i/81-2023-1-geraden-im-koordinatensystem'
 import { exercise82 } from './implementations/by-rs-gw-9-z-i/82-2023-2-ausklammern'
 import { exercise83 } from './implementations/by-rs-gw-9-z-i/83-2023-3-gleichwertige-terme'
+import { exercise84 } from './implementations/by-rs-gw-9-z-i/84-2023-4-gleichung-loesen'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -109,6 +110,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   81: exercise81,
   82: exercise82,
   83: exercise83,
+  84: exercise84,
 }
 
 // symbols:
