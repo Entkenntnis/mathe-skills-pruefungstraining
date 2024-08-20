@@ -1,6 +1,6 @@
 import { Exercise } from '@/data/types'
 import React from 'react'
-import { HandballDiagram } from '../components/HandballDiagram'
+import { HandballDiagram } from '../../components/HandballDiagram'
 
 interface DATA {
   markers: { x: number; y: number; name: string }[]

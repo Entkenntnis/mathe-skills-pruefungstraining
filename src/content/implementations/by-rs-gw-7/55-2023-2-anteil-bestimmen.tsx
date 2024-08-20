@@ -1,5 +1,5 @@
 import { Exercise } from '@/data/types'
-import { Cells } from '../components/Cells'
+import { Cells } from '../../components/Cells'
 import { buildFrac } from '@/helper/math-builder'
 
 interface DATA {

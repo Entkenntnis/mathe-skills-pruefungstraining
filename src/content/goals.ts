@@ -11,15 +11,16 @@ export const goalsData: { [key: number]: GoalData } = {
     index: 2,
   },*/
   2: {
-    name: 'Grundwissenstest 7. Klasse Realschule Bayern',
+    name: 'Grundwissenstest 7. Klasse (Realschule Bayern)',
     description: 'Grundlagen der 5. und 6. Klasse',
-    exercises: Object.keys(exercisesData)
-      .map((x) => parseInt(x))
-      .filter((x) => x > 50 && x < 74),
+    exercises: [
+      51, 55, 56, 57, 58, 59, 60, 61, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72,
+      73,
+    ],
     index: 1,
   },
   3: {
-    name: 'Grundwissenstest 9. Klasse Realschule Bayern (im Aufbau)',
+    name: 'Grundwissenstest 9. Klasse Zweig I (Realschule Bayern)',
     description: 'Grundlagen der 5. - 8. Klasse',
     exercises: Object.keys(exercisesData)
       .map((x) => parseInt(x))

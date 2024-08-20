@@ -1,6 +1,6 @@
 import { Exercise } from '@/data/types'
 import { pp } from '@/helper/pretty-print'
-import { Grid } from '../components/Grid'
+import { Grid } from '../../components/Grid'
 
 interface DATA {
   nums: { a: number; b: number }[]

@@ -1,5 +1,5 @@
 import { Exercise } from '@/data/types'
-import { baseExponent } from '../generators/base-exponent'
+import { baseExponent } from '../../generators/base-exponent'
 
 interface DATA {
   nums: { base: number; exponent: number }[]

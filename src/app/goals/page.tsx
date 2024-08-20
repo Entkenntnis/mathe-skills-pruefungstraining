@@ -32,7 +32,7 @@ export default function Page() {
             Du kannst dein Ziel jederzeit anpassen.
           </p>
         </div>
-        <div className="flex flex-wrap mt-8 justify-center gap-12">
+        <div className="flex flex-col items-center mt-8 justify-center gap-12">
           {goals.map(([id, goal]) => {
             const isSelected = parseInt(id) == app.state.userData?.goal
             return (
@@ -42,7 +42,7 @@ export default function Page() {
                     aktiv
                   </span>
                 )}
-                <div className="card bg-base-100 w-[400px] shadow-xl">
+                <div className="card bg-base-100 max-w-[700px] shadow-xl">
                   <div className="card-body">
                     <h2 className="card-title">{goal.name}</h2>
                     <p>{goal.description}</p>

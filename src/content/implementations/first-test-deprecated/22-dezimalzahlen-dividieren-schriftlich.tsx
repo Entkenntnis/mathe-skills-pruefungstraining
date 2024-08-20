@@ -1,7 +1,7 @@
 import { Exercise } from '@/data/types'
 import { pp } from '@/helper/pretty-print'
 import { roundToDigits } from '@/helper/round-to-digits'
-import { Grid } from '../components/Grid'
+import { Grid } from '../../components/Grid'
 
 interface DATA {
   a: number
