@@ -4,10 +4,12 @@ import { pp } from '@/helper/pretty-print'
 interface DATA {
   letters: string[]
   withNeg: boolean
-  base: [number, number, number, number]
-  a: [number, number, number, number]
-  b: [number, number, number, number]
+  base: QuadTuple
+  a: QuadTuple
+  b: QuadTuple
 }
+
+type QuadTuple = [number, number, number, number]
 
 export const exercise82: Exercise<DATA> = {
   title: '2023 / 2) Ausklammern',
@@ -22,7 +24,7 @@ export const exercise82: Exercise<DATA> = {
       rng.randomIntBetween(baseTuple[2] + 1, 3),
       rng.randomIntBetween(baseTuple[3] + 1, 3),
     ]
-    const base = baseTuple.slice()
+    const base = baseTuple.slice() as QuadTuple
     const toMix = rng.shuffleArray([0, 1, 2, 3]).slice(0, 2)
     for (const i of toMix) {
       const t = baseTuple[i]
@@ -37,8 +39,8 @@ export const exercise82: Exercise<DATA> = {
       ]),
       withNeg: rng.randomItemFromArray([true, false]),
       base,
-      a: baseTuple,
-      b: highTuple,
+      a: baseTuple as QuadTuple,
+      b: highTuple as QuadTuple,
     }
   },
   constraint({ data }) {
@@ -63,12 +65,11 @@ export const exercise82: Exercise<DATA> = {
     )
   },
   solution({ data }) {
-    const r1 = data.a.map((x, i) =>
+    const f = (x: number, i: number) =>
       i == 0 ? x / data.base[i] : x - data.base[i]
-    ) as [number, number, number, number]
-    const r2 = data.b.map((x, i) =>
-      i == 0 ? x / data.base[i] : x - data.base[i]
-    ) as [number, number, number, number]
+
+    const r1 = data.a.map(f) as QuadTuple
+    const r2 = data.b.map(f) as QuadTuple
     return (
       <>
         <p>Dividiere durch den gemeinsamen Faktor:</p>
@@ -88,10 +89,7 @@ export const exercise82: Exercise<DATA> = {
   },
 }
 
-function renderTuple(
-  tuple: [number, number, number, number],
-  letters: string[]
-) {
+function renderTuple(tuple: QuadTuple, letters: string[]) {
   return (
     <>
       {tuple[0] == 1 ? null : pp(tuple[0])}
@@ -100,7 +98,13 @@ function renderTuple(
           {tuple[i + 1] == 0 ? null : (
             <>
               {letters[i]}
-              {tuple[i + 1] == 1 ? '' : tuple[i + 1] == 2 ? '²' : '³'}
+              {tuple[i + 1] == 1 ? (
+                ''
+              ) : (
+                <>
+                  <sup>{tuple[i + 1]}</sup>
+                </>
+              )}
             </>
           )}
         </span>

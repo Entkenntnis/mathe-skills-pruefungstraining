@@ -167,7 +167,6 @@ export const exercise81: Exercise<DATA> = {
         )
       },
       ({ data }) => {
-        console.log(-1 / data.m, 'test')
         return (
           <>
             <p>
