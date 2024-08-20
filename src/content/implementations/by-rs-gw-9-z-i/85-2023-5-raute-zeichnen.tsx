@@ -1,4 +1,5 @@
 import { Exercise } from '@/data/types'
+import { getSectorPath } from '@/helper/svg-builder'
 
 interface DATA {
   angle: number
@@ -12,7 +13,7 @@ export const exercise85: Exercise<DATA> = {
   generator(rng) {
     return {
       el: rng.randomItemFromArray(['α', 'γ']),
-      angle: rng.randomIntBetween(2, 11) * 10,
+      angle: rng.randomIntBetween(4, 11) * 10,
     }
   },
   constraint({ data }) {
@@ -38,9 +39,47 @@ export const exercise85: Exercise<DATA> = {
       (Math.tan((data.angle / 180 / 2) * Math.PI) * (bottomY - topY)) / 2
     return (
       <>
-        <p>Nutze die Symmetrie der Raute ABCD für die Zeichung:</p>
+        <p>
+          Nutze die Symmetrie der Raute ABCD und den Hilfswinkel für die
+          Zeichung:
+        </p>
         <svg viewBox="0 0 400 245" className="h-[170px]">
           <image href="/content/85.png" height="245" width="400" />
+          {data.el == 'α' ? (
+            <>
+              <path
+                className="fill-blue-300/50"
+                stroke="black"
+                d={getSectorPath(midX, bottomY, 120, 90 - data.angle / 2, 90)}
+              />
+              <text
+                x={midX + 3}
+                y={bottomY - 60}
+                fontSize={20}
+                textAnchor="right"
+                stroke="gray"
+              >
+                {data.angle / 2}°
+              </text>
+            </>
+          ) : (
+            <>
+              <path
+                className="fill-blue-300/50"
+                stroke="black"
+                d={getSectorPath(midX, topY, 120, 270, 270 + data.angle / 2)}
+              />
+              <text
+                x={midX + 3}
+                y={topY + 80}
+                fontSize={20}
+                textAnchor="right"
+                stroke="gray"
+              >
+                {data.angle / 2}°
+              </text>
+            </>
+          )}
           <line
             x1={midX}
             y1={bottomY}
@@ -72,6 +111,15 @@ export const exercise85: Exercise<DATA> = {
             y2={midY}
             stroke="blue"
             strokeWidth={3}
+          />
+          <line
+            x1={midX - diff}
+            y1={midY}
+            x2={midX + diff}
+            y2={midY}
+            stroke="gray"
+            strokeWidth={2}
+            strokeDasharray="4"
           />
           <text
             x={midX + diff + 10}

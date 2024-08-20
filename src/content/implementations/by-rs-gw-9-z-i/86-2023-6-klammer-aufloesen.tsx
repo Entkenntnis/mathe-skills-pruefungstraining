@@ -56,6 +56,11 @@ export const exercise86: Exercise<DATA> = {
             [data.a * data.a, 'x', 0],
           ])}
         </p>
+        <p>
+          <small>
+            Binomische Formel hier angewendet: (b − ax)² = a²x² − 2abx + b²
+          </small>
+        </p>
       </>
     )
   },
