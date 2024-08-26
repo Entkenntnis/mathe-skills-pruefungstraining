@@ -428,7 +428,7 @@ export default function PracticeView() {
 
                   <div className="modal-action justify-between sticky bottom-0 bg-white pb-6 pt-3 border-t-gray-300 border-t">
                     <button
-                      className="underline"
+                      className="btn btn-primary btn-outline btn-sm"
                       onClick={() => {
                         const seed = generateAltSeed()
                         setAltSeed(generateAltSeed())
