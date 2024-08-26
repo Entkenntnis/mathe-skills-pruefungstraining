@@ -24,7 +24,7 @@ export const exercise70: Exercise<DATA> = {
         <p>
           Die Abbildung zeigt maßstabsgetreu eine Autobahnbrücke mit sechs
           Pfeilern. Der längste Pfeiler ist nur {data.diff} m kürzer als der
-          Eifelturm, der 330 m hoch ist.
+          Eiffelturm, der 330 m hoch ist.
         </p>
         <img
           src="/content/70.png"

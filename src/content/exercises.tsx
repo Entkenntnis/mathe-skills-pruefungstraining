@@ -55,6 +55,7 @@ import { exercise83 } from './implementations/by-rs-gw-9-z-i/83-2023-3-gleichwer
 import { exercise84 } from './implementations/by-rs-gw-9-z-i/84-2023-4-gleichung-loesen'
 import { exercise85 } from './implementations/by-rs-gw-9-z-i/85-2023-5-raute-zeichnen'
 import { exercise86 } from './implementations/by-rs-gw-9-z-i/86-2023-6-klammer-aufloesen'
+import { exercise87 } from './implementations/by-rs-gw-9-z-i/87-2023-7-punkt-um-pfeil-verschieben'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -115,6 +116,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   84: exercise84,
   85: exercise85,
   86: exercise86,
+  87: exercise87,
 }
 
 // symbols:
@@ -124,3 +126,5 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
 // −
 // ×
 // α β γ δ
+
+// ⊕

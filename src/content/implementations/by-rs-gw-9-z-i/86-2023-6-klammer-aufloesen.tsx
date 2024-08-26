@@ -39,7 +39,7 @@ export const exercise86: Exercise<DATA> = {
   solution({ data }) {
     return (
       <>
-        <p>Löse zuerst die Klammer auf (z.B. mit der binomischen Formel):</p>
+        <p>Löse zuerst die Klammer auf*:</p>
         <p className="text-lg">
           {ppPolynom([
             [data.b * data.b, 'x', 2],
@@ -58,7 +58,9 @@ export const exercise86: Exercise<DATA> = {
         </p>
         <p>
           <small>
-            Binomische Formel hier angewendet: (b − ax)² = a²x² − 2abx + b²
+            * zum Beispiel mit der binomischen Formel: (b{' '}
+            {data.b < 0 ? '−' : '+'} ax)² = a²x² {data.b < 0 ? '−' : '+'} 2abx +
+            b²
           </small>
         </p>
       </>
