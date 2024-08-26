@@ -57,6 +57,7 @@ import { exercise85 } from './implementations/by-rs-gw-9-z-i/85-2023-5-raute-zei
 import { exercise86 } from './implementations/by-rs-gw-9-z-i/86-2023-6-klammer-aufloesen'
 import { exercise87 } from './implementations/by-rs-gw-9-z-i/87-2023-7-punkt-um-pfeil-verschieben'
 import { exercise88 } from './implementations/by-rs-gw-9-z-i/88-2023-8-extremwert-eiens-quadratischen-terms'
+import { exercise89 } from './implementations/by-rs-gw-9-z-i/89-2023-9-pias-freigehege'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -119,6 +120,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   86: exercise86,
   87: exercise87,
   88: exercise88,
+  89: exercise89,
 }
 
 // symbols:
