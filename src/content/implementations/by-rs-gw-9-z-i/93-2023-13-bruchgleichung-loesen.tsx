@@ -93,7 +93,7 @@ export const exercise93: Exercise<DATA> = {
         </div>
         <p>Gib die Lösungsmenge an:</p>
         <p className="font-bold">L = {`{ ${pp(r)} }`}</p>
-        <p>
+        <p className="leading-[1.1]">
           <small>
             Alternativ kann die Aufgabe durch geschicktes Rückwärts-Denken auch
             im Kopf gelöst werden.

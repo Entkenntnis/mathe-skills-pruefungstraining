@@ -52,11 +52,37 @@ export function defArrowMarker() {
   )
 }
 
-export function renderCross(x: number, y: number) {
+export function renderCross(x: number, y: number, stroke: string = 'black') {
   return (
     <>
-      <line x1={x - 5} y1={y - 5} x2={x + 5} y2={y + 5} strokeWidth={2}></line>
-      <line x1={x + 5} y1={y - 5} x2={x - 5} y2={y + 5} strokeWidth={2}></line>
+      <line
+        x1={x - 5}
+        y1={y - 5}
+        x2={x + 5}
+        y2={y + 5}
+        strokeWidth={2}
+        stroke={stroke}
+      ></line>
+      <line
+        x1={x + 5}
+        y1={y - 5}
+        x2={x - 5}
+        y2={y + 5}
+        strokeWidth={2}
+        stroke={stroke}
+      ></line>
     </>
   )
 }
+
+export const rightAngle = (
+  <>
+    <path
+      d={`M 0,25 A 25,25 0 0 0 25,0`}
+      fill="none"
+      stroke="black"
+      stroke-width="2"
+    />
+    <circle cx={10} cy={10} r={2.5} fill="black" />
+  </>
+)
