@@ -254,7 +254,7 @@ export default function PracticeView() {
                       })
                     }}
                   >
-                    Zeige mir ein Beispiel
+                    Zeige mir Beispiele
                   </button>
                 </div>
               </>
