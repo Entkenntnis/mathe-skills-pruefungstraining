@@ -61,6 +61,7 @@ import { exercise89 } from './implementations/by-rs-gw-9-z-i/89-2023-9-pias-frei
 import { exercise90 } from './implementations/by-rs-gw-9-z-i/90-2023-10-fehler-im-schraegbild'
 import { exercise91 } from './implementations/by-rs-gw-9-z-i/91-2023-11-determinante'
 import { exercise92 } from './implementations/by-rs-gw-9-z-i/92-2023-12-definitionsmenge-eines-bruchterms'
+import { exercise93 } from './implementations/by-rs-gw-9-z-i/93-2023-13-bruchgleichung-loesen'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -127,6 +128,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   90: exercise90,
   91: exercise91,
   92: exercise92,
+  93: exercise93,
 }
 
 // symbols:
