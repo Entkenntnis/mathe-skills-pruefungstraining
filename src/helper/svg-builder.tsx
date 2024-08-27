@@ -33,3 +33,30 @@ export function getSectorPath(
     'Z'
   )
 }
+
+export function defArrowMarker() {
+  return (
+    <defs>
+      <marker
+        id="arrow"
+        viewBox="0 0 10 10"
+        refX="5"
+        refY="5"
+        markerWidth="12"
+        markerHeight="12"
+        orient="auto-start-reverse"
+      >
+        <path d="M 0 0 L 10 5 L 0 10 z" />
+      </marker>
+    </defs>
+  )
+}
+
+export function renderCross(x: number, y: number) {
+  return (
+    <>
+      <line x1={x - 5} y1={y - 5} x2={x + 5} y2={y + 5} strokeWidth={2}></line>
+      <line x1={x + 5} y1={y - 5} x2={x - 5} y2={y + 5} strokeWidth={2}></line>
+    </>
+  )
+}

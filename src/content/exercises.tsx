@@ -59,6 +59,7 @@ import { exercise87 } from './implementations/by-rs-gw-9-z-i/87-2023-7-punkt-um-
 import { exercise88 } from './implementations/by-rs-gw-9-z-i/88-2023-8-extremwert-eiens-quadratischen-terms'
 import { exercise89 } from './implementations/by-rs-gw-9-z-i/89-2023-9-pias-freigehege'
 import { exercise90 } from './implementations/by-rs-gw-9-z-i/90-2023-10-fehler-im-schraegbild'
+import { exercise91 } from './implementations/by-rs-gw-9-z-i/91-2023-11-determinante'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -123,6 +124,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   88: exercise88,
   89: exercise89,
   90: exercise90,
+  91: exercise91,
 }
 
 // symbols:

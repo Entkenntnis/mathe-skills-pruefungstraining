@@ -1,3 +1,4 @@
+import { defArrowMarker } from '@/helper/svg-builder'
 import React from 'react'
 
 interface HandballDiagramProps {
@@ -7,19 +8,7 @@ interface HandballDiagramProps {
 export function HandballDiagram({ markers }: HandballDiagramProps) {
   return (
     <svg viewBox="0 0 500 330" width={500}>
-      <defs>
-        <marker
-          id="arrow"
-          viewBox="0 0 10 10"
-          refX="5"
-          refY="5"
-          markerWidth="12"
-          markerHeight="12"
-          orient="auto-start-reverse"
-        >
-          <path d="M 0 0 L 10 5 L 0 10 z" />
-        </marker>
-      </defs>
+      {defArrowMarker()}
       <g>
         {/* Y-axis */}
         <line

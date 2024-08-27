@@ -6,3 +6,11 @@
   font-size: 1rem !important;
   font-family: var(--font-inter) !important;
 }
+
+.svg-defaults line:not([stroke]) {
+  stroke: black;
+}
+
+.svg-defaults text:not([font-size]) {
+  font-size: 16px;
+}
