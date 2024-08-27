@@ -77,7 +77,7 @@ export const exercise96: Exercise<DATA> = {
           </p>
         )}
         <p>
-          Die Jeans kostet <strong>{pp(data.price)} €</strong>.
+          Die Jeans kostete <strong>{pp(data.price)} €</strong>.
         </p>
       </>
     )
