@@ -63,6 +63,7 @@ import { exercise91 } from './implementations/by-rs-gw-9-z-i/91-2023-11-determin
 import { exercise92 } from './implementations/by-rs-gw-9-z-i/92-2023-12-definitionsmenge-eines-bruchterms'
 import { exercise93 } from './implementations/by-rs-gw-9-z-i/93-2023-13-bruchgleichung-loesen'
 import { exercise94 } from './implementations/by-rs-gw-9-z-i/94-2023-14-thaleskreis'
+import { exercise95 } from './implementations/by-rs-gw-9-z-i/95-2023-15-volumen-eines-quaders'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -131,6 +132,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   92: exercise92,
   93: exercise93,
   94: exercise94,
+  95: exercise95,
 }
 
 // symbols:
