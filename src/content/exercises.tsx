@@ -67,6 +67,7 @@ import { exercise95 } from './implementations/by-rs-gw-9-z-i/95-2023-15-volumen-
 import { exercise96 } from './implementations/by-rs-gw-9-z-i/96-2023-16-preis-der-jeans'
 import { exercise97 } from './implementations/by-rs-gw-9-z-i/97-2023-17-schaetzen'
 import { exercise98 } from './implementations/by-rs-gw-9-z-i/98-2023-18-diagramm-ablesen'
+import { exercise99 } from './implementations/by-rs-gw-9-z-i/99-2023-19-winkeljagd'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -139,6 +140,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   96: exercise96,
   97: exercise97,
   98: exercise98,
+  99: exercise99,
 }
 
 // symbols:
@@ -148,6 +150,6 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
 // −
 // ×
 // α β γ δ
-
+// ∠ ∡
 // ⊕
 // ≙
