@@ -103,13 +103,7 @@ export function HandballDiagram({ markers }: HandballDiagramProps) {
                 stroke={stroke}
                 strokeWidth={2}
               />
-              <text
-                x={6}
-                y={-6}
-                fontSize={18}
-                textAnchor="left"
-                stroke={stroke}
-              >
+              <text x={6} y={-6} fontSize={18} textAnchor="left" fill={stroke}>
                 {marker.name}
               </text>
             </g>
