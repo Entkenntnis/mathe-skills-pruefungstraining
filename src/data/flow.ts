@@ -22,7 +22,7 @@ export function flow(app: App) {
       ? historyStats[exercise].solvedCount
       : 0
 
-    const targetLevel = app.state.userData!.level
+    const targetLevel = app.state.userData!.level[app.state.userData!.goal!]
 
     let score = Math.random() * 20 // jitter
 

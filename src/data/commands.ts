@@ -7,6 +7,9 @@ export function selectGoal(app: App, goal: number) {
   if (app.state.userData) {
     app.mut((state) => {
       state.userData!.goal = goal
+      if (!state.userData!.level[goal]) {
+        state.userData!.level[goal] = 1
+      }
     })
     app.uploader.uploadUserData(app)
     populateDashboard(app)
@@ -63,7 +66,7 @@ export function finishExercise(app: App, status: number, duration: number) {
 
 export function unlockNextLevel(app: App) {
   app.mut((state) => {
-    state.userData!.level++
+    state.userData!.level[state.userData!.goal!]++
   })
 }
 

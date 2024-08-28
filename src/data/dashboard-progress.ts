@@ -9,10 +9,13 @@ export function dashboardProgress(app: App): ProgressData {
 
   let newExercises = 0
   let practice = 0
-  const levels = Array.from({ length: app.state.userData!.level }, (_, i) => ({
-    n: 0,
-    level: i + 1,
-  }))
+  const levels = Array.from(
+    { length: app.state.userData!.level[app.state.userData!.goal!] },
+    (_, i) => ({
+      n: 0,
+      level: i + 1,
+    })
+  )
 
   for (const id of ids) {
     if (!historyStats[id]) {

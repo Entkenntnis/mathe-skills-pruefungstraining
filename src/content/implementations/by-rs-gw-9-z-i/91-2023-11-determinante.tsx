@@ -5,6 +5,7 @@ import {
   buildInlineFrac,
   buildOverline,
   buildVec,
+  buildVec2,
 } from '@/helper/math-builder'
 import { pp } from '@/helper/pretty-print'
 import { defArrowMarker, renderCross } from '@/helper/svg-builder'
@@ -202,8 +203,20 @@ export const exercise91: Exercise<DATA> = {
           Der richtige Ansatz ist <strong>Nummer {correctIndex + 1}</strong>.
         </p>
         <p>
-          Die Determinante besteht aus dem Pfeil {buildVec('PQ')} und dem Pfeil{' '}
-          {buildVec('PR')}.
+          Die Determinante besteht aus dem Pfeil <br />
+          {buildVec('PQ')} ={' '}
+          {buildVec2(
+            data.answers[correctIndex].a,
+            data.answers[correctIndex].c
+          )}
+          <br />
+          und dem Pfeil
+          <br />
+          {buildVec('PR')} ={' '}
+          {buildVec2(
+            data.answers[correctIndex].b,
+            data.answers[correctIndex].d
+          )}
         </p>
       </>
     )

@@ -36,7 +36,7 @@ export interface UserData {
   goal: number | null
   dashboard: { id: number; seed: string }[]
   settings: { listLength: number }
-  level: number
+  level: { [key: number]: number }
 }
 
 export interface GoalData {

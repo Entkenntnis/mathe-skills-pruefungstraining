@@ -444,7 +444,7 @@ export default function PracticeView() {
                       className="btn btn-sm"
                       onClick={() => setExample(null)}
                     >
-                      Schließen
+                      zurück zur Aufgabe
                     </button>
                   </div>
                 </div>

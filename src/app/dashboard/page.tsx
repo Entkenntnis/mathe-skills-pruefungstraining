@@ -91,7 +91,9 @@ export default function Page() {
                   <div className="mt-2">{goalsData[goal].description}.</div>
                   <div className="mt-4 font-semibold text-gray-500 flex justify-between">
                     <span>Fortschritt: {progressData.p}%</span>
-                    <span>Level {app.state.userData.level}</span>
+                    <span>
+                      Level {app.state.userData.level[app.state.userData.goal!]}
+                    </span>
                   </div>
                   <progress
                     className="progress w-full progress-accent"
@@ -109,7 +111,8 @@ export default function Page() {
                     progressData.levels.forEach((l) => {
                       if (
                         (l.n > 0 && l.n < n) ||
-                        l.level == app.state.userData!.level
+                        l.level ==
+                          app.state.userData!.level[app.state.userData!.goal!]
                       ) {
                         values.push(`Level ${l.level}: ${l.n}/${n}`)
                       }
@@ -127,7 +130,9 @@ export default function Page() {
                           app.uploader.uploadUserData(app)
                         }}
                       >
-                        Level {app.state.userData.level + 1} starten
+                        Level{' '}
+                        {app.state.userData.level[app.state.userData.goal!] + 1}{' '}
+                        starten
                       </button>
                     </div>
                   )}
@@ -191,7 +196,9 @@ export default function Page() {
                                 kann ich - lvl{' '}
                                 {Math.min(
                                   historyStats[id].solvedCount,
-                                  app.state.userData!.level
+                                  app.state.userData!.level[
+                                    app.state.userData!.goal!
+                                  ]
                                 )}
                               </span>
                             )}
@@ -300,13 +307,17 @@ export default function Page() {
                                 neu
                               </span>
                             ) : historyStats[entry.id].solvedCount ==
-                              app.state.userData!.level - 1 ? (
+                              app.state.userData!.level[
+                                app.state.userData!.goal!
+                              ] -
+                                1 ? (
                               <span className="badge badge-primary badge-outline font-normal ml-3">
                                 Level {historyStats[entry.id].solvedCount + 1}
                               </span>
                             ) : historyStats[entry.id].solvedCount <
-                              app.state.userData!
-                                .level /* if level is below two */ ? (
+                              app.state.userData!.level[
+                                app.state.userData!.goal!
+                              ] /* if level is below two */ ? (
                               <span className="badge badge-primary font-normal ml-3">
                                 Level {historyStats[entry.id].solvedCount + 1}
                               </span>
