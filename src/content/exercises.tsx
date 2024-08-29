@@ -172,6 +172,14 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   111: exercise111,
   112: exercise112,
   113: exercise113,
+  114: {
+    ...exercise93,
+    title: exercise93.title.replace('13)', '14)'),
+    constraint(props) {
+      if (props.data.a > 1) return false
+      return exercise93.constraint!(props)
+    },
+  },
   117: { ...exercise96, title: exercise96.title.replace('16)', '17)') },
   118: { ...exercise97, title: exercise97.title.replace('17)', '18)') },
   119: { ...exercise98, title: exercise98.title.replace('18)', '19)') },
