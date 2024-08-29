@@ -14,9 +14,17 @@ export class Rng {
    * @param {number} upper inclusive upper bound
    * @returns {number} pseudo random int inside bounds
    */
-  randomIntBetween(lower: number, upper: number): number {
+  randomIntBetween(lower: number, upper: number, step: number = 1): number {
     if (!Number.isSafeInteger(lower) || !Number.isSafeInteger(upper)) {
       throw 'only integers allowed'
+    }
+
+    if ((upper - lower) % step !== 0) {
+      throw new Error('step does not fit')
+    }
+
+    if (step > 1) {
+      return lower + this.randomIntBetween(0, (upper - lower) / step) * step
     }
 
     return Math.floor(this.seedrandom() * (upper + 1 - lower) + lower)
