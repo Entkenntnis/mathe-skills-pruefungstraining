@@ -93,6 +93,17 @@ export default function Page() {
                     <span>Fortschritt: {progressData.p}%</span>
                     <span>
                       Level {app.state.userData.level[app.state.userData.goal!]}
+                      {showUnlock && (
+                        <button
+                          className="btn btn-sm btn-accent btn-outline ml-3"
+                          onClick={() => {
+                            unlockNextLevel(app)
+                            app.uploader.uploadUserData(app)
+                          }}
+                        >
+                          ↑ Level up
+                        </button>
+                      )}
                     </span>
                   </div>
                   <progress
@@ -121,21 +132,6 @@ export default function Page() {
                       <div className="text-sm mt-1">{values.join(', ')}</div>
                     )
                   })()}
-                  {showUnlock && (
-                    <div className="text-center">
-                      <button
-                        className="btn btn-sm btn-accent"
-                        onClick={() => {
-                          unlockNextLevel(app)
-                          app.uploader.uploadUserData(app)
-                        }}
-                      >
-                        Level{' '}
-                        {app.state.userData.level[app.state.userData.goal!] + 1}{' '}
-                        starten
-                      </button>
-                    </div>
-                  )}
                 </div>
               )
             })()}

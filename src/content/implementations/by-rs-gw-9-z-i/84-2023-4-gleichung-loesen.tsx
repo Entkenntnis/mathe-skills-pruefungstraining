@@ -53,14 +53,30 @@ export const exercise84: Exercise<DATA> = {
           = x + {pp(data.e)}
         </p>
         <p>Die Quadrate heben sich auf, vereinfache und löse:</p>
-        <p className="text-lg">
-          {ppPolynom([[data.c * data.b, 'x', 1]])} = x + {pp(data.e)} | −x
-          <br />
-          {ppPolynom([[data.c * data.b - 1, 'x', 1]])} = {pp(data.e)}{' '}
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| : {pp(data.c * data.b - 1)}
-          <br />
-          &nbsp;&nbsp;x = {pp(r)}
-        </p>
+        <table className="not-prose">
+          <tr>
+            <td className="text-right">
+              {ppPolynom([[data.c * data.b, 'x', 1]])}
+            </td>
+            <td className="px-1">=</td>
+            <td>x + {pp(data.e)}</td>
+            <td className="pl-3">| − x</td>
+          </tr>
+          <tr>
+            <td className="text-right">
+              {ppPolynom([[data.c * data.b - 1, 'x', 1]])}
+            </td>
+            <td className="px-1">=</td>
+            <td>{pp(data.e)}</td>
+            <td className="pl-3">| : {pp(data.c * data.b - 1)}</td>
+          </tr>
+          <tr>
+            <td className="text-right">x</td>
+            <td className="px-1">=</td>
+            <td>{pp(r)}</td>
+            <td className="pl-3"></td>
+          </tr>
+        </table>
         <p>Gib die Lösungsmenge an:</p>
         <p className="text-lg font-bold">
           L = {'{'} {pp(r)} {'}'}
