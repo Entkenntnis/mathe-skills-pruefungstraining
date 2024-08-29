@@ -72,6 +72,7 @@ import { exercise100 } from './implementations/by-rs-gw-9-z-i/100-2023-20-relati
 import { exercise101 } from './implementations/by-rs-gw-9-z-ii-iii/101-2023-1-geraden-im-koordinatensystem'
 import { exercise105 } from './implementations/by-rs-gw-9-z-ii-iii/105-2023-5-drachenviereck-zeichnen'
 import { exercise106 } from './implementations/by-rs-gw-9-z-ii-iii/106-2023-6-klammer-aufloesen'
+import { exercise111 } from './implementations/by-rs-gw-9-z-ii-iii/111-2023-11-geometrischen-ort-bestimmen'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -166,6 +167,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   },
   105: exercise105,
   106: exercise106,
+  111: exercise111,
   117: { ...exercise96, title: exercise96.title.replace('16)', '17)') },
   118: { ...exercise97, title: exercise97.title.replace('17)', '18)') },
   119: { ...exercise98, title: exercise98.title.replace('18)', '19)') },
