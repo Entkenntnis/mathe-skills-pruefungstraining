@@ -1,8 +1,8 @@
 import { Exercise } from '@/data/types'
 import { constrainedGeneration } from '@/helper/constrained-generation'
 import {
-  buildDet2,
   buildInlineFrac,
+  buildDet2,
   buildVec,
   buildVec2,
 } from '@/helper/math-builder'
@@ -11,42 +11,36 @@ import { defArrowMarker, renderCross } from '@/helper/svg-builder'
 import { Fragment } from 'react'
 
 interface DATA {
-  px: number
-  py: number
   qx: number
   qy: number
-  rx: number
-  ry: number
+  px: number
+  py: number
   answers: { a: number; b: number; c: number; d: number; isCorrect: boolean }[]
 }
 
-export const exercise91: Exercise<DATA> = {
-  title: '2023 / 11) Determinante',
+export const exercise112: Exercise<DATA> = {
+  title: '2023 / 12) Determinante',
   useCalculator: false,
   duration: 2,
   generator(rng) {
-    const px = rng.randomIntBetween(1, 5)
-    const py = rng.randomIntBetween(1, 3)
-    const qx = rng.randomIntBetween(1, 5)
-    const qy = rng.randomIntBetween(1, 3)
-    const rx = rng.randomIntBetween(1, 5)
-    const ry = rng.randomIntBetween(1, 3)
-    const PQ = [qx - px, qy - py]
-    const PR = [rx - px, ry - py]
+    const px = rng.randomIntBetween(1, 4)
+    const py = rng.randomIntBetween(1, 2)
+    const qx = rng.randomIntBetween(1, 4)
+    const qy = rng.randomIntBetween(1, 2)
+    const OP = [px, py]
+    const OQ = [qx, qy]
     const answers: DATA['answers'] = [
-      { isCorrect: true, a: PQ[0], b: PR[0], c: PQ[1], d: PR[1] },
-      { isCorrect: false, b: PQ[0], a: PR[0], d: PQ[1], c: PR[1] },
-      { isCorrect: false, a: -PQ[0], b: PR[0], c: -PQ[1], d: PR[1] },
-      { isCorrect: false, a: PQ[0], b: -PR[0], c: PQ[1], d: -PR[1] },
-      { isCorrect: false, a: PQ[1], b: PR[0], c: PQ[0], d: PR[1] },
+      { isCorrect: true, a: OP[0], b: OQ[0], c: OP[1], d: OQ[1] },
+      { isCorrect: false, b: OP[0], a: OQ[0], d: OP[1], c: OQ[1] },
+      { isCorrect: false, a: -OP[0], b: OQ[0], c: -OP[1], d: OQ[1] },
+      { isCorrect: false, a: OP[0], b: -OQ[0], c: OP[1], d: -OQ[1] },
+      { isCorrect: false, a: OP[1], b: OQ[0], c: OP[0], d: OQ[1] },
     ]
     return {
-      px,
-      py,
       qx,
       qy,
-      rx,
-      ry,
+      px,
+      py,
       answers: constrainedGeneration(
         () => rng.shuffleArray(answers).slice(0, 4),
         (data) => {
@@ -59,56 +53,40 @@ export const exercise91: Exercise<DATA> = {
     }
   },
   constraint({ data }) {
-    const A =
-      ((data.qx - data.px) * (data.ry - data.py) -
-        (data.qy - data.py) * (data.rx - data.px)) *
-      0.5
-    return A >= 2
+    const A = (data.px * data.qy - data.py * data.qx) * 0.5
+    return A >= 1.5
   },
   task({ data }) {
+    const O_x = 50
+    const O_y = 225
     const p_x = 50 + 50 * data.px
     const p_y = 225 - 50 * data.py
     const q_x = 50 + 50 * data.qx
     const q_y = 225 - 50 * data.qy
-    const r_x = 50 + 50 * data.rx
-    const r_y = 225 - 50 * data.ry
 
-    function tryAutoposText(
-      x_: number,
-      y_: number,
-      x: number,
-      y: number,
-      T: string
-    ) {
-      return (
-        <text x={x_ + (x <= 2 ? -15 : 3)} y={y_ + (y == 3 ? -8 : 19)}>
-          {T}
-        </text>
-      )
-    }
     return (
       <>
         <p>
-          Der Flächeninhalt A des Dreiecks PQR soll mit Hilfe einer Determinante
+          Der Flächeninhalt A des Dreiecks OPQ soll mit Hilfe einer Determinante
           ermittelt werden.
         </p>
-        <svg viewBox="0 0 350 275" className="svg-defaults max-w-[350px]">
+        <svg viewBox="0 50 325 275" className="svg-defaults max-w-[325px]">
           {defArrowMarker()}
 
           <line
             x1={25}
-            x2={325}
+            x2={300}
             y1={225}
             y2={225}
             markerEnd="url(#arrow)"
           ></line>
-          {[1, 2, 3, 4, 5].map((x) => (
+          {[1, 2, 3, 4].map((x) => (
             <Fragment key={x}>
               <line
                 x1={50 + 50 * x - 25}
                 x2={50 + 50 * x - 25}
                 y1={250}
-                y2={25}
+                y2={75}
                 stroke="gray"
                 strokeDasharray={'4 4'}
               ></line>
@@ -116,7 +94,7 @@ export const exercise91: Exercise<DATA> = {
                 x1={50 + 50 * x}
                 x2={50 + 50 * x}
                 y1={225}
-                y2={25}
+                y2={75}
                 stroke="gray"
                 strokeDasharray={'4 4'}
               ></line>
@@ -126,16 +104,24 @@ export const exercise91: Exercise<DATA> = {
               </text>
             </Fragment>
           ))}
-          <text x={320} y={244}>
+          <line
+            x1={50 + 50 * 5 - 25}
+            x2={50 + 50 * 5 - 25}
+            y1={250}
+            y2={75}
+            stroke="gray"
+            strokeDasharray={'4 4'}
+          ></line>
+          <text x={295} y={244}>
             x
           </text>
 
-          <line x1={50} x2={50} y1={250} y2={25} markerEnd="url(#arrow)"></line>
-          {[1, 2, 3].map((x) => (
+          <line x1={50} x2={50} y1={250} y2={90} markerEnd="url(#arrow)"></line>
+          {[1, 2].map((x) => (
             <Fragment key={x}>
               <line
                 x1={25}
-                x2={325}
+                x2={300}
                 y1={250 - 50 * x}
                 y2={250 - 50 * x}
                 stroke="gray"
@@ -143,7 +129,7 @@ export const exercise91: Exercise<DATA> = {
               ></line>
               <line
                 x1={50}
-                x2={325}
+                x2={300}
                 y1={225 - 50 * x}
                 y2={225 - 50 * x}
                 stroke="gray"
@@ -157,13 +143,13 @@ export const exercise91: Exercise<DATA> = {
           ))}
           <line
             x1={25}
-            x2={325}
-            y1={50}
-            y2={50}
+            x2={300}
+            y1={100}
+            y2={100}
             stroke="gray"
             strokeDasharray="4 4"
           ></line>
-          <text x={30} y={25}>
+          <text x={30} y={90}>
             y
           </text>
 
@@ -172,15 +158,18 @@ export const exercise91: Exercise<DATA> = {
           </text>
 
           {renderCross(p_x, p_y)}
-          {tryAutoposText(p_x, p_y, data.px, data.py, 'P')}
           {renderCross(q_x, q_y)}
-          {tryAutoposText(q_x, q_y, data.qx, data.qy, 'Q')}
-          {renderCross(r_x, r_y)}
-          {tryAutoposText(r_x, r_y, data.rx, data.ry, 'R')}
+          <text x={p_x + 4} y={p_y - 6}>
+            P
+          </text>
+          {renderCross(p_x, p_y)}
+          <text x={q_x + 4} y={q_y - 6}>
+            Q
+          </text>
 
+          <line x1={O_x} y1={O_y} x2={q_x} y2={q_y} strokeWidth={2}></line>
           <line x1={p_x} y1={p_y} x2={q_x} y2={q_y} strokeWidth={2}></line>
-          <line x1={r_x} y1={r_y} x2={q_x} y2={q_y} strokeWidth={2}></line>
-          <line x1={r_x} y1={r_y} x2={p_x} y2={p_y} strokeWidth={2}></line>
+          <line x1={p_x} y1={p_y} x2={O_x} y2={O_y} strokeWidth={2}></line>
         </svg>
         <p>Einer der folgenden Lösungsansätze ist richtig.</p>
         <ol>
@@ -203,7 +192,7 @@ export const exercise91: Exercise<DATA> = {
         </p>
         <p>
           Die Determinante besteht aus dem Pfeil <br />
-          {buildVec('PQ')} ={' '}
+          {buildVec('OP')} ={' '}
           {buildVec2(
             data.answers[correctIndex].a,
             data.answers[correctIndex].c
@@ -211,7 +200,7 @@ export const exercise91: Exercise<DATA> = {
           <br />
           und dem Pfeil
           <br />
-          {buildVec('PR')} ={' '}
+          {buildVec('OQ')} ={' '}
           {buildVec2(
             data.answers[correctIndex].b,
             data.answers[correctIndex].d

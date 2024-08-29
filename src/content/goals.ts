@@ -32,8 +32,8 @@ export const goalsData: { [key: number]: GoalData } = {
     name: 'Fit für 9, Zweig II/III, Realschule Bayern',
     description: 'Grundwissenstest über die Inhalte der 5. - 8. Klasse',
     exercises: [
-      101, 102, 103, 104, 105, 106, 87, 88, 89, 90, 111,
-      /* 12-16 sind Varianten (112 - 116) */ 117, 118, 119, 120, 121,
+      101, 102, 103, 104, 105, 106, 87, 88, 89, 90, 111, 112, 113, 114, 115,
+      116, 117, 118, 119, 120, 121,
     ].filter((id) => exercisesData[id]),
     index: 9,
   },
