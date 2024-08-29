@@ -26,6 +26,10 @@ export class Rng {
     return arr[Math.floor(this.seedrandom() * arr.length)]
   }
 
+  randomBoolean() {
+    return this.randomItemFromArray([true, false])
+  }
+
   shuffleArray<T>(sourceArray: T[]) {
     // Durstenfeld shuffle https://stackoverflow.com/a/12646864 probably overkill, but hey it's all about the performance right?
     const array = Array.from(sourceArray)

@@ -4,6 +4,10 @@ import { pp } from '@/helper/pretty-print'
 
 interface DATA {
   m: [number, number]
+  x: number
+  y: number
+  m2: number
+  isCorrect: boolean
 }
 
 export const exercise101: Exercise<DATA> = {
@@ -11,6 +15,22 @@ export const exercise101: Exercise<DATA> = {
   useCalculator: false,
   duration: 3,
   generator(rng) {
+    const [x, m2] = rng.randomItemFromArray([
+      [-0.25, 4],
+      [-0.2, 5],
+      [-0.5, 2],
+      [-0.5, 4],
+      [-0.1, 10],
+      [-4, 0.25],
+      [-5, 0.2],
+      [-2, 0.5],
+      [-4, 0.5],
+      [-10, 0.1],
+    ])
+    const isCorrect = rng.randomBoolean()
+    const y = isCorrect
+      ? x * m2
+      : x * m2 + rng.randomItemFromArray([-2, -1, 1, 2])
     return {
       m: rng.randomItemFromArray([
         [1, 1],
@@ -21,10 +41,14 @@ export const exercise101: Exercise<DATA> = {
         [1.5, 1],
         [-1, 1],
       ]),
+      x,
+      y,
+      m2,
+      isCorrect,
     }
   },
   constraint({ data }) {
-    return true
+    return data.y !== 0
   },
   task({ data }) {
     return <></>
@@ -49,8 +73,9 @@ export const exercise101: Exercise<DATA> = {
       ({ data }) => (
         <>
           <p>
-            b) Überprüfe durch Rechnung, ob der Punkt P(4|−1) auf der Gerade
-            h:&nbsp;y&nbsp;=&nbsp;−0,25&nbsp;·&nbsp;x liegt.
+            b) Überprüfe durch Rechnung, ob der Punkt P({pp(data.x)}|
+            {pp(data.y)}) auf der Gerade h:&nbsp;y&nbsp;=&nbsp;{pp(data.m2)}
+            &nbsp;·&nbsp;x liegt.
           </p>
         </>
       ),
@@ -88,7 +113,24 @@ export const exercise101: Exercise<DATA> = {
           </>
         )
       },
-      ({ data }) => <></>,
+      ({ data }) => (
+        <>
+          <p>Berechne den y-Wert:</p>
+          <p>
+            y = {pp(data.m2)} · {pp(data.x)} = {pp(data.m2 * data.x)}
+          </p>
+          <p>Vergleiche:</p>
+          <p>
+            {pp(data.m2 * data.x)} {data.isCorrect ? '=' : '≠'} {pp(data.y)} ⇒ P
+            {data.isCorrect ? '∈' : '∉'} h
+          </p>
+          <p className="font-bold">
+            {data.isCorrect
+              ? 'Der Punkt P liegt auf der Geraden h.'
+              : 'Der Punkt P liegt nicht auf der Geraden h.'}
+          </p>
+        </>
+      ),
     ],
   },
 }

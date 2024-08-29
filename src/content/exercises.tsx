@@ -162,4 +162,4 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
 // α β γ δ
 // ∠ ∡
 // ⊕
-// ≙
+// ≙ ≠ ⇒ ∈
