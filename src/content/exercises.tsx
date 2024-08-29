@@ -69,6 +69,7 @@ import { exercise97 } from './implementations/by-rs-gw-9-z-i/97-2023-17-schaetze
 import { exercise98 } from './implementations/by-rs-gw-9-z-i/98-2023-18-diagramm-ablesen'
 import { exercise99 } from './implementations/by-rs-gw-9-z-i/99-2023-19-winkeljagd'
 import { exercise100 } from './implementations/by-rs-gw-9-z-i/100-2023-20-relative-haeufigkeit-angeben'
+import { exercise101 } from './implementations/by-rs-gw-9-z-ii-iii/101-2023-1-geraden-im-koordinatensystem'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -144,6 +145,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   99: exercise99,
   100: exercise100,
 
+  101: exercise101,
   117: { ...exercise96, title: exercise96.title.replace('16)', '17)') },
   118: { ...exercise97, title: exercise97.title.replace('17)', '18)') },
   119: { ...exercise98, title: exercise98.title.replace('18)', '19)') },
