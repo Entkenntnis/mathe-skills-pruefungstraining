@@ -146,6 +146,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   100: exercise100,
 
   101: exercise101,
+  102: { ...exercise82, constraint: ({ data }) => !data.withNeg },
   117: { ...exercise96, title: exercise96.title.replace('16)', '17)') },
   118: { ...exercise97, title: exercise97.title.replace('17)', '18)') },
   119: { ...exercise98, title: exercise98.title.replace('18)', '19)') },
@@ -162,4 +163,4 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
 // α β γ δ
 // ∠ ∡
 // ⊕
-// ≙ ≠ ⇒ ∈
+// ≙ ≠ ⇒ ∈ ∉

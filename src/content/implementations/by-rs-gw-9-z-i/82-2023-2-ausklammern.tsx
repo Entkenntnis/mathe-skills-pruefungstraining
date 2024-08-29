@@ -56,7 +56,7 @@ export const exercise82: Exercise<DATA> = {
         </p>
         <p className="text-lg">
           {data.withNeg && '−'}
-          {renderTuple(data.a, data.letters)} +{' '}
+          {renderTuple(data.a, data.letters)} {data.withNeg ? '+' : '−'}{' '}
           {renderTuple(data.b, data.letters)} = {data.withNeg && '−'}
           {renderTuple(data.base, data.letters)} · (
           _____________________________ )
@@ -75,12 +75,11 @@ export const exercise82: Exercise<DATA> = {
         <p>Dividiere durch den gemeinsamen Faktor:</p>
         <p className="text-lg">
           {data.withNeg && '−'}
-          {renderTuple(data.a, data.letters)} +{' '}
+          {renderTuple(data.a, data.letters)} {data.withNeg ? '+' : '−'}{' '}
           {renderTuple(data.b, data.letters)} = {data.withNeg && '−'}
           {renderTuple(data.base, data.letters)} · ({' '}
           <strong>
-            {renderTuple(r1, data.letters)} {data.withNeg ? '−' : '+'}{' '}
-            {renderTuple(r2, data.letters)}
+            {renderTuple(r1, data.letters)} − {renderTuple(r2, data.letters)}
           </strong>{' '}
           )
         </p>
