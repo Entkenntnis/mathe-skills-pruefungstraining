@@ -143,6 +143,12 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   98: exercise98,
   99: exercise99,
   100: exercise100,
+
+  117: { ...exercise96, title: exercise96.title.replace('16)', '17)') },
+  118: { ...exercise97, title: exercise97.title.replace('17)', '18)') },
+  119: { ...exercise98, title: exercise98.title.replace('18)', '19)') },
+  120: { ...exercise99, title: exercise99.title.replace('19)', '20)') },
+  121: { ...exercise100, title: exercise100.title.replace('20)', '21)') },
 }
 
 // symbols:
