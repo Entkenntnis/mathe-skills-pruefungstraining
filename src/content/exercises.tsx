@@ -75,6 +75,7 @@ import { exercise106 } from './implementations/by-rs-gw-9-z-ii-iii/106-2023-6-kl
 import { exercise111 } from './implementations/by-rs-gw-9-z-ii-iii/111-2023-11-geometrischen-ort-bestimmen'
 import { exercise112 } from './implementations/by-rs-gw-9-z-ii-iii/112-2023-12-determinante'
 import { exercise113 } from './implementations/by-rs-gw-9-z-ii-iii/113-2023-13-definitionsmenge-eines-bruchterms'
+import { exercise115 } from './implementations/by-rs-gw-9-z-ii-iii/115-2023-15-thaleskreis'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -180,6 +181,8 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
       return exercise93.constraint!(props)
     },
   },
+  115: exercise115,
+  116: { ...exercise95, title: exercise95.title.replace('15)', '16)') },
   117: { ...exercise96, title: exercise96.title.replace('16)', '17)') },
   118: { ...exercise97, title: exercise97.title.replace('17)', '18)') },
   119: { ...exercise98, title: exercise98.title.replace('18)', '19)') },

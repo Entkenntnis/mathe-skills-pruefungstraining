@@ -2,6 +2,7 @@ import { Exercise } from '@/data/types'
 import { buildInlineFrac } from '@/helper/math-builder'
 import { pp } from '@/helper/pretty-print'
 import { renderCross, rightAngle } from '@/helper/svg-builder'
+import { basicSvg } from '../by-rs-gw-9-z-i/94-2023-14-thaleskreis'
 
 interface DATA {
   d: number
@@ -9,8 +10,8 @@ interface DATA {
   A: number
 }
 
-export const exercise94: Exercise<DATA> = {
-  title: '2023 / 14) Thaleskreis',
+export const exercise115: Exercise<DATA> = {
+  title: '2023 / 15) Thaleskreis',
   useCalculator: false,
   duration: 1,
   generator(rng) {
@@ -25,11 +26,27 @@ export const exercise94: Exercise<DATA> = {
     return (
       <>
         <p>
-          Vervollständige die Zeichnung mithilfe des Thaleskreises zu einem bei
-          C rechtwinkligen Dreieck ABC mit einem Flächeninhalt A von{' '}
-          {pp(data.A)} cm².
+          Luna möchte mithilfe des Thaleskreiss ein bei C rechtwinkliges Dreieck
+          ABC zeichnen. Vervollständige die Zeichnung zum Dreieck ABC mit dem
+          Flächeninhalt A von {pp(data.A)} cm².
         </p>
-        {basicSvg(data)}
+        {basicSvg(
+          data,
+          <>
+            {renderCross(9 * 25, 225, 'black')}
+            <text x={9 * 25 + 4} y={245} fill="black">
+              M
+            </text>
+            <path
+              d={`M ${9 * 25 + data.d * 50},225 A ${data.d * 50},${
+                data.d * 50
+              } 0 0 0 ${9 * 25 - data.d * 50},225`}
+              strokeWidth={2}
+              fill="none"
+              stroke="black"
+            ></path>
+          </>
+        )}
       </>
     )
   },
@@ -47,14 +64,14 @@ export const exercise94: Exercise<DATA> = {
           h = {data.h} cm
         </p>
         <p>
-          Zeichne den Thaleskreis und Gerade bei der gewünschten Höhe. Der Punkt
-          C liegt auf dem Schnittpunkt von Kreis und Gerade:
+          Zeichne auf der gewünschten Höhe eine Gerade. Der Punkt C liegt auf
+          dem Schnittpunkt von Thaleskreis und Gerade:
         </p>
         {basicSvg(
           data,
           <>
-            {renderCross(9 * 25, 225, 'blue')}
-            <text x={9 * 25 + 4} y={245} fill="blue">
+            {renderCross(9 * 25, 225, 'black')}
+            <text x={9 * 25 + 4} y={245} fill="black">
               M
             </text>
             <path
@@ -63,7 +80,7 @@ export const exercise94: Exercise<DATA> = {
               } 0 0 0 ${9 * 25 - data.d * 50},225`}
               strokeWidth={2}
               fill="none"
-              stroke="lightblue"
+              stroke="black"
             ></path>
             <line
               x1={25}
@@ -105,49 +122,4 @@ export const exercise94: Exercise<DATA> = {
       </>
     )
   },
-}
-
-export function basicSvg(data: DATA, stuff: JSX.Element = <></>) {
-  const mx = 9 * 25
-
-  return (
-    <svg className="svg-defaults max-w-[450px]" viewBox="0 0 450 250">
-      {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((x) => (
-        <line
-          key={x}
-          x1={0}
-          x2={450}
-          y1={25 + x * 25}
-          y2={25 + x * 25}
-          strokeDasharray="4 4"
-        ></line>
-      ))}
-      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map((x) => (
-        <line
-          key={x}
-          y1={0}
-          y2={250}
-          x1={25 + x * 25}
-          x2={25 + x * 25}
-          strokeDasharray="4 4"
-        ></line>
-      ))}
-      <line
-        y1={225}
-        y2={225}
-        x1={mx - data.d * 50}
-        x2={mx + data.d * 50}
-        strokeWidth={2}
-      ></line>
-      {renderCross(mx - data.d * 50, 225)}
-      {renderCross(mx + data.d * 50, 225)}
-      <text x={mx - data.d * 50 - 20} y={245}>
-        A
-      </text>
-      <text x={mx + data.d * 50 + 8} y={245}>
-        B
-      </text>
-      {stuff}
-    </svg>
-  )
 }

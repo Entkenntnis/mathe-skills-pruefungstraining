@@ -13,7 +13,7 @@ export const exercise95: Exercise<DATA> = {
   generator(rng) {
     return {
       V_w: rng.randomItemFromArray([8, 27]),
-      schichten: rng.randomItemFromArray([2, 3]),
+      schichten: rng.randomItemFromArray([1, 2, 3]),
       gap: rng.randomItemFromArray([1, 2, 3]),
     }
   },
@@ -25,10 +25,14 @@ export const exercise95: Exercise<DATA> = {
       <>
         <p>
           Würfel mit einem Volumen von je {data.V_w} cm³ sind in{' '}
-          {data.schichten == 2 ? 'zwei' : 'drei'} Schichten mit jeweils 6
-          Würfeln in einem Karton gestapelt (siehe Skizze).
+          {data.schichten == 1
+            ? 'einer Schicht'
+            : data.schichten == 2
+            ? 'zwei Schichten'
+            : 'drei Schichten'}{' '}
+          mit jeweils 6 Würfeln in einem Karton gestapelt (siehe Skizze).
         </p>
-        <img src="/content/69.jpg" width={236} />
+        <img src="/content/69.jpg" width={236} alt="Skizze" />
         <p>
           Die insgesamt {data.schichten * 6} Würfel füllen die Breite und die
           Länge des Kartons vollständig aus. Oben bleibt ein Hohlraum mit einer

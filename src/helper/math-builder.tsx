@@ -35,24 +35,31 @@ export function buildOverline(x: JSX.Element | number | string) {
 
 export function buildSqrt(x: JSX.Element | number | string) {
   return (
-    <>
-      <span className="text-2xl">&#8730;</span>
-      {buildOverline(x)}
-    </>
-  )
-}
-
-export function buildBigSqrt(x: JSX.Element) {
-  return (
-    <>
-      <span
-        className="inline-block scale-y-[2.67] text-2xl"
-        style={{ verticalAlign: '-3px' }}
-      >
-        &#8730;
-      </span>
-      <span className="inline-block border-t border-black px-1">{x}</span>
-    </>
+    <span
+      className="inline-flex items-stretch ml-0.5 pb-1"
+      style={{ verticalAlign: 'middle' }}
+    >
+      <div>
+        <svg
+          viewBox="0 0 6 12"
+          width={7}
+          height="100%"
+          preserveAspectRatio="none"
+          aria-label="√"
+        >
+          <path
+            vectorEffect="non-scaling-stroke"
+            d="M5.9,0.2H6l-2.49975 11.5L0.5 6"
+            strokeWidth={1}
+            fill="none"
+            stroke="black"
+          />
+        </svg>
+      </div>
+      <div className="border-t-[1.5px] border-black leading-none px-0.5 pt-0.5">
+        {x}
+      </div>
+    </span>
   )
 }
 
