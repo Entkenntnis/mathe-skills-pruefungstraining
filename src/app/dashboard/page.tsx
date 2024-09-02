@@ -174,7 +174,7 @@ export default function Page() {
                       return (
                         <div
                           className={clsx(
-                            'rounded mx-3 px-3 py-4 cursor-pointer w-full bg-white hover:bg-gray-50'
+                            'rounded mx-3 px-3 py-4 cursor-pointer w-full bg-white hover:bg-gray-50 flex justify-between'
                           )}
                           key={id}
                           onClick={() => {
@@ -182,27 +182,32 @@ export default function Page() {
                             router.push('/practice')
                           }}
                         >
-                          {exercisesData[id].title}
-                          <span className="badge badge-outline font-normal ml-3">
-                            {exercisesData[id].duration} min
-                          </span>
-                          {!historyStats[id]?.practice &&
-                            historyStats[id]?.solvedCount > 0 && (
-                              <span className="badge badge-outline border-accent text-accent-content font-normal ml-3">
-                                kann ich - lvl{' '}
-                                {Math.min(
-                                  historyStats[id].solvedCount,
-                                  app.state.userData!.level[
-                                    app.state.userData!.goal!
-                                  ]
-                                )}
-                              </span>
-                            )}
+                          <div>
+                            {exercisesData[id].title}
+                            <span className="badge badge-outline font-normal ml-3">
+                              {exercisesData[id].duration} min
+                            </span>
+                          </div>
                           {historyStats[id]?.practice && (
                             <span className="badge text-warning-content border-warning font-normal ml-3">
                               nochmal üben
                             </span>
                           )}
+                          {!historyStats[id]?.practice &&
+                            historyStats[id]?.solvedCount > 0 && (
+                              <span className="badge badge-outline border-0 ml-3 text-accent font-bold">
+                                {Array.from({
+                                  length: Math.min(
+                                    historyStats[id].solvedCount,
+                                    app.state.userData!.level[
+                                      app.state.userData!.goal!
+                                    ]
+                                  ),
+                                })
+                                  .fill('✓')
+                                  .join(' ')}
+                              </span>
+                            )}
                         </div>
                       )
                     })}
@@ -352,7 +357,20 @@ export default function Page() {
                 </>
               )
             })()}
-          <div className="h-[400px]"></div>
+          <div className="h-[200px]"></div>
+          <div className="mb-8 text-center text-gray-600 text-sm">
+            <Link className="hover:underline" href="/imprint">
+              Impressum / Datenschutz
+            </Link>{' '}
+            |{' '}
+            <Link className="hover:underline" href="/change-password">
+              Passwort ändern
+            </Link>{' '}
+            |{' '}
+            <Link className="hover:underline" href="/delete">
+              Account löschen
+            </Link>
+          </div>
         </div>
       </div>
       <dialog id="settings-modal" className="modal">

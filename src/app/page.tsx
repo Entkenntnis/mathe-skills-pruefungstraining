@@ -33,6 +33,11 @@ export default function Home() {
               viele Beispielrechnungen zur Orientierung und einen
               vorstrukturierten Lernplan.
             </p>
+            <p className="text-gray-500 mt-6 text-sm">
+              <Link className="hover:underline" href="imprint">
+                Impressum / Datenschutz
+              </Link>
+            </p>
           </div>
         </div>
       </div>

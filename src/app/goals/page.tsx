@@ -51,11 +51,11 @@ export default function Page() {
                         <button
                           className="btn btn-primary"
                           onClick={() => {
-                            if (!app.state.userData?.goal) {
-                              setTimeout(() => {
-                                router.push('/dashboard')
-                              }, 100)
-                            }
+                            // if (!app.state.userData?.goal) {
+                            setTimeout(() => {
+                              router.push('/dashboard')
+                            }, 100)
+                            // }
                             selectGoal(app, parseInt(id))
                           }}
                         >

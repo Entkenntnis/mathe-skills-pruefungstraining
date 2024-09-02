@@ -70,7 +70,7 @@ export const exercise112: Exercise<DATA> = {
           Der Flächeninhalt A des Dreiecks OPQ soll mit Hilfe einer Determinante
           ermittelt werden.
         </p>
-        <svg viewBox="0 50 325 275" className="svg-defaults max-w-[325px]">
+        <svg viewBox="0 50 325 225" className="svg-defaults max-w-[325px]">
           {defArrowMarker()}
 
           <line
