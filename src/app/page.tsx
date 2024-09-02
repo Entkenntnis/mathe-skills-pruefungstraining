@@ -1,10 +1,8 @@
 'use client'
 
-import { useApp } from '@/components/App'
 import Link from 'next/link'
 
 export default function Home() {
-  const app = useApp()
   return (
     <div>
       <div className="hero bg-base-200 min-h-screen">

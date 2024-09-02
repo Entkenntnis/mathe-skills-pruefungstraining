@@ -17,7 +17,7 @@ export interface App {
   mut(fn: (draft: Draft<AppState>) => void): void
   afterPush(target: string, handler: () => void): void
   uploader: Uploader
-  rerender: () => void
+  init: boolean
 }
 
 export type HistoryEntry =

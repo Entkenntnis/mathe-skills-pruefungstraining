@@ -1,6 +1,11 @@
 import Link from 'next/link'
+import { useApp } from './App'
 
 export function Guard() {
+  const app = useApp()
+  if (!app.init) {
+    return null
+  }
   return (
     <div className="modal modal-open" role="dialog">
       <div className="modal-box">

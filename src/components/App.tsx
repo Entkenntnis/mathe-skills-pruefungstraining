@@ -31,6 +31,23 @@ export function AppWrapper({ children }: AppWrapperProps) {
     }
   }, [pathname])
 
+  const [init, setInit] = useState(false)
+
+  useEffect(() => {
+    try {
+      const obj = JSON.parse(
+        sessionStorage.getItem('mathe-skills-client-store') ?? 'false'
+      )
+      if (obj) {
+        setState(obj)
+        stateRef.current = obj
+      }
+    } catch (e) {
+      //
+    }
+    setInit(true)
+  }, [])
+
   const [state, setState] = useState<AppState>({
     userData: null,
     history: [],
@@ -40,26 +57,26 @@ export function AppWrapper({ children }: AppWrapperProps) {
     tab: 'tutor',
     uploading: false,
   })
-  const [c, setC] = useState(0)
   const stateRef = useRef(state)
   const app = {
     get state() {
       return stateRef.current
     },
     mut,
-    rerender: () => {
-      setC(c + 1)
-    },
     afterPush: (target: string, handler: () => void) => {
       afterPush.current = { target, handler }
     },
     uploader: new Uploader(),
+    init,
   }
+
   return <AppContext.Provider value={app}>{children}</AppContext.Provider>
 
   function mut(fn: (draft: Draft<AppState>) => void) {
     const newval = produce(stateRef.current, fn)
     stateRef.current = newval
+
+    sessionStorage.setItem('mathe-skills-client-store', JSON.stringify(newval))
 
     setState(newval)
   }
