@@ -256,6 +256,30 @@ export default function PracticeView() {
                   >
                     Zeige mir Beispiele
                   </button>
+                  {useSubtasks && subtaskState.some((x: any) => x >= 2) && (
+                    <>
+                      <button
+                        className="btn btn-warning ml-3 mt-6 mb-3"
+                        onClick={() => {
+                          finish(2)
+                          router.back()
+                        }}
+                      >
+                        Nochmal üben
+                      </button>
+                      <button
+                        className="btn btn-sm ml-3 mt-3 mb-3"
+                        onClick={() => {
+                          finish(2)
+                          restartExercise(app)
+                          setStep(0)
+                          setSubtaskState(subtaskState.map((x) => 0))
+                        }}
+                      >
+                        Sofort nochmal üben
+                      </button>
+                    </>
+                  )}
                 </div>
               </>
             )}
