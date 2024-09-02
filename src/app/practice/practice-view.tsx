@@ -265,7 +265,7 @@ export default function PracticeView() {
                           router.back()
                         }}
                       >
-                        Nochmal üben
+                        Später nochmal üben
                       </button>
                       <button
                         className="btn btn-sm ml-3 mt-3 mb-3"
@@ -341,13 +341,13 @@ export default function PracticeView() {
                     Kann ich
                   </button>
                   <button
-                    className="btn btn-warning ml-5 mt-6 mb-3"
+                    className="btn btn-warning ml-3 mt-6 mb-3"
                     onClick={() => {
                       finish(2)
                       router.back()
                     }}
                   >
-                    Nochmal üben
+                    Später nochmal üben
                   </button>
                   <button
                     className="btn btn-sm ml-3 mt-6 mb-3"
