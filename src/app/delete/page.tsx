@@ -62,6 +62,10 @@ export default function Page() {
                 }
               }}
             >
+              <p>
+                Dein Account wird endgültig gelöscht. Diese Aktion kann nicht
+                rückgängig gemacht werden.
+              </p>
               <label className="input input-bordered flex items-center gap-2 mt-3">
                 Passwort:
                 <input
