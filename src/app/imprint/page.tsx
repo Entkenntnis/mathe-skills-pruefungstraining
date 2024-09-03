@@ -1,5 +1,6 @@
 'use client'
 
+import { impressum } from '@/data/impressum'
 import { useRouter } from 'next/navigation'
 
 export default function Page() {
@@ -18,7 +19,7 @@ export default function Page() {
             zurück
           </button>
         </div>
-        <div>TODO</div>
+        <div>{JSON.stringify(impressum)}</div>
       </div>
     </>
   )
