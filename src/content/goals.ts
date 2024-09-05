@@ -37,6 +37,14 @@ export const goalsData: { [key: number]: GoalData } = {
     ].filter((id) => exercisesData[id]),
     index: 9,
   },
+  5: {
+    name: 'NRW MSA (Test)',
+    description: 'Testlauf für NRW',
+    exercises: Object.keys(exercisesData)
+      .map((x) => parseInt(x))
+      .filter((x) => x > 200), // temporary
+    index: 99,
+  },
   /*99: {
     name: 'Gesamter Katalog',
     description: 'Übe alle verfügbaren Aufgaben',
