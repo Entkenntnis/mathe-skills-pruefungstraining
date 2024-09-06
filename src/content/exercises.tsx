@@ -80,6 +80,7 @@ import { exercise201 } from './implementations/NRW-MSA/201-2023-1-zahlen-ordnen'
 import { exercise202 } from './implementations/NRW-MSA/202-2023-2-volumen-berechnen'
 import { exercise204 } from './implementations/NRW-MSA/204-2023-4-Parabel-im-ks'
 import { exercise203 } from './implementations/NRW-MSA/203-2023-3-lineares-gleichungssystem'
+import { exercise205 } from './implementations/NRW-MSA/205-2023-5-Sneaker-Rabatt'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -196,6 +197,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   202: exercise202,
   203: exercise203,
   204: exercise204,
+  205: exercise205,
 }
 
 // symbols:
