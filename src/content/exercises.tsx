@@ -81,6 +81,7 @@ import { exercise202 } from './implementations/NRW-MSA/202-2023-2-volumen-berech
 import { exercise204 } from './implementations/NRW-MSA/204-2023-4-Parabel-im-ks'
 import { exercise203 } from './implementations/NRW-MSA/203-2023-3-lineares-gleichungssystem'
 import { exercise205 } from './implementations/NRW-MSA/205-2023-5-Sneaker-Rabatt'
+import { exercise210 } from './implementations/NRW-MSA/210-2022-1-2-Dreieck'
 import { exercise206 } from './implementations/NRW-MSA/206-2023-6-Parallelogramm'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
@@ -200,6 +201,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   204: exercise204,
   205: exercise205,
   206: exercise206,
+  210: exercise210,
 }
 
 // symbols:
