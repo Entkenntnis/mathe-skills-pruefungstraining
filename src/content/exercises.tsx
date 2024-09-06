@@ -77,6 +77,7 @@ import { exercise112 } from './implementations/by-rs-gw-9-z-ii-iii/112-2023-12-d
 import { exercise113 } from './implementations/by-rs-gw-9-z-ii-iii/113-2023-13-definitionsmenge-eines-bruchterms'
 import { exercise115 } from './implementations/by-rs-gw-9-z-ii-iii/115-2023-15-thaleskreis'
 import { exercise201 } from './implementations/NRW-MSA/201-2023-1-zahlen-ordnen'
+import { exercise202 } from './implementations/NRW-MSA/202-2023-2-volumen-berechnen'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -190,6 +191,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   120: { ...exercise99, title: exercise99.title.replace('19)', '20)') },
   121: { ...exercise100, title: exercise100.title.replace('20)', '21)') },
   201: exercise201,
+  202: exercise202,
 }
 
 // symbols:
