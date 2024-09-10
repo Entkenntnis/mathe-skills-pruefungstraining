@@ -87,6 +87,7 @@ import { exercise211 } from './implementations/NRW-MSA/211-2022-1-3-lineares-gle
 import { exercise212 } from './implementations/NRW-MSA/212-2022-1-4-Binom-ergänzen'
 import { exercise214 } from './implementations/NRW-MSA/214-2022-1-6-Diagramm'
 import { exercise215 } from './implementations/NRW-MSA/215-2022-2-1-Einheiten-umrechnen'
+import { exercise216 } from './implementations/NRW-MSA/216-2022-2-2-Gerade-im-ks'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -210,6 +211,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   212: exercise212,
   214: exercise214,
   215: exercise215,
+  216: exercise216,
 }
 
 // symbols:

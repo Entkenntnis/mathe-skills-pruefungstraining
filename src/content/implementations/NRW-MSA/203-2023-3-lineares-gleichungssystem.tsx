@@ -54,7 +54,7 @@ export const exercise203: Exercise<DATA> = {
     const e = data.a * data.x - data.d * data.y
     return (
       <>
-        <p>Subtrahiere die die Gleichungen I-II:</p>
+        <p>Subtrahiere die Gleichungen I-II:</p>
         <p>
           − {data.b}y − (− {data.d}y) = {c < 0 ? '−' : false}
           {c < 0 ? -c : c} − {e < 0 ? '(− ' : false}
