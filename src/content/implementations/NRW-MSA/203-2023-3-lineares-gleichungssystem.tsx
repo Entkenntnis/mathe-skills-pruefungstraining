@@ -1,4 +1,5 @@
 import { Exercise } from '@/data/types'
+import { pp } from '@/helper/pretty-print'
 
 interface DATA {
   x: number
@@ -39,12 +40,10 @@ export const exercise203: Exercise<DATA> = {
         <p>Notiere deinen Lösungsweg.</p>
 
         <p>
-          I &nbsp;&nbsp; {data.a}x − {data.b}y = {c < 0 ? '−' : false}
-          {c < 0 ? -c : c}
+          I &nbsp;&nbsp; {data.a}x − {data.b}y = {pp(c)}
         </p>
         <p>
-          II &nbsp; {data.a}x − {data.d}y = {e < 0 ? '− ' : false}
-          {e < 0 ? -e : e}
+          II &nbsp; {data.a}x − {data.d}y = {pp(e)}
         </p>
       </>
     )

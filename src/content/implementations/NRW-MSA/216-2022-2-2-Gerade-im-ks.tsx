@@ -1,4 +1,5 @@
 import { Exercise } from '@/data/types'
+import { pp } from '@/helper/pretty-print'
 
 interface DATA {
   m: number
@@ -101,7 +102,7 @@ export const exercise216: Exercise<DATA> = {
                 textAnchor="right"
                 stroke="black"
               >
-                {-2 * data.m + data.b}
+                {pp(-2 * data.m + data.b)}
               </text>
               <text
                 x={300}
@@ -110,7 +111,7 @@ export const exercise216: Exercise<DATA> = {
                 textAnchor="right"
                 stroke="black"
               >
-                {0 * data.m + data.b}
+                {pp(0 * data.m + data.b)}
               </text>
               <text
                 x={440}
@@ -119,7 +120,7 @@ export const exercise216: Exercise<DATA> = {
                 textAnchor="right"
                 stroke="black"
               >
-                {1 * data.m + data.b}
+                {pp(1 * data.m + data.b)}
               </text>
               <text
                 x={580}
@@ -128,7 +129,7 @@ export const exercise216: Exercise<DATA> = {
                 textAnchor="right"
                 stroke="black"
               >
-                {2 * data.m + data.b}
+                {pp(2 * data.m + data.b)}
               </text>
             </svg>
           </>
