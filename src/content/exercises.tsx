@@ -83,6 +83,8 @@ import { exercise203 } from './implementations/NRW-MSA/203-2023-3-lineares-gleic
 import { exercise205 } from './implementations/NRW-MSA/205-2023-5-Sneaker-Rabatt'
 import { exercise210 } from './implementations/NRW-MSA/210-2022-1-2-Dreieck'
 import { exercise206 } from './implementations/NRW-MSA/206-2023-6-Parallelogramm'
+import { exercise211 } from './implementations/NRW-MSA/211-2022-1-3-lineares-gleichungssystem'
+import { exercise212 } from './implementations/NRW-MSA/212-2022-1-4-Binom-ergänzen'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -202,6 +204,8 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   205: exercise205,
   206: exercise206,
   210: exercise210,
+  211: exercise211,
+  212: exercise212,
 }
 
 // symbols:
