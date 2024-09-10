@@ -85,6 +85,7 @@ import { exercise210 } from './implementations/NRW-MSA/210-2022-1-2-Dreieck'
 import { exercise206 } from './implementations/NRW-MSA/206-2023-6-Parallelogramm'
 import { exercise211 } from './implementations/NRW-MSA/211-2022-1-3-lineares-gleichungssystem'
 import { exercise212 } from './implementations/NRW-MSA/212-2022-1-4-Binom-ergänzen'
+import { exercise214 } from './implementations/NRW-MSA/214-2022-1-6-Diagramm'
 
 export const exercisesData: { [key: number]: Exercise<any> } = {
   1: exercise1,
@@ -206,6 +207,7 @@ export const exercisesData: { [key: number]: Exercise<any> } = {
   210: exercise210,
   211: exercise211,
   212: exercise212,
+  214: exercise214,
 }
 
 // symbols:
