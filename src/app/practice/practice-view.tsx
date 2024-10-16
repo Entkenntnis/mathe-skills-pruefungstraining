@@ -4,6 +4,7 @@ import { useApp } from '@/components/App'
 import { Guard } from '@/components/Guard'
 import { CalculatorIcon } from '@/components/icons/CalculatorIcon'
 import { NoCalculatorIcon } from '@/components/icons/NoCalculatorIcon'
+import { Timer } from '@/components/Timer'
 import { exercisesData } from '@/content/exercises'
 import { finishExercise, restartExercise } from '@/data/commands'
 import { generateData } from '@/data/generate-data'
@@ -281,6 +282,7 @@ export default function PracticeView() {
                     </>
                   )}
                 </div>
+                <Timer mins={exercise.duration} />
               </>
             )}
             {step === 1 && (
